@@ -249,8 +249,8 @@ export default function DiagnosticWizard() {
                     )}
                   </div>
                   <div className="grid grid-cols-2 gap-4">
-                    <TextInput label="Name of this line" value={line.name} onChange={(v) => updateLine(line.id, { name: v })} placeholder="e.g. Crushing, Hauling, Equipment Rental" />
-                    <TextInput label="Unit of output" value={line.unitName} onChange={(v) => updateLine(line.id, { unitName: v })} placeholder="e.g. tons, hours, CY" />
+                    <TextInput label="Name of this line" value={line.name} onChange={(v) => updateLine(line.id, { name: v })} placeholder="e.g. Crushing, Hauling, Asphalt" />
+                    <TextInput label="Unit of output" value={line.unitName} onChange={(v) => updateLine(line.id, { unitName: v })} placeholder="e.g. tons, CY, SY" />
                   </div>
                   <div className="grid grid-cols-3 gap-4">
                     <NumInput label="Revenue (12 mo)" value={line.revenue} onChange={(v) => updateLine(line.id, { revenue: v })} prefix="$" />
