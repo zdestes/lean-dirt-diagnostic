@@ -13,7 +13,7 @@ import {
   fmtNum,
 } from '@/lib/calculations';
 
-type Phase = 1 | 2 | 3 | 'gate' | 5;
+type Step = 1 | 2 | 'gate' | 5;
 
 const EMPTY_LINE = (): LineOfBusiness => ({
   id: Math.random().toString(36).slice(2),
@@ -31,20 +31,9 @@ const DEFAULT_TARGET: TargetInputs = {
   overheadGuardrail: 0,
 };
 
-function NumInput({
-  label,
-  value,
-  onChange,
-  prefix,
-  suffix,
-  placeholder,
-}: {
-  label: string;
-  value: number;
-  onChange: (v: number) => void;
-  prefix?: string;
-  suffix?: string;
-  placeholder?: string;
+function NumInput({ label, value, onChange, prefix, suffix, placeholder }: {
+  label: string; value: number; onChange: (v: number) => void;
+  prefix?: string; suffix?: string; placeholder?: string;
 }) {
   const id = useId();
   return (
@@ -52,35 +41,25 @@ function NumInput({
       <label htmlFor={id} className="text-sm font-medium text-gray-700">{label}</label>
       <div className="flex items-center border border-gray-300 rounded-lg overflow-hidden focus-within:ring-2 focus-within:ring-amber-500">
         {prefix && <span className="px-3 py-2 bg-gray-50 text-gray-500 border-r border-gray-300">{prefix}</span>}
-        <input
-          id={id}
-          type="number"
-          min={0}
-          value={value || ''}
-          placeholder={placeholder ?? '0'}
+        <input id={id} type="number" min={0} value={value || ''} placeholder={placeholder ?? '0'}
           onChange={(e) => onChange(parseFloat(e.target.value) || 0)}
-          className="flex-1 px-3 py-2 outline-none text-gray-900 bg-white"
-        />
+          className="flex-1 px-3 py-2 outline-none text-gray-900 bg-white" />
         {suffix && <span className="px-3 py-2 bg-gray-50 text-gray-500 border-l border-gray-300">{suffix}</span>}
       </div>
     </div>
   );
 }
 
-function TextInput({
-  label, value, onChange, placeholder, type = 'text',
-}: {
+function TextInput({ label, value, onChange, placeholder, type = 'text' }: {
   label: string; value: string; onChange: (v: string) => void; placeholder?: string; type?: string;
 }) {
   const id = useId();
   return (
     <div className="flex flex-col gap-1">
       <label htmlFor={id} className="text-sm font-medium text-gray-700">{label}</label>
-      <input
-        id={id} type={type} value={value} placeholder={placeholder}
+      <input id={id} type={type} value={value} placeholder={placeholder}
         onChange={(e) => onChange(e.target.value)}
-        className="border border-gray-300 rounded-lg px-3 py-2 outline-none focus:ring-2 focus:ring-amber-500 text-gray-900"
-      />
+        className="border border-gray-300 rounded-lg px-3 py-2 outline-none focus:ring-2 focus:ring-amber-500 text-gray-900" />
     </div>
   );
 }
@@ -94,9 +73,7 @@ function MetricBadge({ label, value, highlight }: { label: string; value: string
   );
 }
 
-function SliderInput({
-  label, value, onChange, min, max, step, format,
-}: {
+function SliderInput({ label, value, onChange, min, max, step, format }: {
   label: string; value: number; onChange: (v: number) => void;
   min: number; max: number; step: number; format: (v: number) => string;
 }) {
@@ -107,11 +84,9 @@ function SliderInput({
         <label htmlFor={id} className="text-sm font-medium text-gray-700">{label}</label>
         <span className="text-lg font-bold text-amber-600">{format(value)}</span>
       </div>
-      <input
-        id={id} type="range" min={min} max={max} step={step} value={value}
+      <input id={id} type="range" min={min} max={max} step={step} value={value}
         onChange={(e) => onChange(parseFloat(e.target.value))}
-        className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-amber-500"
-      />
+        className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-amber-500" />
       <div className="flex justify-between text-xs text-gray-400">
         <span>{format(min)}</span>
         <span>{format(max)}</span>
@@ -121,12 +96,11 @@ function SliderInput({
 }
 
 export default function DiagnosticWizard() {
-  const [phase, setPhase] = useState<Phase>(1);
+  const [step, setStep] = useState<Step>(1);
   const [lines, setLines] = useState<LineOfBusiness[]>([EMPTY_LINE()]);
   const [overhead, setOverhead] = useState(0);
   const [target, setTarget] = useState<TargetInputs>(DEFAULT_TARGET);
   const [revenuePerUnitOverrides, setRevenuePerUnitOverrides] = useState<Record<string, number>>({});
-  const [assumptionAnswer, setAssumptionAnswer] = useState('');
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
   const [company, setCompany] = useState('');
@@ -136,7 +110,6 @@ export default function DiagnosticWizard() {
   const companyMetrics = calcCompanyMetrics(lines, overhead);
   const targetMetrics = calcTargetMetrics(lines, target, revenuePerUnitOverrides);
 
-  // Slider bounds derived from actuals
   const gmMin = Math.max(1, Math.floor(companyMetrics.blendedGrossMarginPct));
   const gmMax = Math.min(80, gmMin + 20);
   const ohMin = Math.round(overhead * 0.5 / 1000) * 1000;
@@ -147,18 +120,18 @@ export default function DiagnosticWizard() {
   const addLine = () => setLines((prev) => [...prev, EMPTY_LINE()]);
   const removeLine = (id: string) => setLines((prev) => prev.filter((l) => l.id !== id));
 
-  const phase1Complete = lines.every((l) => l.name && l.revenue && l.directExpenses && l.units && l.unitName) && overhead > 0;
-  const phase2Complete = !!target.targetDate && target.netProfitGoal > 0 && target.grossMarginGoalPct > 0 && target.overheadGuardrail > 0;
+  const step1Complete = lines.every((l) => l.name && l.revenue && l.directExpenses && l.units && l.unitName) && overhead > 0;
 
-  // Init sliders when entering phase 2
-  const enterPhase2 = () => {
+  const enterStep2 = () => {
     setTarget((t) => ({
       ...t,
       grossMarginGoalPct: t.grossMarginGoalPct || parseFloat((companyMetrics.blendedGrossMarginPct + 2).toFixed(1)),
       overheadGuardrail: t.overheadGuardrail || overhead,
     }));
-    setPhase(2);
+    setStep(2);
   };
+
+  const showGap = target.netProfitGoal > 0 && target.grossMarginGoalPct > 0 && target.overheadGuardrail > 0 && !!target.targetDate;
 
   const handleSaveLead = async () => {
     if (!email) return;
@@ -168,13 +141,10 @@ export default function DiagnosticWizard() {
       const res = await fetch('/api/save-lead', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          email, name, company,
-          diagnosticData: { lines, overhead, companyMetrics, target, targetMetrics },
-        }),
+        body: JSON.stringify({ email, name, company, diagnosticData: { lines, overhead, companyMetrics, target, targetMetrics } }),
       });
-      if (!res.ok) throw new Error('Save failed');
-      setPhase(5);
+      if (!res.ok) throw new Error();
+      setStep(5);
     } catch {
       setSaveError('Something went wrong. Please try again.');
     } finally {
@@ -182,7 +152,7 @@ export default function DiagnosticWizard() {
     }
   };
 
-  const progress = phase === 1 ? 20 : phase === 2 ? 45 : phase === 3 ? 75 : phase === 'gate' ? 85 : 100;
+  const progress = step === 1 ? 25 : step === 2 ? 65 : step === 'gate' ? 85 : 100;
 
   return (
     <div className="min-h-screen bg-stone-50">
@@ -195,11 +165,10 @@ export default function DiagnosticWizard() {
             <span className="text-gray-600 text-sm">Business Diagnostic</span>
           </div>
           <div className="text-sm text-gray-500">
-            {phase === 1 && 'Phase 1 of 3'}
-            {phase === 2 && 'Phase 2 of 3'}
-            {phase === 3 && 'Phase 3 of 3'}
-            {phase === 'gate' && 'Almost there…'}
-            {phase === 5 && 'Next steps'}
+            {step === 1 && 'Step 1 of 2'}
+            {step === 2 && 'Step 2 of 2'}
+            {step === 'gate' && 'Almost there…'}
+            {step === 5 && "What's next"}
           </div>
         </div>
         <div className="h-1 bg-gray-100">
@@ -209,17 +178,17 @@ export default function DiagnosticWizard() {
 
       <main className="max-w-3xl mx-auto px-4 py-10 space-y-8">
 
-        {/* ── PHASE 1 ── */}
-        {phase === 1 && (
+        {/* ── STEP 1: BASELINE ── */}
+        {step === 1 && (
           <div className="space-y-8">
             <div>
-              <div className="text-amber-600 text-sm font-semibold uppercase tracking-widest mb-1">Phase 1</div>
-              <h1 className="text-3xl font-bold text-gray-900">Establish the Baseline</h1>
+              <h1 className="text-3xl font-bold text-gray-900">Where does the business stand today?</h1>
               <p className="text-gray-600 mt-2">Enter your actual numbers from the last 12 months. Pull your P&L — no estimates.</p>
             </div>
 
             {lines.map((line, idx) => {
               const m = calcLineMetrics(line);
+              const showMetrics = line.revenue > 0 && line.directExpenses > 0 && line.units > 0;
               return (
                 <div key={line.id} className="bg-white rounded-2xl border border-gray-200 p-6 space-y-5">
                   <div className="flex items-center justify-between">
@@ -237,9 +206,9 @@ export default function DiagnosticWizard() {
                   <div className="grid grid-cols-3 gap-4">
                     <NumInput label="Revenue (12 mo)" value={line.revenue} onChange={(v) => updateLine(line.id, { revenue: v })} prefix="$" />
                     <NumInput label="Direct Expenses (12 mo)" value={line.directExpenses} onChange={(v) => updateLine(line.id, { directExpenses: v })} prefix="$" />
-                    <NumInput label={`Units Produced`} value={line.units} onChange={(v) => updateLine(line.id, { units: v })} suffix={line.unitName || 'units'} />
+                    <NumInput label="Units Produced" value={line.units} onChange={(v) => updateLine(line.id, { units: v })} suffix={line.unitName || 'units'} />
                   </div>
-                  {line.revenue > 0 && line.directExpenses > 0 && line.units > 0 && (
+                  {showMetrics && (
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-3 pt-2 border-t border-gray-100">
                       <MetricBadge label="Gross Profit" value={fmt$0(m.grossProfit)} />
                       <MetricBadge label="Gross Margin" value={fmtPct(m.grossMarginPct)} highlight />
@@ -269,94 +238,31 @@ export default function DiagnosticWizard() {
               )}
             </div>
 
-            {!phase1Complete && (
-              <p className="text-sm text-amber-700 text-center">Complete all fields for each line of business and enter your overhead to continue.</p>
+            {!step1Complete && (
+              <p className="text-sm text-amber-700 text-center">Complete all fields for each line and enter your overhead to continue.</p>
             )}
-            <button onClick={enterPhase2} disabled={!phase1Complete} className="w-full bg-amber-500 hover:bg-amber-600 disabled:bg-gray-200 disabled:text-gray-400 text-white font-semibold py-4 rounded-xl transition-colors text-lg">
-              Continue to Phase 2: Set the Target →
+            <button onClick={enterStep2} disabled={!step1Complete}
+              className="w-full bg-amber-500 hover:bg-amber-600 disabled:bg-gray-200 disabled:text-gray-400 text-white font-semibold py-4 rounded-xl transition-colors text-lg">
+              Set your target and see the gap →
             </button>
           </div>
         )}
 
-        {/* ── PHASE 2 ── */}
-        {phase === 2 && (
+        {/* ── STEP 2: TARGET + GAP ── */}
+        {step === 2 && (
           <div className="space-y-8">
             <div>
-              <div className="text-amber-600 text-sm font-semibold uppercase tracking-widest mb-1">Phase 2</div>
-              <h1 className="text-3xl font-bold text-gray-900">Set the Target</h1>
-              <p className="text-gray-600 mt-2">Dial in your goal, then adjust the levers and watch the required revenue update in real time.</p>
+              <h1 className="text-3xl font-bold text-gray-900">Where do you want to be — and what does it take?</h1>
+              <p className="text-gray-600 mt-2">Set your goal, adjust the levers, and watch the gap update in real time.</p>
             </div>
 
+            {/* Goals + sliders */}
             <div className="bg-white rounded-2xl border border-gray-200 p-6 space-y-5">
               <div className="grid grid-cols-2 gap-4">
-                <TextInput label="Target date (month and year)" value={target.targetDate} onChange={(v) => setTarget((t) => ({ ...t, targetDate: v }))} placeholder="e.g. December 2027" />
-                <NumInput label="Annual net profit goal ($)" value={target.netProfitGoal} onChange={(v) => setTarget((t) => ({ ...t, netProfitGoal: v }))} prefix="$" />
+                <TextInput label="Target date" value={target.targetDate} onChange={(v) => setTarget((t) => ({ ...t, targetDate: v }))} placeholder="e.g. December 2027" />
+                <NumInput label="Net profit goal (annual)" value={target.netProfitGoal} onChange={(v) => setTarget((t) => ({ ...t, netProfitGoal: v }))} prefix="$" />
               </div>
-
               <hr className="border-gray-100" />
-
-              <SliderInput
-                label="Gross margin goal"
-                value={target.grossMarginGoalPct}
-                onChange={(v) => setTarget((t) => ({ ...t, grossMarginGoalPct: v }))}
-                min={gmMin}
-                max={gmMax}
-                step={0.1}
-                format={(v) => fmtPct(v)}
-              />
-              {target.grossMarginGoalPct > 0 && target.grossMarginGoalPct <= companyMetrics.blendedGrossMarginPct && (
-                <p className="text-amber-700 text-sm bg-amber-50 border border-amber-200 rounded-lg px-3 py-2">
-                  ⚠️ GM goal ({fmtPct(target.grossMarginGoalPct)}) is at or below last year&apos;s actual ({fmtPct(companyMetrics.blendedGrossMarginPct)}). It should be better.
-                </p>
-              )}
-
-              <SliderInput
-                label="Overhead guardrail (max you'll allow)"
-                value={target.overheadGuardrail}
-                onChange={(v) => setTarget((t) => ({ ...t, overheadGuardrail: v }))}
-                min={ohMin}
-                max={ohMax}
-                step={10000}
-                format={(v) => `${fmt$0(v)}  (${companyMetrics.totalRevenue > 0 ? fmtPct(v / companyMetrics.totalRevenue * 100) : '—'} of rev)`}
-              />
-              <p className="text-xs text-gray-400">Current overhead: {fmt$0(overhead)} ({companyMetrics.totalRevenue > 0 ? fmtPct(overhead / companyMetrics.totalRevenue * 100) : '—'} of revenue)</p>
-            </div>
-
-            {/* Live required revenue */}
-            {target.netProfitGoal > 0 && target.grossMarginGoalPct > 0 && target.overheadGuardrail > 0 && (
-              <div className="bg-amber-500 text-white rounded-2xl p-6">
-                <div className="text-amber-100 text-sm uppercase tracking-widest mb-1">Required Revenue to Hit Your Goals</div>
-                <div className="text-5xl font-black">{fmt$0(targetMetrics.requiredRevenue)}</div>
-                <div className="text-amber-100 mt-2 text-sm">
-                  vs. current {fmt$0(companyMetrics.totalRevenue)} — a {fmt$0(Math.abs(targetMetrics.requiredRevenue - companyMetrics.totalRevenue))} {targetMetrics.requiredRevenue > companyMetrics.totalRevenue ? 'increase needed' : 'surplus — you can do more'}
-                </div>
-              </div>
-            )}
-
-            <div className="flex gap-3">
-              <button onClick={() => setPhase(1)} className="px-6 py-3 border border-gray-300 rounded-xl text-gray-700 hover:bg-gray-50 font-medium">← Back</button>
-              <button onClick={() => setPhase(3)} disabled={!phase2Complete} className="flex-1 bg-amber-500 hover:bg-amber-600 disabled:bg-gray-200 disabled:text-gray-400 text-white font-semibold py-3 rounded-xl transition-colors">
-                See the Gap →
-              </button>
-            </div>
-          </div>
-        )}
-
-        {/* ── PHASE 3 (merged 3+4) ── */}
-        {phase === 3 && (
-          <div className="space-y-8">
-            <div>
-              <div className="text-amber-600 text-sm font-semibold uppercase tracking-widest mb-1">Phase 3</div>
-              <h1 className="text-3xl font-bold text-gray-900">See the Gap</h1>
-              <p className="text-gray-600 mt-2">Current state vs. target — every metric, every line. Adjust the levers above and this table updates live.</p>
-            </div>
-
-            {/* Inline lever adjustments */}
-            <div className="bg-white rounded-2xl border border-gray-200 p-6 space-y-5">
-              <div className="flex items-center justify-between">
-                <h2 className="font-semibold text-gray-800">Adjust the levers</h2>
-                <button onClick={() => setPhase(2)} className="text-sm text-amber-600 hover:text-amber-700">Edit goals →</button>
-              </div>
               <SliderInput
                 label="Gross margin goal"
                 value={target.grossMarginGoalPct}
@@ -364,21 +270,34 @@ export default function DiagnosticWizard() {
                 min={gmMin} max={gmMax} step={0.1}
                 format={(v) => fmtPct(v)}
               />
+              {target.grossMarginGoalPct > 0 && target.grossMarginGoalPct <= companyMetrics.blendedGrossMarginPct && (
+                <p className="text-amber-700 text-sm bg-amber-50 border border-amber-200 rounded-lg px-3 py-2">
+                  ⚠️ GM goal ({fmtPct(target.grossMarginGoalPct)}) is at or below last year&apos;s actual ({fmtPct(companyMetrics.blendedGrossMarginPct)}). It should improve.
+                </p>
+              )}
               <SliderInput
-                label="Overhead guardrail"
+                label="Overhead guardrail (max you'll allow)"
                 value={target.overheadGuardrail}
                 onChange={(v) => setTarget((t) => ({ ...t, overheadGuardrail: v }))}
                 min={ohMin} max={ohMax} step={10000}
-                format={(v) => fmt$0(v)}
+                format={(v) => `${fmt$0(v)}  (${companyMetrics.totalRevenue > 0 ? fmtPct(v / companyMetrics.totalRevenue * 100) : '—'} of rev)`}
               />
-              <div className="bg-amber-500 text-white rounded-xl p-4 flex items-center justify-between">
-                <span className="text-amber-100 text-sm">Required revenue</span>
-                <span className="text-2xl font-black">{fmt$0(targetMetrics.requiredRevenue)}</span>
-              </div>
+              <p className="text-xs text-gray-400">Current overhead: {fmt$0(overhead)} ({companyMetrics.totalRevenue > 0 ? fmtPct(overhead / companyMetrics.totalRevenue * 100) : '—'} of revenue)</p>
             </div>
 
-            {/* Per-line comparison tables */}
-            {lines.map((line) => {
+            {/* Live required revenue */}
+            {showGap && (
+              <div className="bg-amber-500 text-white rounded-2xl p-6">
+                <div className="text-amber-100 text-sm uppercase tracking-widest mb-1">Required revenue to hit your goals</div>
+                <div className="text-5xl font-black">{fmt$0(targetMetrics.requiredRevenue)}</div>
+                <div className="text-amber-100 mt-2 text-sm">
+                  vs. current {fmt$0(companyMetrics.totalRevenue)} — a {fmt$0(Math.abs(targetMetrics.requiredRevenue - companyMetrics.totalRevenue))} {targetMetrics.requiredRevenue > companyMetrics.totalRevenue ? 'increase needed' : 'surplus'}
+                </div>
+              </div>
+            )}
+
+            {/* Per-line comparison tables — visible once goal is set */}
+            {showGap && lines.map((line) => {
               const cur = calcLineMetrics(line);
               const reqRev = targetMetrics.requiredRevenueByLine[line.id] ?? 0;
               const reqOut = targetMetrics.requiredOutputByLine[line.id] ?? 0;
@@ -388,29 +307,28 @@ export default function DiagnosticWizard() {
               const targetDE = reqRev - targetGP;
               return (
                 <div key={line.id} className="bg-white rounded-2xl border border-gray-200 overflow-hidden">
-                  <div className="px-6 py-4 bg-gray-50 border-b border-gray-200 flex items-center justify-between">
+                  <div className="px-6 py-4 bg-gray-50 border-b border-gray-200 flex flex-wrap items-center justify-between gap-2">
                     <h2 className="font-semibold text-gray-800">{line.name}</h2>
-                    <div className="text-sm text-gray-500">
-                      Will rev/{line.unitName} go{' '}
+                    <div className="flex items-center gap-2 text-sm text-gray-500">
+                      <span>Target rev / {line.unitName}:</span>
                       <input
-                        type="number"
-                        min={0}
+                        type="number" min={0}
                         placeholder={cur.revenuePerUnit.toFixed(2)}
                         value={revenuePerUnitOverrides[line.id] ?? ''}
                         onChange={(e) => setRevenuePerUnitOverrides((prev) => ({
                           ...prev,
                           [line.id]: parseFloat(e.target.value) || cur.revenuePerUnit,
                         }))}
-                        className="border border-gray-300 rounded px-2 py-1 text-sm w-24 text-center focus:ring-2 focus:ring-amber-500 outline-none ml-1"
+                        className="border border-gray-300 rounded px-2 py-1 text-sm w-24 text-center focus:ring-2 focus:ring-amber-500 outline-none"
                       />
-                      <span className="ml-1 text-gray-400">(current: {fmt$(cur.revenuePerUnit)})</span>
+                      <span className="text-gray-400">(now: {fmt$(cur.revenuePerUnit)})</span>
                     </div>
                   </div>
                   <table className="w-full text-sm">
                     <thead>
                       <tr className="border-b border-gray-100">
                         <th className="px-6 py-3 text-left text-gray-500 font-medium">Metric</th>
-                        <th className="px-6 py-3 text-right text-gray-500 font-medium">Current</th>
+                        <th className="px-6 py-3 text-right text-gray-500 font-medium">Today</th>
                         <th className="px-6 py-3 text-right text-amber-600 font-medium">Target</th>
                       </tr>
                     </thead>
@@ -437,65 +355,67 @@ export default function DiagnosticWizard() {
             })}
 
             {/* Company total */}
-            <div className="bg-gray-900 text-white rounded-2xl overflow-hidden">
-              <div className="px-6 py-4 border-b border-gray-700"><h2 className="font-semibold">Company Total</h2></div>
-              <table className="w-full text-sm">
-                <thead>
-                  <tr className="border-b border-gray-700">
-                    <th className="px-6 py-3 text-left text-gray-400 font-medium">Metric</th>
-                    <th className="px-6 py-3 text-right text-gray-400 font-medium">Current</th>
-                    <th className="px-6 py-3 text-right text-amber-400 font-medium">Target</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-gray-800">
-                  {[
-                    { label: 'Total Revenue', cur: fmt$0(companyMetrics.totalRevenue), tgt: fmt$0(targetMetrics.requiredRevenue) },
-                    { label: 'Total Gross Profit', cur: fmt$0(companyMetrics.totalGrossProfit), tgt: fmt$0(targetMetrics.requiredRevenue * (target.grossMarginGoalPct / 100)) },
-                    { label: 'Blended GM%', cur: fmtPct(companyMetrics.blendedGrossMarginPct), tgt: fmtPct(target.grossMarginGoalPct) },
-                    { label: 'Overhead', cur: fmt$0(overhead), tgt: fmt$0(target.overheadGuardrail) },
-                    { label: 'Net Profit', cur: fmt$0(companyMetrics.netProfit), tgt: fmt$0(target.netProfitGoal), isKey: true },
-                  ].map((row) => (
-                    <tr key={row.label} className={(row as {isKey?: boolean}).isKey ? 'bg-amber-900/30' : ''}>
-                      <td className={`px-6 py-3 font-medium ${(row as {isKey?: boolean}).isKey ? 'text-amber-300' : 'text-gray-300'}`}>{row.label}</td>
-                      <td className="px-6 py-3 text-right text-gray-400">{row.cur}</td>
-                      <td className={`px-6 py-3 text-right font-bold ${(row as {isKey?: boolean}).isKey ? 'text-amber-400 text-lg' : 'text-white'}`}>{row.tgt}</td>
+            {showGap && (
+              <div className="bg-gray-900 text-white rounded-2xl overflow-hidden">
+                <div className="px-6 py-4 border-b border-gray-700"><h2 className="font-semibold">Company Total</h2></div>
+                <table className="w-full text-sm">
+                  <thead>
+                    <tr className="border-b border-gray-700">
+                      <th className="px-6 py-3 text-left text-gray-400 font-medium">Metric</th>
+                      <th className="px-6 py-3 text-right text-gray-400 font-medium">Today</th>
+                      <th className="px-6 py-3 text-right text-amber-400 font-medium">Target</th>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
+                  </thead>
+                  <tbody className="divide-y divide-gray-800">
+                    {[
+                      { label: 'Total Revenue', cur: fmt$0(companyMetrics.totalRevenue), tgt: fmt$0(targetMetrics.requiredRevenue) },
+                      { label: 'Total Gross Profit', cur: fmt$0(companyMetrics.totalGrossProfit), tgt: fmt$0(targetMetrics.requiredRevenue * (target.grossMarginGoalPct / 100)) },
+                      { label: 'Blended GM%', cur: fmtPct(companyMetrics.blendedGrossMarginPct), tgt: fmtPct(target.grossMarginGoalPct) },
+                      { label: 'Overhead', cur: fmt$0(overhead), tgt: fmt$0(target.overheadGuardrail) },
+                      { label: 'Net Profit', cur: fmt$0(companyMetrics.netProfit), tgt: fmt$0(target.netProfitGoal), isKey: true },
+                    ].map((row) => (
+                      <tr key={row.label} className={(row as { isKey?: boolean }).isKey ? 'bg-amber-900/30' : ''}>
+                        <td className={`px-6 py-3 font-medium ${(row as { isKey?: boolean }).isKey ? 'text-amber-300' : 'text-gray-300'}`}>{row.label}</td>
+                        <td className="px-6 py-3 text-right text-gray-400">{row.cur}</td>
+                        <td className={`px-6 py-3 text-right font-bold ${(row as { isKey?: boolean }).isKey ? 'text-amber-400 text-lg' : 'text-white'}`}>{row.tgt}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            )}
 
-            {/* CTA to review with coach */}
-            <div className="bg-gray-900 text-white rounded-2xl p-6 space-y-3">
-              <h2 className="text-xl font-bold">Ready to work through what this means?</h2>
-              <p className="text-gray-300 text-sm">The gap is in your numbers. Phase 5 is where you fight it — picking the right constraint, building the initiative, owning the result. That&apos;s a conversation, not a worksheet.</p>
-              <a
-                href="https://leandirt.com/contact"
-                className="block w-full text-center bg-amber-500 hover:bg-amber-400 text-white font-bold py-4 rounded-xl transition-colors text-lg"
-              >
-                Book a free review call with Zack →
-              </a>
-            </div>
+            {/* CTA */}
+            {showGap && (
+              <div className="bg-gray-900 text-white rounded-2xl p-6 space-y-3">
+                <h2 className="text-xl font-bold">Ready to work through what this means?</h2>
+                <p className="text-gray-300 text-sm">The gap is in your numbers. What comes next is identifying the one constraint keeping you from closing it — and that&apos;s a conversation, not a worksheet.</p>
+                <a href="https://leandirt.com/contact"
+                  className="block w-full text-center bg-amber-500 hover:bg-amber-400 text-white font-bold py-4 rounded-xl transition-colors text-lg">
+                  Book a free review call with Zack →
+                </a>
+              </div>
+            )}
 
             <div className="flex gap-3">
-              <button onClick={() => setPhase(2)} className="px-6 py-3 border border-gray-300 rounded-xl text-gray-700 hover:bg-gray-50 font-medium">← Back</button>
-              <button
-                onClick={() => setPhase('gate')}
-                className="flex-1 bg-white hover:bg-gray-50 border border-gray-300 text-gray-700 font-semibold py-3 rounded-xl transition-colors"
-              >
-                Save a copy of my results →
-              </button>
+              <button onClick={() => setStep(1)} className="px-6 py-3 border border-gray-300 rounded-xl text-gray-700 hover:bg-gray-50 font-medium">← Back</button>
+              {showGap && (
+                <button onClick={() => setStep('gate')}
+                  className="flex-1 border border-gray-300 bg-white hover:bg-gray-50 text-gray-700 font-medium py-3 rounded-xl transition-colors">
+                  Save a copy of my results →
+                </button>
+              )}
             </div>
           </div>
         )}
 
         {/* ── EMAIL GATE ── */}
-        {phase === 'gate' && (
+        {step === 'gate' && (
           <div className="space-y-6">
             <div className="text-center">
               <div className="text-5xl mb-4">📊</div>
-              <h1 className="text-3xl font-bold text-gray-900">Save your diagnostic</h1>
-              <p className="text-gray-600 mt-2 max-w-md mx-auto">Enter your info and we&apos;ll send you a copy of your results — plus show you what Phase 5 looks like.</p>
+              <h1 className="text-3xl font-bold text-gray-900">Save your results</h1>
+              <p className="text-gray-600 mt-2 max-w-md mx-auto">We&apos;ll send you a copy so you have it for reference.</p>
             </div>
             <div className="bg-white rounded-2xl border border-gray-200 p-6 space-y-4">
               <TextInput label="Your name" value={name} onChange={setName} placeholder="First Last" />
@@ -503,40 +423,23 @@ export default function DiagnosticWizard() {
               <TextInput label="Email address" value={email} onChange={setEmail} placeholder="you@company.com" type="email" />
               <p className="text-xs text-gray-400">No spam. Your numbers stay private.</p>
               {saveError && <p className="text-red-500 text-sm">{saveError}</p>}
-              <button onClick={handleSaveLead} disabled={!email || saving} className="w-full bg-amber-500 hover:bg-amber-600 disabled:bg-gray-200 disabled:text-gray-400 text-white font-semibold py-4 rounded-xl transition-colors">
-                {saving ? 'Saving…' : 'Show me what Phase 5 looks like →'}
+              <button onClick={handleSaveLead} disabled={!email || saving}
+                className="w-full bg-amber-500 hover:bg-amber-600 disabled:bg-gray-200 disabled:text-gray-400 text-white font-semibold py-4 rounded-xl transition-colors">
+                {saving ? 'Saving…' : 'Save my results →'}
               </button>
             </div>
-            <button onClick={() => setPhase(3)} className="w-full text-gray-400 text-sm hover:text-gray-600">← Go back</button>
+            <button onClick={() => setStep(2)} className="w-full text-gray-400 text-sm hover:text-gray-600">← Go back</button>
           </div>
         )}
 
-        {/* ── PHASE 5 (PITCH) ── */}
-        {phase === 5 && (
+        {/* ── CONFIRMATION ── */}
+        {step === 5 && (
           <div className="space-y-8">
             <div className="bg-amber-500 rounded-2xl p-8 text-white">
               <div className="text-amber-100 text-sm font-semibold uppercase tracking-widest mb-2">You just did something most owners never do.</div>
               <h1 className="text-3xl font-bold leading-tight">You ran your numbers all the way to the constraint.</h1>
-              <p className="mt-3 text-amber-100">The gap is visible. Phase 5 is where you fight it — and that&apos;s a conversation, not a worksheet.</p>
+              <p className="mt-3 text-amber-100">The gap is visible. The next step is identifying what&apos;s actually in the way — and that&apos;s a conversation.</p>
             </div>
-
-            <div className="bg-white rounded-2xl border border-gray-200 p-6 space-y-4">
-              <div className="text-amber-600 text-sm font-semibold uppercase tracking-widest">Phase 5: Attack the Constraint</div>
-              <h2 className="text-xl font-bold text-gray-900">Pick the priority line. Find the binding constraint. Build a 30-day initiative. Own it.</h2>
-              <p className="text-gray-600 text-sm">Phases 1–3 tell you what the gap is. Phase 5 is twelve months of disciplined work to close it — identifying the real constraint (not the loudest one), assigning ownership, setting leading indicators, reviewing weekly, and standardizing every gain.</p>
-              <div className="bg-gray-50 rounded-xl p-4 border border-gray-200 opacity-60">
-                <div className="text-xs text-gray-500 uppercase tracking-wide mb-2">🔒 Phase 5 Questions (preview)</div>
-                <ul className="text-sm text-gray-600 space-y-1">
-                  <li>Which line of business is the priority focus right now?</li>
-                  <li>What is the single biggest reason it can&apos;t hit target today?</li>
-                  <li>What is the highest-leverage initiative you can action in the next 30 days?</li>
-                  <li>Who owns it? By when? What&apos;s the leading indicator?</li>
-                  <li className="text-gray-400 italic">…and 9 more questions that drive 12 months of execution.</li>
-                </ul>
-              </div>
-              <p className="text-gray-700 font-medium">The highest-stakes call in Phase 5 is picking the right constraint. Contractors who pick the loudest problem instead of the binding one spend 90 days on the wrong fight. That&apos;s the call I help dirt contractors get right.</p>
-            </div>
-
             <div className="bg-gray-900 text-white rounded-2xl p-8 space-y-4">
               <h2 className="text-2xl font-bold">This is what 12 months looks like.</h2>
               <ul className="space-y-2 text-gray-300 text-sm">
@@ -546,10 +449,10 @@ export default function DiagnosticWizard() {
                 <li>✓ Standardize every gain, train the team, move to the next constraint</li>
                 <li>✓ Built for horizontal contractors: crushing, hauling, civil, asphalt</li>
               </ul>
-              <a href="https://leandirt.com/contact" className="block w-full text-center bg-amber-500 hover:bg-amber-400 text-white font-bold py-4 rounded-xl transition-colors text-lg mt-2">
-                Let&apos;s talk — book a call with Zack →
+              <a href="https://leandirt.com/contact"
+                className="block w-full text-center bg-amber-500 hover:bg-amber-400 text-white font-bold py-4 rounded-xl transition-colors text-lg mt-2">
+                Book a call with Zack →
               </a>
-              <p className="text-gray-500 text-xs text-center">You already did the diagnostic. The call is 20 minutes. We look at Phase 5 together.</p>
             </div>
           </div>
         )}
