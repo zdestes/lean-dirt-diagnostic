@@ -184,18 +184,18 @@ export default function DiagnosticWizard() {
           <div className="space-y-8">
             <div>
               <h1 className="text-4xl font-bold text-gray-900 leading-tight">Find out exactly what your business needs to hit your profit goal.</h1>
-              <p className="text-gray-600 mt-3 text-lg">Built for $5M–$30M civil contractors. This diagnostic takes about 10 minutes and uses your real numbers — not estimates — to show you the gap between where you are and where you need to be, by business line.</p>
+              <p className="text-gray-600 mt-3 text-lg">Built for $5M–$30M civil contractors. This diagnostic takes about 10 minutes and uses your real numbers, no estimates, to show you the gap between where you are and where you need to be, by business line.</p>
             </div>
 
             <div className="bg-amber-50 border border-amber-200 rounded-2xl p-6 space-y-4">
-              <h2 className="font-semibold text-amber-900 text-lg">Before you start — grab your P&L</h2>
+              <h2 className="font-semibold text-amber-900 text-lg">Before you start: grab your P&L</h2>
               <p className="text-amber-800 text-sm">You&apos;ll need the last 12 months of actuals. No estimates. Pull your profit &amp; loss statement and have it open.</p>
               <div className="space-y-2">
                 {[
                   'Revenue by line of business',
                   'Direct expenses by line of business',
                   'Units of output produced (tons crushed, CY moved, linear feet, etc.)',
-                  'Total overhead (office, admin, owner salary — shared costs)',
+                  'Total overhead (office, admin, owner salary (shared costs))',
                 ].map((item) => (
                   <div key={item} className="flex items-start gap-2 text-sm text-amber-800">
                     <span className="text-amber-500 mt-0.5">✓</span>
@@ -221,7 +221,7 @@ export default function DiagnosticWizard() {
 
             <button onClick={() => setStep(1)}
               className="w-full bg-amber-500 hover:bg-amber-600 text-white font-bold py-5 rounded-xl transition-colors text-xl">
-              I have my P&L — let&apos;s go →
+              I have my P&L. Let&apos;s go →
             </button>
             <p className="text-center text-xs text-gray-400">Built for $5M–$30M civil contractors: crushing, hauling, asphalt, grading</p>
           </div>
@@ -232,7 +232,7 @@ export default function DiagnosticWizard() {
           <div className="space-y-8">
             <div>
               <h1 className="text-3xl font-bold text-gray-900">Where does the business stand today?</h1>
-              <p className="text-gray-600 mt-2">Enter your actual numbers from the last 12 months. Pull your P&L — no estimates.</p>
+              <p className="text-gray-600 mt-2">Enter your actual numbers from the last 12 months. Pull your P&L. No estimates.</p>
             </div>
 
             {lines.map((line, idx) => {
@@ -275,7 +275,7 @@ export default function DiagnosticWizard() {
 
             <div className="bg-white rounded-2xl border border-gray-200 p-6">
               <h2 className="font-semibold text-gray-800 mb-1">Company Overhead (annual)</h2>
-              <p className="text-sm text-gray-500 mb-4">Shared costs not tied to any single line — office, admin, owner salary, etc.</p>
+              <p className="text-sm text-gray-500 mb-4">Shared costs not tied to any single line: office, admin, owner salary, etc.</p>
               <NumInput label="Total Annual Overhead" value={overhead} onChange={setOverhead} prefix="$" />
               {companyMetrics.totalRevenue > 0 && overhead > 0 && (
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mt-5 pt-4 border-t border-gray-100">
@@ -301,7 +301,7 @@ export default function DiagnosticWizard() {
         {step === 2 && (
           <div className="space-y-8">
             <div>
-              <h1 className="text-3xl font-bold text-gray-900">Where do you want to be — and what does it take?</h1>
+              <h1 className="text-3xl font-bold text-gray-900">Where do you want to be? What does it take?</h1>
               <p className="text-gray-600 mt-2">Set your goal, adjust the levers, and watch the gap update in real time.</p>
             </div>
 
@@ -340,12 +340,12 @@ export default function DiagnosticWizard() {
                 <div className="text-amber-100 text-sm uppercase tracking-widest mb-1">Required revenue to hit your goals</div>
                 <div className="text-5xl font-black">{fmt$0(targetMetrics.requiredRevenue)}</div>
                 <div className="text-amber-100 mt-2 text-sm">
-                  vs. current {fmt$0(companyMetrics.totalRevenue)} — a {fmt$0(Math.abs(targetMetrics.requiredRevenue - companyMetrics.totalRevenue))} {targetMetrics.requiredRevenue > companyMetrics.totalRevenue ? 'increase needed' : 'surplus'}
+                  vs. current {fmt$0(companyMetrics.totalRevenue)}, a {fmt$0(Math.abs(targetMetrics.requiredRevenue - companyMetrics.totalRevenue))} {targetMetrics.requiredRevenue > companyMetrics.totalRevenue ? 'increase needed' : 'surplus'}
                 </div>
               </div>
             )}
 
-            {/* Per-line comparison tables — visible once goal is set */}
+            {/* Per-line comparison tables - visible once goal is set */}
             {showGap && lines.map((line) => {
               const cur = calcLineMetrics(line);
               const reqRev = targetMetrics.requiredRevenueByLine[line.id] ?? 0;
@@ -438,7 +438,7 @@ export default function DiagnosticWizard() {
             {showGap && (
               <div className="bg-gray-900 text-white rounded-2xl p-6 space-y-3">
                 <h2 className="text-xl font-bold">Ready to work through what this means?</h2>
-                <p className="text-gray-300 text-sm">The gap is in your numbers. What comes next is identifying the one constraint keeping you from closing it — and that&apos;s a conversation, not a worksheet.</p>
+                <p className="text-gray-300 text-sm">The gap is in your numbers. What comes next is identifying the one constraint keeping you from closing it. That&apos;s a conversation, not a worksheet.</p>
                 <a href="https://leandirt.co/TYWjkBF"
                   className="block w-full text-center bg-amber-500 hover:bg-amber-400 text-white font-bold py-4 rounded-xl transition-colors text-lg">
                   Book a free review call with Zack →
@@ -487,12 +487,12 @@ export default function DiagnosticWizard() {
             <div className="bg-amber-500 rounded-2xl p-8 text-white">
               <div className="text-amber-100 text-sm font-semibold uppercase tracking-widest mb-2">You just did something most owners never do.</div>
               <h1 className="text-3xl font-bold leading-tight">You ran your numbers all the way to the constraint.</h1>
-              <p className="mt-3 text-amber-100">The gap is visible. The next step is identifying what&apos;s actually in the way — and that&apos;s a conversation.</p>
+              <p className="mt-3 text-amber-100">The gap is visible. The next step is identifying what&apos;s actually in the way. That&apos;s a conversation.</p>
             </div>
             <div className="bg-gray-900 text-white rounded-2xl p-8 space-y-4">
               <h2 className="text-2xl font-bold">This is what 12 months looks like.</h2>
               <ul className="space-y-2 text-gray-300 text-sm">
-                <li>✓ Identify the binding constraint — not the loudest one</li>
+                <li>✓ Identify the binding constraint, not the loudest one</li>
                 <li>✓ 2x monthly coaching calls to work the constraint</li>
                 <li>✓ Daily visibility on the governing metric</li>
                 <li>✓ Standardize every gain, train the team, move to the next constraint</li>
