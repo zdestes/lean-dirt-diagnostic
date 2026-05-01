@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { sendDiagnosticEmail } from '@/lib/email';
 
 const NOTION_KEY = process.env.NOTION_API_KEY;
 const CONTACTS_DB = process.env.NOTION_CONTACTS_DB_ID;
@@ -70,6 +71,11 @@ export async function POST(req: NextRequest) {
         ],
       }),
     });
+
+    // Send results email if we have an address
+    if (email) {
+      await sendDiagnosticEmail({ to: email, name: name || '', company: company || '', diagnosticData });
+    }
 
     return NextResponse.json({ ok: true });
   } catch (err) {
