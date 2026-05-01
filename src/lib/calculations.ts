@@ -90,7 +90,12 @@ export function calcTargetMetrics(
   };
 }
 
-export function fmt$(n: number): string {
+export function fmt$(n: number, decimals = 2): string {
+  return n.toLocaleString('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: decimals, maximumFractionDigits: decimals });
+}
+
+/** For large summary values where cents aren't meaningful */
+export function fmt$0(n: number): string {
   return n.toLocaleString('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 });
 }
 

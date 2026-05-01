@@ -8,6 +8,7 @@ import {
   calcCompanyMetrics,
   calcTargetMetrics,
   fmt$,
+  fmt$0,
   fmtPct,
   fmtNum,
 } from '@/lib/calculations';
@@ -240,7 +241,7 @@ export default function DiagnosticWizard() {
 
                   {line.revenue > 0 && (
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-3 pt-2 border-t border-gray-100">
-                      <MetricBadge label="Gross Profit" value={fmt$(m.grossProfit)} />
+                      <MetricBadge label="Gross Profit" value={fmt$0(m.grossProfit)} />
                       <MetricBadge label="Gross Margin" value={fmtPct(m.grossMarginPct)} highlight />
                       <MetricBadge label={`Rev / ${line.unitName || 'unit'}`} value={fmt$(m.revenuePerUnit)} />
                       <MetricBadge label={`Cost / ${line.unitName || 'unit'}`} value={fmt$(m.costPerUnit)} highlight />
@@ -265,10 +266,10 @@ export default function DiagnosticWizard() {
 
               {companyMetrics.totalRevenue > 0 && (
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mt-5 pt-4 border-t border-gray-100">
-                  <MetricBadge label="Total Revenue" value={fmt$(companyMetrics.totalRevenue)} />
-                  <MetricBadge label="Total Gross Profit" value={fmt$(companyMetrics.totalGrossProfit)} />
+                  <MetricBadge label="Total Revenue" value={fmt$0(companyMetrics.totalRevenue)} />
+                  <MetricBadge label="Total Gross Profit" value={fmt$0(companyMetrics.totalGrossProfit)} />
                   <MetricBadge label="Blended GM%" value={fmtPct(companyMetrics.blendedGrossMarginPct)} highlight />
-                  <MetricBadge label="Net Profit" value={fmt$(companyMetrics.netProfit)} highlight={companyMetrics.netProfit > 0} />
+                  <MetricBadge label="Net Profit" value={fmt$0(companyMetrics.netProfit)} highlight={companyMetrics.netProfit > 0} />
                 </div>
               )}
             </div>
@@ -364,7 +365,7 @@ export default function DiagnosticWizard() {
               <div className="text-amber-100 text-sm uppercase tracking-widest mb-1">Required Revenue to Hit Your Goals</div>
               <div className="text-5xl font-black">{fmt$(targetMetrics.requiredRevenue)}</div>
               <div className="text-amber-100 mt-2 text-sm">
-                vs. current {fmt$(companyMetrics.totalRevenue)} — a {fmt$(targetMetrics.requiredRevenue - companyMetrics.totalRevenue)} gap
+                vs. current {fmt$0(companyMetrics.totalRevenue)} — a {fmt$0(targetMetrics.requiredRevenue - companyMetrics.totalRevenue)} gap
               </div>
             </div>
 
@@ -390,7 +391,7 @@ export default function DiagnosticWizard() {
                 <div key={line.id} className="bg-white rounded-2xl border border-gray-200 p-6 space-y-4">
                   <h2 className="font-semibold text-gray-800">{line.name || `Line ${line.id.slice(0, 4)}`}</h2>
                   <div className="grid grid-cols-3 gap-3">
-                    <MetricBadge label="Required Revenue" value={fmt$(targetMetrics.requiredRevenueByLine[line.id] ?? 0)} highlight />
+                    <MetricBadge label="Required Revenue" value={fmt$0(targetMetrics.requiredRevenueByLine[line.id] ?? 0)} highlight />
                     <MetricBadge label={`Required Output (${line.unitName})`} value={fmtNum(targetMetrics.requiredOutputByLine[line.id] ?? 0)} highlight />
                     <MetricBadge label={`Max Cost / ${line.unitName}`} value={fmt$(targetMetrics.maxCostPerUnitByLine[line.id] ?? 0)} highlight />
                   </div>
@@ -497,9 +498,9 @@ export default function DiagnosticWizard() {
                     </thead>
                     <tbody className="divide-y divide-gray-50">
                       {[
-                        { label: 'Revenue', cur: fmt$(line.revenue), tgt: fmt$(reqRev) },
-                        { label: 'Direct Expenses', cur: fmt$(line.directExpenses), tgt: fmt$(targetDE) },
-                        { label: 'Gross Profit', cur: fmt$(cur.grossProfit), tgt: fmt$(targetGP) },
+                        { label: 'Revenue', cur: fmt$0(line.revenue), tgt: fmt$0(reqRev) },
+                        { label: 'Direct Expenses', cur: fmt$0(line.directExpenses), tgt: fmt$0(targetDE) },
+                        { label: 'Gross Profit', cur: fmt$0(cur.grossProfit), tgt: fmt$0(targetGP) },
                         { label: 'Gross Margin %', cur: fmtPct(cur.grossMarginPct), tgt: fmtPct(target.grossMarginGoalPct) },
                         { label: `Output (${line.unitName})`, cur: fmtNum(line.units), tgt: fmtNum(reqOut) },
                         { label: `Rev / ${line.unitName}`, cur: fmt$(cur.revenuePerUnit), tgt: fmt$(targetRpu) },
@@ -532,11 +533,11 @@ export default function DiagnosticWizard() {
                 </thead>
                 <tbody className="divide-y divide-gray-800">
                   {[
-                    { label: 'Total Revenue', cur: fmt$(companyMetrics.totalRevenue), tgt: fmt$(targetMetrics.requiredRevenue) },
-                    { label: 'Total Gross Profit', cur: fmt$(companyMetrics.totalGrossProfit), tgt: fmt$(targetMetrics.requiredRevenue * (target.grossMarginGoalPct / 100)) },
+                    { label: 'Total Revenue', cur: fmt$0(companyMetrics.totalRevenue), tgt: fmt$0(targetMetrics.requiredRevenue) },
+                    { label: 'Total Gross Profit', cur: fmt$0(companyMetrics.totalGrossProfit), tgt: fmt$0(targetMetrics.requiredRevenue * (target.grossMarginGoalPct / 100)) },
                     { label: 'Blended GM%', cur: fmtPct(companyMetrics.blendedGrossMarginPct), tgt: fmtPct(target.grossMarginGoalPct) },
-                    { label: 'Overhead', cur: fmt$(overhead), tgt: fmt$(target.overheadGuardrail) },
-                    { label: 'Net Profit', cur: fmt$(companyMetrics.netProfit), tgt: fmt$(target.netProfitGoal), isKey: true },
+                    { label: 'Overhead', cur: fmt$0(overhead), tgt: fmt$0(target.overheadGuardrail) },
+                    { label: 'Net Profit', cur: fmt$0(companyMetrics.netProfit), tgt: fmt$0(target.netProfitGoal), isKey: true },
                   ].map((row) => (
                     <tr key={row.label} className={row.isKey ? 'bg-amber-900/30' : ''}>
                       <td className={`px-6 py-3 font-medium ${row.isKey ? 'text-amber-300' : 'text-gray-300'}`}>{row.label}</td>
