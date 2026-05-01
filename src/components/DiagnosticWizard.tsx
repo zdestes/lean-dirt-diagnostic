@@ -465,26 +465,25 @@ export default function DiagnosticWizard() {
               </table>
             </div>
 
-            {/* Assumption question */}
-            <div className="bg-white rounded-2xl border border-gray-200 p-6 space-y-4">
-              <h2 className="font-semibold text-gray-800">What story, hope, or assumption you&apos;ve been carrying doesn&apos;t survive these numbers?</h2>
-              <p className="text-sm text-gray-500">Look at the gap. Name it — in your own words.</p>
-              <textarea
-                value={assumptionAnswer}
-                onChange={(e) => setAssumptionAnswer(e.target.value)}
-                placeholder="The assumption I've been carrying that doesn't survive these numbers is..."
-                className="w-full border border-gray-300 rounded-xl p-4 text-sm outline-none focus:ring-2 focus:ring-amber-500 resize-none h-28"
-              />
+            {/* CTA to review with coach */}
+            <div className="bg-gray-900 text-white rounded-2xl p-6 space-y-3">
+              <h2 className="text-xl font-bold">Ready to work through what this means?</h2>
+              <p className="text-gray-300 text-sm">The gap is in your numbers. Phase 5 is where you fight it — picking the right constraint, building the initiative, owning the result. That&apos;s a conversation, not a worksheet.</p>
+              <a
+                href="https://leandirt.com/contact"
+                className="block w-full text-center bg-amber-500 hover:bg-amber-400 text-white font-bold py-4 rounded-xl transition-colors text-lg"
+              >
+                Book a free review call with Zack →
+              </a>
             </div>
 
             <div className="flex gap-3">
               <button onClick={() => setPhase(2)} className="px-6 py-3 border border-gray-300 rounded-xl text-gray-700 hover:bg-gray-50 font-medium">← Back</button>
               <button
                 onClick={() => setPhase('gate')}
-                disabled={!assumptionAnswer.trim()}
-                className="flex-1 bg-gray-900 hover:bg-gray-800 disabled:bg-gray-200 disabled:text-gray-400 text-white font-semibold py-3 rounded-xl transition-colors"
+                className="flex-1 bg-white hover:bg-gray-50 border border-gray-300 text-gray-700 font-semibold py-3 rounded-xl transition-colors"
               >
-                I&apos;ve named it. Save my results →
+                Save a copy of my results →
               </button>
             </div>
           </div>
@@ -517,10 +516,8 @@ export default function DiagnosticWizard() {
           <div className="space-y-8">
             <div className="bg-amber-500 rounded-2xl p-8 text-white">
               <div className="text-amber-100 text-sm font-semibold uppercase tracking-widest mb-2">You just did something most owners never do.</div>
-              <h1 className="text-3xl font-bold leading-tight">
-                &ldquo;{assumptionAnswer.slice(0, 120)}{assumptionAnswer.length > 120 ? '…' : ''}&rdquo;
-              </h1>
-              <p className="mt-3 text-amber-100">That&apos;s the gap — in your own words, in your own numbers. What happens next is Phase 5.</p>
+              <h1 className="text-3xl font-bold leading-tight">You ran your numbers all the way to the constraint.</h1>
+              <p className="mt-3 text-amber-100">The gap is visible. Phase 5 is where you fight it — and that&apos;s a conversation, not a worksheet.</p>
             </div>
 
             <div className="bg-white rounded-2xl border border-gray-200 p-6 space-y-4">
