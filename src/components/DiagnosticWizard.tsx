@@ -160,7 +160,7 @@ export default function DiagnosticWizard() {
       <header className="bg-white border-b border-gray-200 sticky top-0 z-10">
         <div className="max-w-3xl mx-auto px-4 py-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <span className="font-bold text-gray-900 text-lg">Lean Dirt</span>
+            <img src="/wordmark.png" alt="Lean Dirt" className="h-7 w-auto" />
             <span className="text-gray-400">|</span>
             <span className="text-gray-600 text-sm">Business Diagnostic</span>
           </div>
