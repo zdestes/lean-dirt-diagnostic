@@ -249,8 +249,8 @@ export default function DiagnosticWizard() {
                     )}
                   </div>
                   <div className="grid grid-cols-2 gap-4">
-                    <TextInput label="Name of this line" value={line.name} onChange={(v) => updateLine(line.id, { name: v })} placeholder="e.g. Crushing, Hauling, Asphalt" />
-                    <TextInput label="Unit of output" value={line.unitName} onChange={(v) => updateLine(line.id, { unitName: v })} placeholder="e.g. tons, CY, SY" />
+                    <TextInput label="Name of this line" value={line.name} onChange={(v) => updateLine(line.id, { name: v })} placeholder="e.g. Crushing, Hauling, Pipe, Grading" />
+                    <TextInput label="Unit of output" value={line.unitName} onChange={(v) => updateLine(line.id, { unitName: v })} placeholder="e.g. tons, CY, LF, SY" />
                   </div>
                   <div className="grid grid-cols-3 gap-4">
                     <NumInput label="Revenue (12 mo)" value={line.revenue} onChange={(v) => updateLine(line.id, { revenue: v })} prefix="$" />
@@ -272,6 +272,10 @@ export default function DiagnosticWizard() {
             <button onClick={addLine} className="w-full py-3 border-2 border-dashed border-gray-300 rounded-2xl text-gray-500 hover:border-amber-400 hover:text-amber-600 transition-colors text-sm font-medium">
               + Add another line of business
             </button>
+
+            <div className="bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-sm text-gray-600">
+              <strong className="text-gray-800">Do your projects span multiple output types?</strong> Enter each as its own line. A project with grading, pipe, and asphalt paving becomes three lines with three units (CY, LF, SY). This is what makes the diagnostic useful: cost per unit of output by operation is where the constraint lives.
+            </div>
 
             <div className="bg-white rounded-2xl border border-gray-200 p-6">
               <h2 className="font-semibold text-gray-800 mb-1">Company Overhead (annual)</h2>
