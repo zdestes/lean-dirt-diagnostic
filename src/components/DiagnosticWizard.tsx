@@ -464,12 +464,26 @@ export default function DiagnosticWizard() {
                 <h2 className="text-xl font-bold">Ready to work through what this means?</h2>
                 <p className="text-gray-300 text-sm">The gap is in your numbers. What comes next is identifying the one constraint keeping you from closing it. That&apos;s a conversation, not a worksheet.</p>
                 <div className="bg-gray-800 rounded-xl p-4 space-y-3">
-                  <p className="text-amber-400 text-sm font-medium">Your diagnostic will be shared with Zack automatically before the call so you can skip the setup and get straight to what matters.</p>
+                  <p className="text-amber-400 text-sm font-medium">Your diagnostic will be shared with Zack before the call so you can skip the setup and get straight to what matters.</p>
+                  <input
+                    type="text"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    placeholder="Your name"
+                    className="w-full px-4 py-3 rounded-lg bg-gray-700 border border-gray-600 text-white placeholder-gray-400 outline-none focus:ring-2 focus:ring-amber-500"
+                  />
+                  <input
+                    type="text"
+                    value={company}
+                    onChange={(e) => setCompany(e.target.value)}
+                    placeholder="Company name"
+                    className="w-full px-4 py-3 rounded-lg bg-gray-700 border border-gray-600 text-white placeholder-gray-400 outline-none focus:ring-2 focus:ring-amber-500"
+                  />
                   <input
                     type="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    placeholder="Enter your email to continue"
+                    placeholder="Your email"
                     className="w-full px-4 py-3 rounded-lg bg-gray-700 border border-gray-600 text-white placeholder-gray-400 outline-none focus:ring-2 focus:ring-amber-500"
                   />
                 </div>
