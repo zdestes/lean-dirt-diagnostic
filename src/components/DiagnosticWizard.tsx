@@ -278,9 +278,14 @@ export default function DiagnosticWizard() {
               <strong>One rule applies:</strong> each line gets its own cost-per-unit ceiling, derived from the same company-level gross margin goal. That number drives every operational decision from here on. Agreed?
             </div>
 
+            {(lines.some((l) => !l.name || !l.revenue || !l.directExpenses || !l.units || !l.unitName) || overhead <= 0) && (
+              <p className="text-sm text-amber-700 text-center">
+                Complete all fields for each line of business and enter your overhead to continue.
+              </p>
+            )}
             <button
               onClick={() => setPhase(2)}
-              disabled={lines.every((l) => !l.name || !l.revenue)}
+              disabled={lines.some((l) => !l.name || !l.revenue || !l.directExpenses || !l.units || !l.unitName) || overhead <= 0}
               className="w-full bg-amber-500 hover:bg-amber-600 disabled:bg-gray-200 disabled:text-gray-400 text-white font-semibold py-4 rounded-xl transition-colors text-lg"
             >
               Continue to Phase 2: Set the Target →
