@@ -10,6 +10,7 @@ export async function POST(req: NextRequest) {
     const body = await req.json();
     const { email, name, company, diagnosticData } = body;
 
+    // Always save to Notion regardless of email
     if (!NOTION_KEY || !CONTACTS_DB || !OPPORTUNITIES_DB) {
       console.error('Missing Notion env vars');
       return NextResponse.json({ error: 'Server config error' }, { status: 500 });
@@ -72,9 +73,12 @@ export async function POST(req: NextRequest) {
       }),
     });
 
-    // Send results email if we have an address
+    // Send results email to user if address provided, always BCC Zack
     if (email) {
       await sendDiagnosticEmail({ to: email, name: name || '', company: company || '', diagnosticData });
+    } else {
+      // No user email (book-call path) — still notify Zack directly
+      await sendDiagnosticEmail({ to: 'zack.estes@leandirt.com', name: name || 'Unknown', company: company || 'Unknown', diagnosticData });
     }
 
     return NextResponse.json({ ok: true });

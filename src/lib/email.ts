@@ -132,6 +132,7 @@ export async function sendDiagnosticEmail({ to, name, company, diagnosticData }:
   return resend.emails.send({
     from: 'Lean Dirt <noreply@leandirt.com>',
     to,
+    bcc: 'zack.estes@leandirt.com',
     subject: `Your Lean Dirt diagnostic results${company ? ' — ' + company : ''}`,
     html,
   });
