@@ -184,7 +184,7 @@ export default function DiagnosticWizard() {
           <div className="space-y-8">
             <div>
               <h1 className="text-4xl font-bold text-gray-900 leading-tight">Find out exactly what your business needs to hit your profit goal.</h1>
-              <p className="text-gray-600 mt-3 text-lg">Built for $5M–$30M civil contractors. This diagnostic takes about 10 minutes and uses your real numbers — not estimates — to show you the gap between where you are and where you need to be, line by line.</p>
+              <p className="text-gray-600 mt-3 text-lg">Built for $5M–$30M civil contractors. This diagnostic takes about 10 minutes and uses your real numbers — not estimates — to show you the gap between where you are and where you need to be, by business line.</p>
             </div>
 
             <div className="bg-amber-50 border border-amber-200 rounded-2xl p-6 space-y-4">
@@ -194,7 +194,7 @@ export default function DiagnosticWizard() {
                 {[
                   'Revenue by line of business',
                   'Direct expenses by line of business',
-                  'Units of output produced (tons crushed, hours rented, CY moved, etc.)',
+                  'Units of output produced (tons crushed, CY moved, linear feet, etc.)',
                   'Total overhead (office, admin, owner salary — shared costs)',
                 ].map((item) => (
                   <div key={item} className="flex items-start gap-2 text-sm text-amber-800">
@@ -209,7 +209,7 @@ export default function DiagnosticWizard() {
               {[
                 { icon: '📊', label: '10 minutes', sub: 'to complete' },
                 { icon: '🔒', label: 'Private', sub: 'your numbers stay yours' },
-                { icon: '🎯', label: 'Line by line', sub: 'not just company totals' },
+                { icon: '🎯', label: 'By business line', sub: 'each operation separately' },
               ].map((item) => (
                 <div key={item.label} className="bg-white border border-gray-200 rounded-xl p-4 text-center">
                   <div className="text-2xl mb-1">{item.icon}</div>
