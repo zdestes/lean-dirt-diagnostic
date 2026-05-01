@@ -106,6 +106,7 @@ export default function DiagnosticWizard() {
   const [company, setCompany] = useState('');
   const [saving, setSaving] = useState(false);
   const [saveError, setSaveError] = useState('');
+  const [autoSaved, setAutoSaved] = useState(false);
 
   const companyMetrics = calcCompanyMetrics(lines, overhead);
   const targetMetrics = calcTargetMetrics(lines, target, revenuePerUnitOverrides);
@@ -132,6 +133,25 @@ export default function DiagnosticWizard() {
   };
 
   const showGap = target.netProfitGoal > 0 && target.grossMarginGoalPct > 0 && target.overheadGuardrail > 0 && !!target.targetDate;
+
+  const autoSaveLead = async () => {
+    if (autoSaved) return;
+    setAutoSaved(true);
+    try {
+      await fetch('/api/save-lead', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email: '',
+          name: 'Unknown (booked call)',
+          company: '',
+          diagnosticData: { lines, overhead, companyMetrics, target, targetMetrics },
+        }),
+      });
+    } catch {
+      // silent — don't block the booking
+    }
+  };
 
   const handleSaveLead = async () => {
     if (!email) return;
@@ -443,7 +463,7 @@ export default function DiagnosticWizard() {
               <div className="bg-gray-900 text-white rounded-2xl p-6 space-y-3">
                 <h2 className="text-xl font-bold">Ready to work through what this means?</h2>
                 <p className="text-gray-300 text-sm">The gap is in your numbers. What comes next is identifying the one constraint keeping you from closing it. That&apos;s a conversation, not a worksheet.</p>
-                <a href="https://leandirt.co/TYWjkBF"
+                <a onClick={autoSaveLead} href="https://leandirt.co/TYWjkBF"
                   className="block w-full text-center bg-amber-500 hover:bg-amber-400 text-white font-bold py-4 rounded-xl transition-colors text-lg">
                   Book a free review call with Zack →
                 </a>
@@ -502,7 +522,7 @@ export default function DiagnosticWizard() {
                 <li>✓ Standardize every gain, train the team, move to the next constraint</li>
                 <li>✓ Built for $5M–$30M civil contractors: crushing, hauling, asphalt, grading</li>
               </ul>
-              <a href="https://leandirt.co/TYWjkBF"
+              <a onClick={autoSaveLead} href="https://leandirt.co/TYWjkBF"
                 className="block w-full text-center bg-amber-500 hover:bg-amber-400 text-white font-bold py-4 rounded-xl transition-colors text-lg mt-2">
                 Book a call with Zack →
               </a>
