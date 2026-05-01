@@ -317,9 +317,9 @@ export default function DiagnosticWizard() {
                 min={ohMin}
                 max={ohMax}
                 step={10000}
-                format={(v) => fmt$0(v)}
+                format={(v) => `${fmt$0(v)}  (${companyMetrics.totalRevenue > 0 ? fmtPct(v / companyMetrics.totalRevenue * 100) : '—'} of rev)`}
               />
-              <p className="text-xs text-gray-400">Current overhead: {fmt$0(overhead)}</p>
+              <p className="text-xs text-gray-400">Current overhead: {fmt$0(overhead)} ({companyMetrics.totalRevenue > 0 ? fmtPct(overhead / companyMetrics.totalRevenue * 100) : '—'} of revenue)</p>
             </div>
 
             {/* Live required revenue */}
