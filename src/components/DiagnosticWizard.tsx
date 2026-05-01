@@ -274,10 +274,6 @@ export default function DiagnosticWizard() {
               )}
             </div>
 
-            <div className="bg-amber-50 border border-amber-200 rounded-xl p-4 text-sm text-amber-800">
-              <strong>One rule applies:</strong> each line gets its own cost-per-unit ceiling, derived from the same company-level gross margin goal. That number drives every operational decision from here on. Agreed?
-            </div>
-
             {(lines.some((l) => !l.name || !l.revenue || !l.directExpenses || !l.units || !l.unitName) || overhead <= 0) && (
               <p className="text-sm text-amber-700 text-center">
                 Complete all fields for each line of business and enter your overhead to continue.
