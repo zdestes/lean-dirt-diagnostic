@@ -439,7 +439,7 @@ export default function DiagnosticWizard() {
               <div className="bg-gray-900 text-white rounded-2xl p-6 space-y-3">
                 <h2 className="text-xl font-bold">Ready to work through what this means?</h2>
                 <p className="text-gray-300 text-sm">The gap is in your numbers. What comes next is identifying the one constraint keeping you from closing it — and that&apos;s a conversation, not a worksheet.</p>
-                <a href="https://leandirt.com/contact"
+                <a href="https://leandirt.co/TYWjkBF"
                   className="block w-full text-center bg-amber-500 hover:bg-amber-400 text-white font-bold py-4 rounded-xl transition-colors text-lg">
                   Book a free review call with Zack →
                 </a>
@@ -498,7 +498,7 @@ export default function DiagnosticWizard() {
                 <li>✓ Standardize every gain, train the team, move to the next constraint</li>
                 <li>✓ Built for horizontal contractors: crushing, hauling, civil, asphalt</li>
               </ul>
-              <a href="https://leandirt.com/contact"
+              <a href="https://leandirt.co/TYWjkBF"
                 className="block w-full text-center bg-amber-500 hover:bg-amber-400 text-white font-bold py-4 rounded-xl transition-colors text-lg mt-2">
                 Book a call with Zack →
               </a>
