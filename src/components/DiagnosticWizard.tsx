@@ -142,8 +142,8 @@ export default function DiagnosticWizard() {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          email: '',
-          name: 'Unknown (booked call)',
+          email: email || '',
+          name: name || 'Unknown (booked call)',
           company: '',
           diagnosticData: { lines, overhead, companyMetrics, target, targetMetrics },
         }),
@@ -460,11 +460,26 @@ export default function DiagnosticWizard() {
 
             {/* CTA */}
             {showGap && (
-              <div className="bg-gray-900 text-white rounded-2xl p-6 space-y-3">
+              <div className="bg-gray-900 text-white rounded-2xl p-6 space-y-4">
                 <h2 className="text-xl font-bold">Ready to work through what this means?</h2>
                 <p className="text-gray-300 text-sm">The gap is in your numbers. What comes next is identifying the one constraint keeping you from closing it. That&apos;s a conversation, not a worksheet.</p>
-                <a onClick={autoSaveLead} href="https://leandirt.co/TYWjkBF"
-                  className="block w-full text-center bg-amber-500 hover:bg-amber-400 text-white font-bold py-4 rounded-xl transition-colors text-lg">
+                <div className="bg-gray-800 rounded-xl p-4 space-y-3">
+                  <p className="text-amber-400 text-sm font-medium">Your diagnostic will be shared with Zack automatically before the call so you can skip the setup and get straight to what matters.</p>
+                  <input
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="Enter your email to continue"
+                    className="w-full px-4 py-3 rounded-lg bg-gray-700 border border-gray-600 text-white placeholder-gray-400 outline-none focus:ring-2 focus:ring-amber-500"
+                  />
+                </div>
+                <a
+                  onClick={email ? autoSaveLead : (e) => e.preventDefault()}
+                  href={email ? `https://leandirt.co/TYWjkBF?email=${encodeURIComponent(email)}` : '#'}
+                  className={`block w-full text-center font-bold py-4 rounded-xl transition-colors text-lg ${
+                    email ? 'bg-amber-500 hover:bg-amber-400 text-white cursor-pointer' : 'bg-gray-600 text-gray-400 cursor-not-allowed'
+                  }`}
+                >
                   Book a free review call with Zack →
                 </a>
               </div>
