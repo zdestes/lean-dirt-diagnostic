@@ -184,7 +184,7 @@ export default function DiagnosticWizard() {
           <div className="space-y-8">
             <div>
               <h1 className="text-4xl font-bold text-gray-900 leading-tight">Find out exactly what your business needs to hit your profit goal.</h1>
-              <p className="text-gray-600 mt-3 text-lg">This diagnostic takes about 10 minutes. It uses your real numbers — not estimates — to show you the gap between where you are and where you need to be, line by line.</p>
+              <p className="text-gray-600 mt-3 text-lg">Built for $5M–$30M civil contractors. This diagnostic takes about 10 minutes and uses your real numbers — not estimates — to show you the gap between where you are and where you need to be, line by line.</p>
             </div>
 
             <div className="bg-amber-50 border border-amber-200 rounded-2xl p-6 space-y-4">
@@ -223,7 +223,7 @@ export default function DiagnosticWizard() {
               className="w-full bg-amber-500 hover:bg-amber-600 text-white font-bold py-5 rounded-xl transition-colors text-xl">
               I have my P&L — let&apos;s go →
             </button>
-            <p className="text-center text-xs text-gray-400">Built for horizontal contractors: crushing, hauling, civil, asphalt, equipment rental</p>
+            <p className="text-center text-xs text-gray-400">Built for $5M–$30M civil contractors: crushing, hauling, asphalt, grading</p>
           </div>
         )}
 
@@ -496,7 +496,7 @@ export default function DiagnosticWizard() {
                 <li>✓ 2x monthly coaching calls to work the constraint</li>
                 <li>✓ Daily visibility on the governing metric</li>
                 <li>✓ Standardize every gain, train the team, move to the next constraint</li>
-                <li>✓ Built for horizontal contractors: crushing, hauling, civil, asphalt</li>
+                <li>✓ Built for $5M–$30M civil contractors: crushing, hauling, asphalt, grading</li>
               </ul>
               <a href="https://leandirt.co/TYWjkBF"
                 className="block w-full text-center bg-amber-500 hover:bg-amber-400 text-white font-bold py-4 rounded-xl transition-colors text-lg mt-2">
