@@ -13,7 +13,7 @@ import {
   fmtNum,
 } from '@/lib/calculations';
 
-type Step = 1 | 2 | 'gate' | 5;
+type Step = 0 | 1 | 2 | 'gate' | 5;
 
 const EMPTY_LINE = (): LineOfBusiness => ({
   id: Math.random().toString(36).slice(2),
@@ -96,7 +96,7 @@ function SliderInput({ label, value, onChange, min, max, step, format }: {
 }
 
 export default function DiagnosticWizard() {
-  const [step, setStep] = useState<Step>(1);
+  const [step, setStep] = useState<Step>(0);
   const [lines, setLines] = useState<LineOfBusiness[]>([EMPTY_LINE()]);
   const [overhead, setOverhead] = useState(0);
   const [target, setTarget] = useState<TargetInputs>(DEFAULT_TARGET);
@@ -152,7 +152,7 @@ export default function DiagnosticWizard() {
     }
   };
 
-  const progress = step === 1 ? 25 : step === 2 ? 65 : step === 'gate' ? 85 : 100;
+  const progress = step === 0 ? 0 : step === 1 ? 30 : step === 2 ? 70 : step === 'gate' ? 88 : 100;
 
   return (
     <div className="min-h-screen bg-stone-50">
@@ -165,6 +165,7 @@ export default function DiagnosticWizard() {
             <span className="text-gray-600 text-sm">Business Diagnostic</span>
           </div>
           <div className="text-sm text-gray-500">
+            {step === 0 && 'Free Diagnostic'}
             {step === 1 && 'Step 1 of 2'}
             {step === 2 && 'Step 2 of 2'}
             {step === 'gate' && 'Almost there…'}
@@ -177,6 +178,54 @@ export default function DiagnosticWizard() {
       </header>
 
       <main className="max-w-3xl mx-auto px-4 py-10 space-y-8">
+
+        {/* ── INTRO ── */}
+        {step === 0 && (
+          <div className="space-y-8">
+            <div>
+              <h1 className="text-4xl font-bold text-gray-900 leading-tight">Find out exactly what your business needs to hit your profit goal.</h1>
+              <p className="text-gray-600 mt-3 text-lg">This diagnostic takes about 10 minutes. It uses your real numbers — not estimates — to show you the gap between where you are and where you need to be, line by line.</p>
+            </div>
+
+            <div className="bg-amber-50 border border-amber-200 rounded-2xl p-6 space-y-4">
+              <h2 className="font-semibold text-amber-900 text-lg">Before you start — grab your P&L</h2>
+              <p className="text-amber-800 text-sm">You&apos;ll need the last 12 months of actuals. No estimates. Pull your profit &amp; loss statement and have it open.</p>
+              <div className="space-y-2">
+                {[
+                  'Revenue by line of business',
+                  'Direct expenses by line of business',
+                  'Units of output produced (tons crushed, hours rented, CY moved, etc.)',
+                  'Total overhead (office, admin, owner salary — shared costs)',
+                ].map((item) => (
+                  <div key={item} className="flex items-start gap-2 text-sm text-amber-800">
+                    <span className="text-amber-500 mt-0.5">✓</span>
+                    <span>{item}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="grid grid-cols-3 gap-4">
+              {[
+                { icon: '📊', label: '10 minutes', sub: 'to complete' },
+                { icon: '🔒', label: 'Private', sub: 'your numbers stay yours' },
+                { icon: '🎯', label: 'Line by line', sub: 'not just company totals' },
+              ].map((item) => (
+                <div key={item.label} className="bg-white border border-gray-200 rounded-xl p-4 text-center">
+                  <div className="text-2xl mb-1">{item.icon}</div>
+                  <div className="font-semibold text-gray-900 text-sm">{item.label}</div>
+                  <div className="text-xs text-gray-500">{item.sub}</div>
+                </div>
+              ))}
+            </div>
+
+            <button onClick={() => setStep(1)}
+              className="w-full bg-amber-500 hover:bg-amber-600 text-white font-bold py-5 rounded-xl transition-colors text-xl">
+              I have my P&L — let&apos;s go →
+            </button>
+            <p className="text-center text-xs text-gray-400">Built for horizontal contractors: crushing, hauling, civil, asphalt, equipment rental</p>
+          </div>
+        )}
 
         {/* ── STEP 1: BASELINE ── */}
         {step === 1 && (
