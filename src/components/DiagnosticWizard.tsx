@@ -181,11 +181,11 @@ export default function DiagnosticWizard() {
         <div className="max-w-3xl mx-auto px-4 py-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <img src="/wordmark.png" alt="Lean Dirt" className="h-7 w-auto" />
-            <span className="text-gray-400">|</span>
-            <span className="text-gray-600 text-sm">Business Diagnostic</span>
+            <span className="text-gray-400 hidden sm:inline">|</span>
+            <span className="text-gray-600 text-sm hidden sm:inline">Diagnostic</span>
           </div>
           <div className="text-sm text-gray-500">
-            {step === 0 && 'Free Diagnostic'}
+            {step === 0 && ''}
             {step === 1 && 'Step 1 of 2'}
             {step === 2 && 'Step 2 of 2'}
             {step === 'gate' && 'Almost there…'}
