@@ -129,6 +129,15 @@
  height: 2px;
  background: var(--gold);
  }
+ .hero-rule {
+ display: block;
+ width: 60px;
+ height: 3px;
+ background: linear-gradient(90deg, var(--gold-light), transparent);
+ margin-bottom: 28px;
+ opacity: 0;
+ animation: fadeUp 0.7s ease 0.25s forwards;
+ }
 
  .hero h1 {
  font-family: 'Bebas Neue', sans-serif;
@@ -188,7 +197,7 @@
  right: -4px;
  width: 100%;
  height: 100%;
- border: 2px solid var(--gold);
+ border: 3px solid var(--gold);
  transition: all 0.2s;
  pointer-events: none;
  }
@@ -270,7 +279,7 @@
  .symptoms-grid {
  display: grid;
  grid-template-columns: 1fr 1fr;
- gap: 2px;
+ gap: 4px;
  margin-bottom: 52px;
  }
 
@@ -494,7 +503,7 @@
  }
 
  .who-list.no li::before {
- content: '×';
+ content: '—';
  position: absolute;
  left: 0;
  color: #555;
@@ -508,7 +517,8 @@
  }
 
  .diagnostic-card {
- border: 1px solid var(--border);
+ border: 1px solid rgba(201,150,26,0.4);
+ background: rgba(201,150,26,0.06);
  padding: 48px 40px;
  display: grid;
  grid-template-columns: 1fr auto;
@@ -727,6 +737,7 @@
 <section class="hero" style="background-image:url('https://245440238.fs1.hubspotusercontent-na2.net/hubfs/245440238/IMG_1817.jpeg');background-size:cover;background-position:center 60%;">
  <div class="container">
  <p class="hero-eyebrow fade-up">For $5M–$30M Civil Contractors</p>
+ <span class="hero-rule"></span>
  <h1 class="fade-up">Add 2–5 Net<br />Margin Points<br />in <em>12 Months</em>.</h1>
  <p class="hero-sub fade-up">
  If you're doing $5M–$30M in civil and still feel like every job runs through you, you're not broken. <strong>You've just grown faster than your systems.</strong> We help you install the structure so your business hits its profit targets without you holding it together by hand.
@@ -927,7 +938,7 @@
 <footer>
  <div class="footer-inner">
  <span class="footer-logo"><img src="https://245440238.fs1.hubspotusercontent-na2.net/hubfs/245440238/wordmark-cream.png" alt="Lean Dirt" /></span>
- <span class="footer-copy">© 2026 Lean Dirt. Operational Excellence for Contractors.</span>
+ <span class="footer-copy">© 2026 Lean Dirt. Operational Excellence for Contractors. · <a href="https://diagnostic.leandirt.com" style="color:var(--gold);text-decoration:none;">Free Diagnostic</a></span>
  </div>
 </footer>
 
