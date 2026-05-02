@@ -80,9 +80,9 @@ function SliderInput({ label, value, onChange, min, max, step, format }: {
   const id = useId();
   return (
     <div className="flex flex-col gap-2">
-      <div className="flex justify-between items-center">
+      <div className="flex flex-wrap justify-between items-center gap-1">
         <label htmlFor={id} className="text-sm font-medium text-gray-700">{label}</label>
-        <span className="text-lg font-bold text-amber-600">{format(value)}</span>
+        <span className="text-base font-bold text-amber-600 text-right">{format(value)}</span>
       </div>
       <input id={id} type="range" min={min} max={max} step={step} value={value}
         onChange={(e) => onChange(parseFloat(e.target.value))}
@@ -225,7 +225,7 @@ export default function DiagnosticWizard() {
               </div>
             </div>
 
-            <div className="grid grid-cols-3 gap-4">
+            <div className="grid grid-cols-3 gap-3">
               {[
                 { icon: '📊', label: '10 minutes', sub: 'to complete' },
                 { icon: '🔒', label: 'Private', sub: 'your numbers stay yours' },
@@ -272,7 +272,7 @@ export default function DiagnosticWizard() {
                     <TextInput label="Name of this line" value={line.name} onChange={(v) => updateLine(line.id, { name: v })} placeholder="e.g. Crushing, Hauling, Pipe, Grading" />
                     <TextInput label="Unit of output" value={line.unitName} onChange={(v) => updateLine(line.id, { unitName: v })} placeholder="e.g. tons, CY, LF, SY" />
                   </div>
-                  <div className="grid grid-cols-3 gap-4">
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                     <NumInput label="Revenue (12 mo)" value={line.revenue} onChange={(v) => updateLine(line.id, { revenue: v })} prefix="$" />
                     <NumInput label="Direct Expenses (12 mo)" value={line.directExpenses} onChange={(v) => updateLine(line.id, { directExpenses: v })} prefix="$" />
                     <NumInput label="Units Produced" value={line.units} onChange={(v) => updateLine(line.id, { units: v })} suffix={line.unitName || 'units'} />
@@ -400,9 +400,9 @@ export default function DiagnosticWizard() {
                   <table className="w-full text-sm">
                     <thead>
                       <tr className="border-b border-gray-100">
-                        <th className="px-6 py-3 text-left text-gray-500 font-medium">Metric</th>
-                        <th className="px-6 py-3 text-right text-gray-500 font-medium">Today</th>
-                        <th className="px-6 py-3 text-right text-amber-600 font-medium">Target</th>
+                        <th className="px-3 py-2 sm:px-6 sm:py-3 text-left text-gray-500 font-medium">Metric</th>
+                        <th className="px-3 py-2 sm:px-6 sm:py-3 text-right text-gray-500 font-medium">Today</th>
+                        <th className="px-3 py-2 sm:px-6 sm:py-3 text-right text-amber-600 font-medium">Target</th>
                       </tr>
                     </thead>
                     <tbody className="divide-y divide-gray-50">
@@ -416,9 +416,9 @@ export default function DiagnosticWizard() {
                         { label: `Cost / ${line.unitName}`, cur: fmt$(cur.costPerUnit), tgt: fmt$(maxCost), isKey: true },
                       ].map((row) => (
                         <tr key={row.label} className={row.isKey ? 'bg-amber-50' : ''}>
-                          <td className={`px-6 py-3 font-medium ${row.isKey ? 'text-amber-800' : 'text-gray-700'}`}>{row.label}{row.isKey && ' ⭐'}</td>
-                          <td className="px-6 py-3 text-right text-gray-600">{row.cur}</td>
-                          <td className={`px-6 py-3 text-right font-semibold ${row.isKey ? 'text-amber-700' : 'text-gray-900'}`}>{row.tgt}</td>
+                          <td className={`px-3 py-2 sm:px-6 sm:py-3 font-medium ${row.isKey ? 'text-amber-800' : 'text-gray-700'}`}>{row.label}{row.isKey && ' ⭐'}</td>
+                          <td className="px-3 py-2 sm:px-6 sm:py-3 text-right text-gray-600">{row.cur}</td>
+                          <td className={`px-3 py-2 sm:px-6 sm:py-3 text-right font-semibold ${row.isKey ? 'text-amber-700' : 'text-gray-900'}`}>{row.tgt}</td>
                         </tr>
                       ))}
                     </tbody>
@@ -434,9 +434,9 @@ export default function DiagnosticWizard() {
                 <table className="w-full text-sm">
                   <thead>
                     <tr className="border-b border-gray-700">
-                      <th className="px-6 py-3 text-left text-gray-400 font-medium">Metric</th>
-                      <th className="px-6 py-3 text-right text-gray-400 font-medium">Today</th>
-                      <th className="px-6 py-3 text-right text-amber-400 font-medium">Target</th>
+                      <th className="px-3 py-2 sm:px-6 sm:py-3 text-left text-gray-400 font-medium">Metric</th>
+                      <th className="px-3 py-2 sm:px-6 sm:py-3 text-right text-gray-400 font-medium">Today</th>
+                      <th className="px-3 py-2 sm:px-6 sm:py-3 text-right text-amber-400 font-medium">Target</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-gray-800">
@@ -448,9 +448,9 @@ export default function DiagnosticWizard() {
                       { label: 'Net Profit', cur: fmt$0(companyMetrics.netProfit), tgt: fmt$0(target.netProfitGoal), isKey: true },
                     ].map((row) => (
                       <tr key={row.label} className={(row as { isKey?: boolean }).isKey ? 'bg-amber-900/30' : ''}>
-                        <td className={`px-6 py-3 font-medium ${(row as { isKey?: boolean }).isKey ? 'text-amber-300' : 'text-gray-300'}`}>{row.label}</td>
-                        <td className="px-6 py-3 text-right text-gray-400">{row.cur}</td>
-                        <td className={`px-6 py-3 text-right font-bold ${(row as { isKey?: boolean }).isKey ? 'text-amber-400 text-lg' : 'text-white'}`}>{row.tgt}</td>
+                        <td className={`px-3 py-2 sm:px-6 sm:py-3 font-medium ${(row as { isKey?: boolean }).isKey ? 'text-amber-300' : 'text-gray-300'}`}>{row.label}</td>
+                        <td className="px-3 py-2 sm:px-6 sm:py-3 text-right text-gray-400">{row.cur}</td>
+                        <td className={`px-3 py-2 sm:px-6 sm:py-3 text-right font-bold ${(row as { isKey?: boolean }).isKey ? 'text-amber-400 text-lg' : 'text-white'}`}>{row.tgt}</td>
                       </tr>
                     ))}
                   </tbody>
