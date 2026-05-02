@@ -89,7 +89,7 @@ export async function POST(req: NextRequest) {
     if (!oppRes.ok) {
       const errBody = await oppRes.text();
       console.error('Notion opportunity creation failed:', oppRes.status, errBody);
-      return NextResponse.json({ error: 'Notion error', detail: errBody }, { status: 500 });
+      // don't surface to user — log only
     }
 
     // Send email
