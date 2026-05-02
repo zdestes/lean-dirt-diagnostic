@@ -1,0 +1,951 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lean Dirt: Add 2–5 Net Margin Points in 12 Months</title>
+<link rel="icon" href="https://diagnostic.leandirt.com/icon.png" type="image/png" sizes="512x512">
+<link rel="shortcut icon" href="https://diagnostic.leandirt.com/icon.png">
+<link rel="apple-touch-icon" href="https://diagnostic.leandirt.com/icon.png">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Barlow+Condensed:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+ :root {
+ --black: #0a0a08;
+ --dirt: #1a1509;
+ --gold: #C9961A;
+ --gold-light: #E8B400;
+ --off-white: #F4F0E6;
+ --gray: #8a8478;
+ --light-gray: #2a2820;
+ --border: #2e2c22;
+ }
+
+ *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+ html { scroll-behavior: smooth; }
+
+ body {
+ background-color: var(--black);
+ color: var(--off-white);
+ font-family: 'Barlow', sans-serif;
+ font-size: 18px;
+ line-height: 1.6;
+ overflow-x: hidden;
+ }
+
+ /* ── NOISE TEXTURE OVERLAY ── */
+ body::before {
+ content: '';
+ position: fixed;
+ inset: 0;
+ background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+ pointer-events: none;
+ z-index: 1000;
+ opacity: 0.4;
+ }
+
+ /* ── LAYOUT ── */
+ .container {
+ max-width: 900px;
+ margin: 0 auto;
+ padding: 0 24px;
+ }
+
+ section { padding: 80px 0; }
+
+ /* ── NAV ── */
+ nav {
+ padding: 20px 24px;
+ display: flex;
+ align-items: center;
+ justify-content: space-between;
+ border-bottom: 1px solid var(--border);
+ position: sticky;
+ top: 0;
+ background: rgba(10,10,8,0.95);
+ backdrop-filter: blur(8px);
+ z-index: 100;
+ }
+
+ .nav-logo img {
+ height: 28px;
+ width: auto;
+ display: block;
+ }
+
+ .nav-cta {
+ font-family: 'Barlow Condensed', sans-serif;
+ font-size: 14px;
+ font-weight: 700;
+ letter-spacing: 0.12em;
+ text-transform: uppercase;
+ color: var(--black);
+ background: var(--gold-light);
+ padding: 10px 22px;
+ text-decoration: none;
+ transition: background 0.2s;
+ }
+ .nav-cta:hover { background: #fff; }
+
+ /* ── HERO ── */
+ .hero {
+ padding: 100px 0 80px;
+ position: relative;
+ overflow: hidden;
+ }
+
+ .hero::before {
+ content: '';
+ position: absolute;
+ inset: 0;
+ background: rgba(10,10,8,0.82);
+ pointer-events: none;
+ z-index: 0;
+ }
+
+ .hero > .container {
+ position: relative;
+ z-index: 1;
+ }
+
+ .hero-eyebrow {
+ font-family: 'Barlow Condensed', sans-serif;
+ font-size: 13px;
+ font-weight: 700;
+ letter-spacing: 0.2em;
+ text-transform: uppercase;
+ color: var(--gold);
+ margin-bottom: 28px;
+ display: flex;
+ align-items: center;
+ gap: 12px;
+ }
+
+ .hero-eyebrow::before {
+ content: '';
+ display: block;
+ width: 32px;
+ height: 2px;
+ background: var(--gold);
+ }
+
+ .hero h1 {
+ font-family: 'Bebas Neue', sans-serif;
+ font-size: clamp(52px, 9vw, 96px);
+ line-height: 0.95;
+ letter-spacing: 0.02em;
+ color: var(--off-white);
+ margin-bottom: 32px;
+ }
+
+ .hero h1 em {
+ font-style: normal;
+ color: var(--gold-light);
+ }
+
+ .hero-sub {
+ font-size: 20px;
+ font-weight: 400;
+ color: #b8b0a0;
+ max-width: 580px;
+ margin-bottom: 48px;
+ line-height: 1.7;
+ }
+
+ .hero-sub strong {
+ color: var(--off-white);
+ font-weight: 600;
+ }
+
+ .cta-block {
+ display: flex;
+ flex-direction: column;
+ align-items: flex-start;
+ gap: 16px;
+ }
+
+ .btn-primary {
+ display: inline-block;
+ font-family: 'Barlow Condensed', sans-serif;
+ font-size: 18px;
+ font-weight: 700;
+ letter-spacing: 0.12em;
+ text-transform: uppercase;
+ color: var(--black);
+ background: var(--gold-light);
+ padding: 18px 40px;
+ text-decoration: none;
+ transition: all 0.2s;
+ position: relative;
+ border: none;
+ }
+
+ .btn-primary::after {
+ content: '';
+ position: absolute;
+ bottom: -4px;
+ right: -4px;
+ width: 100%;
+ height: 100%;
+ border: 2px solid var(--gold);
+ transition: all 0.2s;
+ pointer-events: none;
+ }
+
+ .btn-primary:hover {
+ background: #ffffff;
+ color: var(--black);
+ transform: translate(-2px, -2px);
+ }
+
+ .btn-primary:hover::after {
+ bottom: -6px;
+ right: -6px;
+ }
+
+ .btn-secondary {
+ display: inline-block;
+ font-family: 'Barlow Condensed', sans-serif;
+ font-size: 15px;
+ font-weight: 600;
+ letter-spacing: 0.1em;
+ text-transform: uppercase;
+ color: var(--off-white);
+ background: transparent;
+ border: 1px solid var(--border);
+ padding: 14px 32px;
+ text-decoration: none;
+ transition: all 0.2s;
+ }
+
+ .btn-secondary:hover {
+ border-color: var(--gold);
+ color: var(--gold-light);
+ }
+
+ .cta-note {
+ font-size: 13px;
+ color: var(--gray);
+ font-style: italic;
+ }
+
+ /* ── DIVIDER ── */
+ .divider {
+ border: none;
+ border-top: 1px solid var(--border);
+ }
+
+ /* ── DIAGNOSIS SECTION ── */
+ .diagnosis {
+ padding: 80px 0;
+ }
+
+ .section-label {
+ font-family: 'Barlow Condensed', sans-serif;
+ font-size: 12px;
+ font-weight: 700;
+ letter-spacing: 0.25em;
+ text-transform: uppercase;
+ color: var(--gold);
+ margin-bottom: 20px;
+ }
+
+ .diagnosis h2 {
+ font-family: 'Bebas Neue', sans-serif;
+ font-size: clamp(36px, 5vw, 56px);
+ letter-spacing: 0.03em;
+ line-height: 1.05;
+ margin-bottom: 24px;
+ color: var(--off-white);
+ }
+
+ .diagnosis-intro {
+ font-size: 19px;
+ color: #b8b0a0;
+ margin-bottom: 52px;
+ line-height: 1.7;
+ }
+
+ .symptoms-grid {
+ display: grid;
+ grid-template-columns: 1fr 1fr;
+ gap: 2px;
+ margin-bottom: 52px;
+ }
+
+ @media (max-width: 600px) {
+ .symptoms-grid { grid-template-columns: 1fr; }
+ }
+
+ .symptom {
+ background: var(--light-gray);
+ padding: 28px 28px 28px 24px;
+ border-left: 3px solid var(--border);
+ position: relative;
+ transition: border-color 0.2s;
+ display: grid;
+ grid-template-columns: 24px 1fr;
+ gap: 16px;
+ align-items: start;
+ }
+
+ .symptom::before {
+ content: '✓';
+ color: var(--gold);
+ font-weight: 700;
+ font-size: 16px;
+ padding-top: 2px;
+ }
+
+ .symptom:hover {
+ border-left-color: var(--gold);
+ }
+
+ .symptom p {
+ font-size: 16px;
+ color: var(--off-white);
+ font-weight: 500;
+ line-height: 1.5;
+ }
+
+ .diagnosis-closer {
+ font-size: 20px;
+ font-weight: 600;
+ color: var(--off-white);
+ border-left: 3px solid var(--gold);
+ padding-left: 24px;
+ line-height: 1.6;
+ }
+
+ /* ── ROOT CAUSE ── */
+ .root-cause {
+ padding: 80px 0;
+ background: var(--dirt);
+ border-top: 1px solid var(--border);
+ border-bottom: 1px solid var(--border);
+ }
+
+ .root-cause h2 {
+ font-family: 'Bebas Neue', sans-serif;
+ font-size: clamp(36px, 5vw, 56px);
+ letter-spacing: 0.03em;
+ line-height: 1.05;
+ margin-bottom: 32px;
+ }
+
+ .root-cause h2 em {
+ font-style: normal;
+ color: var(--gold-light);
+ }
+
+ .root-body {
+ font-size: 19px;
+ color: #b8b0a0;
+ line-height: 1.75;
+ }
+
+ .root-body strong { color: var(--off-white); font-weight: 600; }
+
+ .root-body p + p { margin-top: 20px; }
+
+ /* ── OFFER / WHAT YOU GET ── */
+ .offer {
+ padding: 80px 0;
+ }
+
+ .offer h2 {
+ font-family: 'Bebas Neue', sans-serif;
+ font-size: clamp(36px, 5vw, 56px);
+ letter-spacing: 0.03em;
+ line-height: 1.05;
+ margin-bottom: 12px;
+ }
+
+ .offer-subtitle {
+ font-size: 19px;
+ color: #b8b0a0;
+ margin-bottom: 52px;
+ line-height: 1.7;
+ }
+
+ .offer-items {
+ display: flex;
+ flex-direction: column;
+ gap: 2px;
+ margin-bottom: 52px;
+ }
+
+ .offer-item {
+ display: grid;
+ grid-template-columns: 48px 1fr;
+ gap: 24px;
+ align-items: start;
+ background: var(--light-gray);
+ padding: 28px 28px 28px 20px;
+ }
+
+ .offer-num {
+ font-family: 'Bebas Neue', sans-serif;
+ font-size: 36px;
+ color: var(--gold);
+ line-height: 1;
+ padding-top: 2px;
+ }
+
+ .offer-item-title {
+ font-family: 'Barlow Condensed', sans-serif;
+ font-size: 20px;
+ font-weight: 700;
+ letter-spacing: 0.04em;
+ text-transform: uppercase;
+ color: var(--off-white);
+ margin-bottom: 6px;
+ }
+
+ .offer-item-desc {
+ font-size: 16px;
+ color: #9a9285;
+ line-height: 1.6;
+ }
+
+ .offer-guarantee {
+ background: rgba(201, 150, 26, 0.08);
+ border: 1px solid rgba(201, 150, 26, 0.25);
+ padding: 28px 32px;
+ }
+
+ .offer-guarantee-label {
+ font-family: 'Barlow Condensed', sans-serif;
+ font-size: 12px;
+ font-weight: 700;
+ letter-spacing: 0.2em;
+ text-transform: uppercase;
+ color: var(--gold);
+ margin-bottom: 10px;
+ }
+
+ .offer-guarantee p {
+ font-size: 17px;
+ color: var(--off-white);
+ line-height: 1.65;
+ }
+
+ /* ── WHO THIS IS FOR ── */
+ .who {
+ padding: 80px 0;
+ background: var(--dirt);
+ border-top: 1px solid var(--border);
+ border-bottom: 1px solid var(--border);
+ }
+
+ .who h2 {
+ font-family: 'Bebas Neue', sans-serif;
+ font-size: clamp(36px, 5vw, 56px);
+ letter-spacing: 0.03em;
+ margin-bottom: 40px;
+ }
+
+ .who-cols {
+ display: grid;
+ grid-template-columns: 1fr 1fr;
+ gap: 40px;
+ }
+
+ @media (max-width: 640px) {
+ .who-cols { grid-template-columns: 1fr; }
+ }
+
+ .who-col-label {
+ font-family: 'Barlow Condensed', sans-serif;
+ font-size: 12px;
+ font-weight: 700;
+ letter-spacing: 0.2em;
+ text-transform: uppercase;
+ margin-bottom: 20px;
+ padding-bottom: 12px;
+ border-bottom: 1px solid var(--border);
+ }
+
+ .who-col-label.yes { color: var(--gold); }
+ .who-col-label.no { color: #666; }
+
+ .who-list {
+ list-style: none;
+ display: flex;
+ flex-direction: column;
+ gap: 14px;
+ }
+
+ .who-list li {
+ font-size: 16px;
+ color: #b8b0a0;
+ padding-left: 20px;
+ position: relative;
+ line-height: 1.5;
+ }
+
+ .who-list.yes li::before {
+ content: '→';
+ position: absolute;
+ left: 0;
+ color: var(--gold);
+ font-weight: 700;
+ }
+
+ .who-list.no li::before {
+ content: '×';
+ position: absolute;
+ left: 0;
+ color: #555;
+ font-weight: 700;
+ }
+
+ /* ── DIAGNOSTIC BRIDGE ── */
+ .diagnostic-bridge {
+ padding: 80px 0;
+ background: var(--black);
+ }
+
+ .diagnostic-card {
+ border: 1px solid var(--border);
+ padding: 48px 40px;
+ display: grid;
+ grid-template-columns: 1fr auto;
+ gap: 40px;
+ align-items: center;
+ }
+
+ @media (max-width: 640px) {
+ .diagnostic-card {
+   grid-template-columns: 1fr;
+   padding: 32px 24px;
+   gap: 28px;
+ }
+ }
+
+ .diagnostic-card-label {
+ font-family: 'Barlow Condensed', sans-serif;
+ font-size: 12px;
+ font-weight: 700;
+ letter-spacing: 0.2em;
+ text-transform: uppercase;
+ color: var(--gold);
+ margin-bottom: 12px;
+ }
+
+ .diagnostic-card h3 {
+ font-family: 'Bebas Neue', sans-serif;
+ font-size: clamp(28px, 4vw, 40px);
+ letter-spacing: 0.02em;
+ line-height: 1.05;
+ color: var(--off-white);
+ margin-bottom: 12px;
+ }
+
+ .diagnostic-card p {
+ font-size: 16px;
+ color: #9a9285;
+ line-height: 1.6;
+ }
+
+ .diagnostic-stats {
+ display: flex;
+ gap: 32px;
+ margin-top: 20px;
+ }
+
+ .diagnostic-stat {
+ display: flex;
+ align-items: center;
+ gap: 8px;
+ font-family: 'Barlow Condensed', sans-serif;
+ font-size: 13px;
+ font-weight: 600;
+ letter-spacing: 0.08em;
+ text-transform: uppercase;
+ color: var(--gray);
+ }
+
+ .diagnostic-stat span { font-size: 16px; }
+
+ /* ── ABOUT ── */
+ .about {
+ padding: 80px 0;
+ }
+
+ .about h2 {
+ font-family: 'Bebas Neue', sans-serif;
+ font-size: clamp(36px, 5vw, 56px);
+ letter-spacing: 0.03em;
+ margin-bottom: 28px;
+ }
+
+ .about-body {
+ font-size: 18px;
+ color: #b8b0a0;
+ line-height: 1.75;
+ }
+
+ .about-body strong { color: var(--off-white); font-weight: 600; }
+ .about-body p + p { margin-top: 18px; }
+
+ /* ── FINAL CTA ── */
+ .final-cta {
+ padding: 100px 0;
+ background: var(--dirt);
+ border-top: 1px solid var(--border);
+ text-align: center;
+ }
+
+ .final-cta .section-label {
+ justify-content: center;
+ display: flex;
+ align-items: center;
+ gap: 12px;
+ margin-bottom: 24px;
+ }
+
+ .final-cta .section-label::before,
+ .final-cta .section-label::after {
+ content: '';
+ display: block;
+ width: 32px;
+ height: 2px;
+ background: var(--gold);
+ }
+
+ .final-cta h2 {
+ font-family: 'Bebas Neue', sans-serif;
+ font-size: clamp(44px, 8vw, 80px);
+ letter-spacing: 0.02em;
+ line-height: 1;
+ margin-bottom: 24px;
+ }
+
+ .final-cta h2 em {
+ font-style: normal;
+ color: var(--gold-light);
+ }
+
+ .final-cta-sub {
+ font-size: 19px;
+ color: #9a9285;
+ max-width: 520px;
+ margin: 0 auto 48px;
+ line-height: 1.7;
+ }
+
+ .final-cta .cta-block {
+ align-items: center;
+ }
+
+ /* ── FOOTER ── */
+ footer {
+ border-top: 1px solid var(--border);
+ }
+
+ .footer-inner {
+ max-width: 900px;
+ margin: 0 auto;
+ padding: 28px 24px;
+ display: flex;
+ justify-content: space-between;
+ align-items: center;
+ flex-wrap: wrap;
+ gap: 12px;
+ }
+
+ .footer-logo img {
+ height: 20px;
+ width: auto;
+ }
+
+ .footer-copy {
+ font-size: 13px;
+ color: var(--gray);
+ }
+
+ /* ── PHOTOS ── */
+ .field-photo {
+ margin-bottom: 52px;
+ overflow: hidden;
+ }
+
+ .field-photo img {
+ width: 100%;
+ height: 400px;
+ object-fit: cover;
+ object-position: center 65%;
+ display: block;
+ filter: brightness(0.85) contrast(1.05);
+ }
+
+ .about-photo {
+ margin-top: 40px;
+ overflow: hidden;
+ }
+
+ .about-photo img {
+ width: 100%;
+ max-height: 480px;
+ object-fit: cover;
+ object-position: center 20%;
+ display: block;
+ filter: brightness(0.9);
+ }
+
+ /* ── ANIMATIONS ── */
+ @keyframes fadeUp {
+ from { opacity: 0; transform: translateY(24px); }
+ to { opacity: 1; transform: translateY(0); }
+ }
+
+ .fade-up {
+ opacity: 0;
+ animation: fadeUp 0.7s ease forwards;
+ }
+
+ .hero-eyebrow { animation-delay: 0.1s; }
+ .hero h1 { animation-delay: 0.2s; }
+ .hero-sub { animation-delay: 0.35s; }
+ .cta-block { animation-delay: 0.5s; }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+ <a href="https://leandirt.com" class="nav-logo">
+   <img src="https://diagnostic.leandirt.com/wordmark.png" alt="Lean Dirt" />
+ </a>
+ <a href="https://diagnostic.leandirt.com" class="nav-cta">Free Business Diagnostic</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero" style="background-image:url('https://245440238.fs1.hubspotusercontent-na2.net/hubfs/245440238/IMG_1817.jpeg');background-size:cover;background-position:center 60%;">
+ <div class="container">
+ <p class="hero-eyebrow fade-up">For $5M–$30M Civil Contractors</p>
+ <h1 class="fade-up">Add 2–5 Net<br />Margin Points<br />in <em>12 Months</em>.</h1>
+ <p class="hero-sub fade-up">
+ If you're doing $5M–$30M in civil and still feel like every job runs through you, you're not broken. <strong>You've just grown faster than your systems.</strong> We help you install the structure so your business hits its profit targets without you holding it together by hand.
+ </p>
+ <div class="cta-block fade-up">
+ <a href="https://diagnostic.leandirt.com" class="btn-primary">Find Out Where Your Margin Is Leaking →</a>
+ <span class="cta-note">Free 10-minute diagnostic. Your real numbers, no estimates.</span>
+ </div>
+ </div>
+</section>
+
+<hr class="divider">
+
+<!-- WHAT THE PAIN LOOKS LIKE -->
+<section class="diagnosis">
+ <div class="container">
+ <p class="section-label">Sound Familiar?</p>
+ <h2>You're Working Hard.<br />The Business Isn't.</h2>
+ <p class="diagnosis-intro">
+ Contractors in the $5M–$30M range all describe the same pattern: top line is healthy, but net margin feels stuck at 2–4% and fragile. Revenue is there, but it feels like you're constantly putting out fires instead of building something.
+ </p>
+ <div class="field-photo"><img src="https://245440238.fs1.hubspotusercontent-na2.net/hubfs/245440238/IMG_2728.jpeg" alt="Field crew reviewing plans on site" /></div>
+ <div class="symptoms-grid">
+ <div class="symptom">
+ <p>You're the answer to every question on every job. Nothing moves without you, and every hour you spend there is an hour you're not running the business.</p>
+ </div>
+ <div class="symptom">
+ <p>Equipment goes down and nobody knows what to do, or what broke it in the first place. Downtime is eating your margin and nobody's tracking it.</p>
+ </div>
+ <div class="symptom">
+ <p>You know money is leaking somewhere: rework, schedule slip, idle time. You just can't put your finger on exactly where or how much.</p>
+ </div>
+ <div class="symptom">
+ <p>Rework and variation are just "part of the business." You've accepted it. But every callback and redo is a direct hit to your net margin.</p>
+ </div>
+ <div class="symptom">
+ <p>You've tried to get more organized. It works for a week, then the job takes over again and the profit you thought you'd protect slips away.</p>
+ </div>
+ <div class="symptom">
+ <p>You can't honestly tell someone exactly how work is supposed to get done around here, which means you can't fix what's costing you.</p>
+ </div>
+ </div>
+ <p class="diagnosis-closer">
+ If three or more of those hit and you're between $5M and $30M, this call was built for you.
+ </p>
+ </div>
+</section>
+
+<hr class="divider">
+
+<!-- ROOT CAUSE -->
+<section class="root-cause">
+ <div class="container">
+ <p class="section-label">The Actual Problem</p>
+ <h2>Industry Average<br /><em>Sucks</em>.</h2>
+ <div class="root-body">
+ <p>
+ Most civil contractors assume the margin squeeze is just the nature of the work. It's not. It's the natural outcome of a business that has grown <strong>faster than its systems.</strong>
+ </p>
+ <p>
+ The real gap isn't effort. You're already working hard. The gap is <strong>systems thinking</strong>: the ability to see your operation as a set of repeatable processes, identify where friction and cost live, and build the structure that turns top-line revenue into bottom-line margin.
+ </p>
+ <p>
+ That's a learnable skillset. And it changes everything: how you make decisions, how your team operates, how work actually gets done in the field, and how many of those dollars you actually keep.
+ </p>
+ </div>
+ </div>
+</section>
+
+<!-- DIAGNOSTIC BRIDGE -->
+<section class="diagnostic-bridge">
+ <div class="container">
+ <div class="diagnostic-card">
+   <div>
+     <p class="diagnostic-card-label">Start Here</p>
+     <h3>Run Your Numbers.<br />See the Gap.</h3>
+     <p>The free Lean Dirt diagnostic takes 10 minutes and uses your actual P&L to show you exactly where your margin is going and what it takes to hit your profit goal — by business line.</p>
+     <div class="diagnostic-stats">
+       <div class="diagnostic-stat"><span>📊</span> 10 minutes</div>
+       <div class="diagnostic-stat"><span>🔒</span> Private</div>
+       <div class="diagnostic-stat"><span>🎯</span> By business line</div>
+     </div>
+   </div>
+   <div>
+     <a href="https://diagnostic.leandirt.com" class="btn-primary">Take the Free Diagnostic →</a>
+   </div>
+ </div>
+ </div>
+</section>
+
+<!-- THE OFFER -->
+<section class="offer">
+ <div class="container">
+ <p class="section-label">What You Get</p>
+ <h2>The Free Net Margin<br />&amp; Operations Review</h2>
+ <p class="offer-subtitle">
+ After you run the diagnostic, we'll get on a 30-minute call to map where margin is leaking and what has to change over the next 12 months to add 2–5 net points.
+ </p>
+ <div class="offer-items">
+ <div class="offer-item">
+ <span class="offer-num">01</span>
+ <div>
+ <p class="offer-item-title">Your Current Net Margin Snapshot and a Clear 12-Month Target</p>
+ <p class="offer-item-desc">We benchmark where you are today and define what a realistic 2–5 point improvement looks like for your specific business, revenue range, cost structure, and all.</p>
+ </div>
+ </div>
+ <div class="offer-item">
+ <span class="offer-num">02</span>
+ <div>
+ <p class="offer-item-title">Plain-English Language for Why Your Profit Is Stuck</p>
+ <p class="offer-item-desc">Most owners know the numbers are off but can't name the cause precisely. We'll give you the framework to understand it and explain it clearly to your team.</p>
+ </div>
+ </div>
+ <div class="offer-item">
+ <span class="offer-num">03</span>
+ <div>
+ <p class="offer-item-title">A Concrete First Project to Start Closing the Gap This Month</p>
+ <p class="offer-item-desc">Whether you work with us or not, you leave with one specific thing to act on: a real starting point toward that 2–5 point margin improvement, not vague advice.</p>
+ </div>
+ </div>
+ </div>
+ <div class="offer-guarantee">
+ <p class="offer-guarantee-label">What Happens After</p>
+ <p>The Operations Review is the first step of a larger 12-month engagement, not a standalone freebie. If we find a real 2–5 point margin opportunity (and we usually do), we'll show you exactly what the full program looks like: what the work is, how long it takes, and what it costs. No pressure, but we're going to be direct about what we see.</p>
+ </div>
+ </div>
+</section>
+
+<hr class="divider">
+
+<!-- WHO IT'S FOR -->
+<section class="who">
+ <div class="container">
+ <p class="section-label">Right Fit</p>
+ <h2>Who This Is For<br />And Who It Isn't</h2>
+ <div class="who-cols">
+ <div>
+ <p class="who-col-label yes">This is for you if</p>
+ <ul class="who-list yes">
+ <li>You're a civil contractor doing $5M–$30M in annual revenue (typically under ~50 people)</li>
+ <li>You're the owner in an overhead role, not running a crew every day</li>
+ <li>Revenue is healthy but net margin feels stuck, fragile, or hard to explain</li>
+ <li>You're willing to look honestly at how work actually gets done</li>
+ <li>You want to build something that runs without you in every conversation</li>
+ </ul>
+ </div>
+ <div>
+ <p class="who-col-label no">Skip this if</p>
+ <ul class="who-list no">
+ <li>You're under $5M in revenue or still in the field full-time</li>
+ <li>You only want more bids, not a better-run business</li>
+ <li>You want a consultant to come in and do it for you</li>
+ <li>You think the problems are entirely your team's fault</li>
+ <li>You're looking for a quick fix with no follow-through</li>
+ </ul>
+ </div>
+ </div>
+ </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about">
+ <div class="container">
+ <p class="section-label">Who You're Talking To</p>
+ <h2>Why Lean Dirt</h2>
+ <div class="about-photo"><img src="https://245440238.fs1.hubspotusercontent-na2.net/hubfs/245440238/IMG_4934.jpg" alt="Zack Estes speaking at Dirt World Summit" /></div>
+ <div class="about-body">
+ <p>
+ Lean Dirt helps $5M–$30M civil contractors add 2–5 net margin points in 12 months. Operational excellence coaching has never been built for the dirt world. Most frameworks are written for manufacturers, tech companies, or corporate ops teams. <strong>None of it translates cleanly to a field-based business.</strong>
+ </p>
+ <p>
+ We work exclusively with civil contractors. The frameworks we use (lean methodology, systems thinking, continuous improvement) are adapted for how this work actually runs: variable sites, equipment and labor-dependent production, and owners who have grown past the field but whose business hasn't caught up. Our 12-month program includes a 3-day onsite to map your operation, two coaching calls per month, and daily WhatsApp access to keep momentum between sessions.
+ </p>
+ <p>
+ <strong>The Operations Review is where we decide if there's a real 2–5 point margin opportunity and whether we're the right partner to chase it.</strong> If the answer is yes on both sides, we get to work.
+ </p>
+ </div>
+ </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="final-cta">
+ <div class="container">
+ <p class="section-label">Ready?</p>
+ <h2>10 Minutes.<br /><em>Real Numbers</em>.<br />No Estimates.</h2>
+ <p class="final-cta-sub">
+ Run the free diagnostic. See exactly where your margin is going and what it takes to close the gap. If there's a real opportunity, we'll talk.
+ </p>
+ <div class="cta-block">
+ <a href="https://diagnostic.leandirt.com" class="btn-primary">Take the Free Diagnostic →</a>
+ <span class="cta-note">Built for $5M–$30M civil contractors: crushing, hauling, asphalt, grading.</span>
+ </div>
+ <p style="margin-top:32px;font-size:14px;color:var(--gray);">Already ran it? <a href="https://leandirt.co/ldc" style="color:var(--gold);text-decoration:none;" target="_blank" rel="noopener">Book your operations review →</a></p>
+ </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+ <div class="footer-inner">
+ <span class="footer-logo"><img src="https://diagnostic.leandirt.com/wordmark.png" alt="Lean Dirt" /></span>
+ <span class="footer-copy">© 2026 Lean Dirt. Operational Excellence for Contractors.</span>
+ </div>
+</footer>
+
+<script>
+ const observer = new IntersectionObserver((entries) => {
+ entries.forEach(el => {
+ if (el.isIntersecting) {
+ el.target.style.opacity = '1';
+ el.target.style.transform = 'translateY(0)';
+ observer.unobserve(el.target);
+ }
+ });
+ }, { threshold: 0.1 });
+
+ document.querySelectorAll('.symptom, .offer-item, .who-list li, .about-body p').forEach(el => {
+ el.style.opacity = '0';
+ el.style.transform = 'translateY(20px)';
+ el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+ observer.observe(el);
+ });
+</script>
+</body>
+</html>
