@@ -74,18 +74,23 @@ export async function POST(req: NextRequest) {
     const dealName = `${company || name || email || 'Anonymous'} — Diagnostic Lead`;
     const blocks = buildNotionBlocks(diagnosticData);
 
-    await fetch('https://api.notion.com/v1/pages', {
+    const oppRes = await fetch('https://api.notion.com/v1/pages', {
       method: 'POST',
       headers,
       body: JSON.stringify({
         parent: { database_id: OPPORTUNITIES_DB },
         properties: {
           'Deal Name': { title: [{ text: { content: dealName } }] },
-          ...(contactId ? { Contact: { relation: [{ id: contactId }] } } : {}),
+          ...(contactId ? { 'Associated Contact': { relation: [{ id: contactId }] } } : {}),
         },
         children: blocks,
       }),
     });
+    if (!oppRes.ok) {
+      const errBody = await oppRes.text();
+      console.error('Notion opportunity creation failed:', oppRes.status, errBody);
+      return NextResponse.json({ error: 'Notion error', detail: errBody }, { status: 500 });
+    }
 
     // Send email
     if (email) {
