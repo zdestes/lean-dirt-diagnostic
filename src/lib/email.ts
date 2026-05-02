@@ -31,9 +31,9 @@ export async function sendDiagnosticEmail({ to, name, company, diagnosticData }:
 
   const row = (label: string, cur: string, tgt: string, isKey = false) => `
     <tr style="border-bottom:1px solid #f0f0f0;${isKey ? 'background:#fff8ed;' : ''}">
-      <td style="padding:9px 12px;font-weight:${isKey ? '600' : '400'};color:${isKey ? '#92400e' : '#444'};font-size:13px;">${label}${isKey ? ' ⭐' : ''}</td>
-      <td style="padding:9px 12px;text-align:right;color:#777;font-size:13px;">${cur}</td>
-      <td style="padding:9px 12px;text-align:right;font-weight:600;color:${isKey ? '#b45309' : '#111'};font-size:13px;">${tgt}</td>
+      <td style="padding:7px 8px;font-weight:${isKey ? '600' : '400'};color:${isKey ? '#92400e' : '#444'};font-size:12px;">${label}${isKey ? ' ⭐' : ''}</td>
+      <td style="padding:7px 8px;text-align:right;color:#777;font-size:12px;white-space:nowrap;">${cur}</td>
+      <td style="padding:7px 8px;text-align:right;font-weight:600;color:${isKey ? '#b45309' : '#111'};font-size:12px;white-space:nowrap;">${tgt}</td>
     </tr>`;
 
   const lineBlocks = d.lines.map((line) => {
@@ -55,9 +55,9 @@ export async function sendDiagnosticEmail({ to, name, company, diagnosticData }:
       <table style="width:100%;border-collapse:collapse;">
         <thead>
           <tr style="background:#f5f5f5;">
-            <th style="padding:8px 12px;text-align:left;color:#888;font-size:11px;font-weight:600;text-transform:uppercase;">Metric</th>
-            <th style="padding:8px 12px;text-align:right;color:#888;font-size:11px;font-weight:600;text-transform:uppercase;">Today</th>
-            <th style="padding:8px 12px;text-align:right;color:#b45309;font-size:11px;font-weight:600;text-transform:uppercase;">Target</th>
+            <th style="padding:6px 8px;text-align:left;color:#888;font-size:11px;font-weight:600;text-transform:uppercase;">Metric</th>
+            <th style="padding:6px 8px;text-align:right;color:#888;font-size:11px;font-weight:600;text-transform:uppercase;">Today</th>
+            <th style="padding:6px 8px;text-align:right;color:#b45309;font-size:11px;font-weight:600;text-transform:uppercase;">Target</th>
           </tr>
         </thead>
         <tbody>
@@ -81,17 +81,17 @@ export async function sendDiagnosticEmail({ to, name, company, diagnosticData }:
       <table style="width:100%;border-collapse:collapse;">
         <thead>
           <tr>
-            <th style="padding:8px 12px;text-align:left;color:#888;font-size:11px;font-weight:600;text-transform:uppercase;">Metric</th>
-            <th style="padding:8px 12px;text-align:right;color:#666;font-size:11px;font-weight:600;text-transform:uppercase;">Today</th>
-            <th style="padding:8px 12px;text-align:right;color:#f59e0b;font-size:11px;font-weight:600;text-transform:uppercase;">Target</th>
+            <th style="padding:6px 8px;text-align:left;color:#888;font-size:11px;font-weight:600;text-transform:uppercase;">Metric</th>
+            <th style="padding:6px 8px;text-align:right;color:#666;font-size:11px;font-weight:600;text-transform:uppercase;">Today</th>
+            <th style="padding:6px 8px;text-align:right;color:#f59e0b;font-size:11px;font-weight:600;text-transform:uppercase;">Target</th>
           </tr>
         </thead>
         <tbody>
-          <tr style="border-bottom:1px solid #222;"><td style="padding:9px 12px;color:#ccc;font-size:13px;">Total Revenue</td><td style="padding:9px 12px;text-align:right;color:#888;font-size:13px;">${fmt$0(d.companyMetrics.totalRevenue)}</td><td style="padding:9px 12px;text-align:right;color:#fff;font-weight:600;font-size:13px;">${fmt$0(d.targetMetrics.requiredRevenue)}</td></tr>
-          <tr style="border-bottom:1px solid #222;"><td style="padding:9px 12px;color:#ccc;font-size:13px;">Total Gross Profit</td><td style="padding:9px 12px;text-align:right;color:#888;font-size:13px;">${fmt$0(d.companyMetrics.totalGrossProfit)}</td><td style="padding:9px 12px;text-align:right;color:#fff;font-weight:600;font-size:13px;">${fmt$0(targetGPTotal)}</td></tr>
-          <tr style="border-bottom:1px solid #222;"><td style="padding:9px 12px;color:#ccc;font-size:13px;">Blended GM%</td><td style="padding:9px 12px;text-align:right;color:#888;font-size:13px;">${fmtPct(d.companyMetrics.blendedGrossMarginPct)}</td><td style="padding:9px 12px;text-align:right;color:#fff;font-weight:600;font-size:13px;">${fmtPct(d.target.grossMarginGoalPct)}</td></tr>
-          <tr style="border-bottom:1px solid #222;"><td style="padding:9px 12px;color:#ccc;font-size:13px;">Overhead</td><td style="padding:9px 12px;text-align:right;color:#888;font-size:13px;">${fmt$0(d.overhead)}</td><td style="padding:9px 12px;text-align:right;color:#fff;font-weight:600;font-size:13px;">${fmt$0(d.target.overheadGuardrail)}</td></tr>
-          <tr style="background:#2d1f00;"><td style="padding:10px 12px;color:#fbbf24;font-weight:700;font-size:13px;">Net Profit</td><td style="padding:10px 12px;text-align:right;color:#888;font-size:13px;">${fmt$0(d.companyMetrics.netProfit)}</td><td style="padding:10px 12px;text-align:right;color:#f59e0b;font-weight:800;font-size:16px;">${fmt$0(d.target.netProfitGoal)}</td></tr>
+          <tr style="border-bottom:1px solid #222;"><td style="padding:7px 8px;color:#ccc;font-size:12px;">Total Revenue</td><td style="padding:7px 8px;text-align:right;color:#888;font-size:12px;white-space:nowrap;">${fmt$0(d.companyMetrics.totalRevenue)}</td><td style="padding:7px 8px;text-align:right;color:#fff;font-weight:600;font-size:12px;white-space:nowrap;">${fmt$0(d.targetMetrics.requiredRevenue)}</td></tr>
+          <tr style="border-bottom:1px solid #222;"><td style="padding:7px 8px;color:#ccc;font-size:12px;">Total Gross Profit</td><td style="padding:7px 8px;text-align:right;color:#888;font-size:12px;white-space:nowrap;">${fmt$0(d.companyMetrics.totalGrossProfit)}</td><td style="padding:7px 8px;text-align:right;color:#fff;font-weight:600;font-size:12px;white-space:nowrap;">${fmt$0(targetGPTotal)}</td></tr>
+          <tr style="border-bottom:1px solid #222;"><td style="padding:7px 8px;color:#ccc;font-size:12px;">Blended GM%</td><td style="padding:7px 8px;text-align:right;color:#888;font-size:12px;white-space:nowrap;">${fmtPct(d.companyMetrics.blendedGrossMarginPct)}</td><td style="padding:7px 8px;text-align:right;color:#fff;font-weight:600;font-size:12px;white-space:nowrap;">${fmtPct(d.target.grossMarginGoalPct)}</td></tr>
+          <tr style="border-bottom:1px solid #222;"><td style="padding:7px 8px;color:#ccc;font-size:12px;">Overhead</td><td style="padding:7px 8px;text-align:right;color:#888;font-size:12px;white-space:nowrap;">${fmt$0(d.overhead)}</td><td style="padding:7px 8px;text-align:right;color:#fff;font-weight:600;font-size:12px;white-space:nowrap;">${fmt$0(d.target.overheadGuardrail)}</td></tr>
+          <tr style="background:#2d1f00;"><td style="padding:8px 8px;color:#fbbf24;font-weight:700;font-size:12px;">Net Profit</td><td style="padding:8px 8px;text-align:right;color:#888;font-size:12px;white-space:nowrap;">${fmt$0(d.companyMetrics.netProfit)}</td><td style="padding:8px 8px;text-align:right;color:#f59e0b;font-weight:800;font-size:14px;white-space:nowrap;">${fmt$0(d.target.netProfitGoal)}</td></tr>
         </tbody>
       </table>
     </div>`;
@@ -101,13 +101,13 @@ export async function sendDiagnosticEmail({ to, name, company, diagnosticData }:
 <html>
 <head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
 <body style="margin:0;padding:0;background:#f9f6f2;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;">
-  <div style="max-width:600px;margin:40px auto;background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,0.08);">
+  <div style="max-width:600px;width:100%;margin:0 auto;background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,0.08);box-sizing:border-box;">
 
     <div style="background:#111;padding:28px 32px;">
       <img src="https://diagnostic.leandirt.com/wordmark.png" alt="Lean Dirt" style="height:28px;width:auto;" />
     </div>
 
-    <div style="padding:32px 32px 24px;">
+    <div style="padding:24px 16px 16px;">
       <h1 style="margin:0 0 8px;font-size:22px;color:#111;">Your diagnostic results${name ? ', ' + name.split(' ')[0] : ''}.</h1>
       <p style="margin:0 0 28px;color:#555;font-size:15px;line-height:1.6;">Here's what you built. The starred metric on each line is the cost per unit ceiling — that's the number that drives every operational decision from here.</p>
 
@@ -115,7 +115,7 @@ export async function sendDiagnosticEmail({ to, name, company, diagnosticData }:
       ${companyTable}
     </div>
 
-    <div style="margin:0 32px 40px;background:#111;border-radius:12px;padding:28px 24px;text-align:center;">
+    <div style="margin:0 16px 32px;background:#111;border-radius:12px;padding:24px 16px;text-align:center;">
       <p style="margin:0 0 6px;color:#fff;font-size:18px;font-weight:700;">Ready to close the gap?</p>
       <p style="margin:0 0 20px;color:#aaa;font-size:14px;">The next step is identifying the constraint keeping you from hitting these numbers. That's a 20-minute conversation.</p>
       <a href="https://leandirt.co/TYWjkBF" style="display:inline-block;background:#f59e0b;color:#fff;font-weight:700;font-size:16px;padding:14px 32px;border-radius:10px;text-decoration:none;">Book a call with Zack</a>
