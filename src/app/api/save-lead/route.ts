@@ -81,6 +81,7 @@ export async function POST(req: NextRequest) {
         parent: { database_id: OPPORTUNITIES_DB },
         properties: {
           'Deal Name': { title: [{ text: { content: dealName } }] },
+          'Source': { multi_select: [{ name: 'Diagnostic' }] },
           ...(contactId ? { 'Associated Contact': { relation: [{ id: contactId }] } } : {}),
         },
         children: blocks,
