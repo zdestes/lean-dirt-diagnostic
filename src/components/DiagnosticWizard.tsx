@@ -355,7 +355,7 @@ export default function DiagnosticWizard() {
                     onChange={(v) => setTarget((t) => ({ ...t, grossMarginGoalByLine: { ...t.grossMarginGoalByLine, [line.id]: v } }))}
                     min={sliderMin}
                     max={sliderMax}
-                    step={0.5}
+                    step={0.1}
                     format={fmtPct}
                   />
                   <div className="bg-amber-50 border border-amber-200 rounded-xl p-4 space-y-1">
