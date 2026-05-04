@@ -497,10 +497,16 @@ export default function DiagnosticWizard() {
                   </div>
                   {saveError && <p className="text-red-400 text-sm">{saveError}</p>}
                   <button
-                    onClick={async () => { await handleSaveLead(); window.open('https://leandirt.co/TYWjkBF', '_blank'); }}
+                    onClick={async () => { await handleSaveLead(false); window.open('https://leandirt.co/TYWjkBF', '_blank'); }}
                     disabled={!email || saving}
                     className="w-full bg-amber-500 hover:bg-amber-400 disabled:bg-gray-700 disabled:text-gray-500 text-white font-bold py-4 rounded-xl transition-colors text-lg">
                     {saving ? 'Saving…' : 'Book a call with Zack →'}
+                  </button>
+                  <button
+                    onClick={() => handleSaveLead(false)}
+                    disabled={!email || saving}
+                    className="w-full border border-gray-600 hover:border-gray-400 disabled:opacity-40 text-gray-300 hover:text-white font-medium py-3 rounded-xl transition-colors text-sm">
+                    Just send me a copy →
                   </button>
                   <p className="text-xs text-gray-500 text-center">No spam. Your numbers stay private.</p>
                 </div>
