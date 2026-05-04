@@ -155,7 +155,7 @@ export default function DiagnosticWizard() {
     }
   };
 
-  const handleSaveLead = async () => {
+  const handleSaveLead = async (redirect = true) => {
     if (!email) return;
     setSaving(true);
     setSaveError('');
@@ -166,7 +166,7 @@ export default function DiagnosticWizard() {
         body: JSON.stringify({ email, name, company, diagnosticData: { lines, overhead, companyMetrics, target, targetMetrics } }),
       });
       if (!res.ok) throw new Error();
-      setStep(5);
+      if (redirect) setStep(5);
     } catch {
       setSaveError('Something went wrong. Please try again.');
     } finally {
@@ -471,25 +471,44 @@ export default function DiagnosticWizard() {
             )}
 
             {showGap && (
-              <div className="bg-gray-900 text-white rounded-2xl p-8 space-y-4">
-                <p className="text-gray-400 text-sm font-semibold uppercase tracking-widest">What comes next</p>
-                <h2 className="text-2xl font-bold leading-tight">The gap is visible. Now find the constraint.</h2>
-                <p className="text-gray-300 text-sm">The numbers show what has to change. The next step is a conversation to identify the one constraint keeping you from closing it — not a sales pitch, a working session.</p>
-                <a href="https://leandirt.co/TYWjkBF" target="_blank" rel="noopener"
-                  className="block w-full text-center bg-amber-500 hover:bg-amber-400 text-white font-bold py-4 rounded-xl transition-colors text-lg">
-                  Book a call with Zack →
-                </a>
+              <div className="bg-gray-900 text-white rounded-2xl p-8 space-y-5">
+                <div>
+                  <p className="text-gray-400 text-sm font-semibold uppercase tracking-widest mb-2">What comes next</p>
+                  <h2 className="text-2xl font-bold leading-tight">The gap is visible. Now find the constraint.</h2>
+                  <p className="text-gray-300 text-sm mt-2">The numbers show what has to change. Book a call and we&apos;ll walk through your results together — identify the one constraint keeping you from closing the gap.</p>
+                </div>
+                <div className="space-y-3">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div className="flex flex-col gap-1">
+                      <label className="text-xs font-medium text-gray-400">Your name</label>
+                      <input type="text" value={name} onChange={e => setName(e.target.value)} placeholder="First Last"
+                        className="bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-white placeholder-gray-500 text-sm outline-none focus:ring-2 focus:ring-amber-500" />
+                    </div>
+                    <div className="flex flex-col gap-1">
+                      <label className="text-xs font-medium text-gray-400">Company name</label>
+                      <input type="text" value={company} onChange={e => setCompany(e.target.value)} placeholder="Your business name"
+                        className="bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-white placeholder-gray-500 text-sm outline-none focus:ring-2 focus:ring-amber-500" />
+                    </div>
+                  </div>
+                  <div className="flex flex-col gap-1">
+                    <label className="text-xs font-medium text-gray-400">Email address</label>
+                    <input type="email" value={email} onChange={e => setEmail(e.target.value)} placeholder="you@company.com"
+                      className="bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-white placeholder-gray-500 text-sm outline-none focus:ring-2 focus:ring-amber-500" />
+                  </div>
+                  {saveError && <p className="text-red-400 text-sm">{saveError}</p>}
+                  <button
+                    onClick={async () => { await handleSaveLead(); window.open('https://leandirt.co/TYWjkBF', '_blank'); }}
+                    disabled={!email || saving}
+                    className="w-full bg-amber-500 hover:bg-amber-400 disabled:bg-gray-700 disabled:text-gray-500 text-white font-bold py-4 rounded-xl transition-colors text-lg">
+                    {saving ? 'Saving…' : 'Book a call with Zack →'}
+                  </button>
+                  <p className="text-xs text-gray-500 text-center">No spam. Your numbers stay private.</p>
+                </div>
               </div>
             )}
 
             <div className="flex gap-3">
               <button onClick={() => setStep(1)} className="px-6 py-3 border border-gray-300 rounded-xl text-gray-700 hover:bg-gray-50 font-medium">← Back</button>
-              {showGap && (
-                <button onClick={() => setStep('gate')}
-                  className="flex-1 border border-gray-300 bg-white hover:bg-gray-50 text-gray-700 font-medium py-3 rounded-xl transition-colors">
-                  Save a copy of my results →
-                </button>
-              )}
             </div>
           </div>
         )}
@@ -508,7 +527,7 @@ export default function DiagnosticWizard() {
               <TextInput label="Email address" value={email} onChange={setEmail} placeholder="you@company.com" type="email" />
               <p className="text-xs text-gray-400">No spam. Your numbers stay private.</p>
               {saveError && <p className="text-red-500 text-sm">{saveError}</p>}
-              <button onClick={handleSaveLead} disabled={!email || saving}
+              <button onClick={() => handleSaveLead(true)} disabled={!email || saving}
                 className="w-full bg-amber-500 hover:bg-amber-600 disabled:bg-gray-200 disabled:text-gray-400 text-white font-semibold py-4 rounded-xl transition-colors">
                 {saving ? 'Saving…' : 'Save my results →'}
               </button>
