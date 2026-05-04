@@ -27,8 +27,8 @@ const EMPTY_LINE = (): LineOfBusiness => ({
 const DEFAULT_TARGET: TargetInputs = {
   targetDate: '',
   netProfitGoal: 0,
-  grossMarginGoalPct: 0,
   overheadGuardrail: 0,
+  grossMarginGoalByLine: {},
 };
 
 function NumInput({ label, value, onChange, prefix, suffix, placeholder }: {
@@ -100,7 +100,7 @@ export default function DiagnosticWizard() {
   const [lines, setLines] = useState<LineOfBusiness[]>([EMPTY_LINE()]);
   const [overhead, setOverhead] = useState(0);
   const [target, setTarget] = useState<TargetInputs>(DEFAULT_TARGET);
-  const [revenuePerUnitOverrides, setRevenuePerUnitOverrides] = useState<Record<string, number>>({});
+
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
   const [company, setCompany] = useState('');
@@ -109,10 +109,8 @@ export default function DiagnosticWizard() {
   const [autoSaved, setAutoSaved] = useState(false);
 
   const companyMetrics = calcCompanyMetrics(lines, overhead);
-  const targetMetrics = calcTargetMetrics(lines, target, revenuePerUnitOverrides);
+  const targetMetrics = calcTargetMetrics(lines, target);
 
-  const gmMin = Math.max(1, Math.floor(companyMetrics.blendedGrossMarginPct));
-  const gmMax = Math.min(80, gmMin + 20);
   const ohMin = Math.round(overhead * 0.5 / 1000) * 1000;
   const ohMax = Math.round(overhead * 2.5 / 1000) * 1000 || 1000000;
 
@@ -126,13 +124,17 @@ export default function DiagnosticWizard() {
   const enterStep2 = () => {
     setTarget((t) => ({
       ...t,
-      grossMarginGoalPct: t.grossMarginGoalPct || parseFloat((companyMetrics.blendedGrossMarginPct + 2).toFixed(1)),
       overheadGuardrail: t.overheadGuardrail || overhead,
+      grossMarginGoalByLine: lines.reduce((acc, line) => {
+        const cur = calcLineMetrics(line);
+        acc[line.id] = t.grossMarginGoalByLine[line.id] ?? parseFloat((cur.grossMarginPct + 2).toFixed(1));
+        return acc;
+      }, {} as Record<string, number>),
     }));
     setStep(2);
   };
 
-  const showGap = target.netProfitGoal > 0 && target.grossMarginGoalPct > 0 && target.overheadGuardrail > 0 && !!target.targetDate;
+  const showGap = target.netProfitGoal > 0 && target.overheadGuardrail > 0 && !!target.targetDate && lines.every((l) => target.grossMarginGoalByLine[l.id] !== undefined);
 
   const autoSaveLead = async () => {
     if (autoSaved) return;
@@ -325,31 +327,55 @@ export default function DiagnosticWizard() {
         {step === 2 && (
           <div className="space-y-8">
             <div>
-              <h1 className="text-3xl font-bold text-gray-900">Where do you want to be? What does it take?</h1>
-              <p className="text-gray-600 mt-2">Set your goal, adjust the levers, and watch the gap update in real time.</p>
+              <h1 className="text-3xl font-bold text-gray-900">Set your margin targets.</h1>
+              <p className="text-gray-600 mt-2">For each line of business, set a target gross margin %. This is your operational improvement goal — lower cost per unit.</p>
             </div>
 
-            {/* Goals + sliders */}
+            {/* Per-line GM sliders */}
+            {lines.map((line) => {
+              const cur = calcLineMetrics(line);
+              const targetGM = target.grossMarginGoalByLine[line.id] ?? cur.grossMarginPct;
+              const gm = targetGM / 100;
+              const targetDE = line.revenue * (1 - gm);
+              const maxCost = line.units > 0 ? targetDE / line.units : 0;
+              const curCost = cur.costPerUnit;
+              const cutNeeded = curCost - maxCost;
+              const sliderMin = Math.max(1, Math.floor(cur.grossMarginPct));
+              const sliderMax = Math.min(90, Math.floor(cur.grossMarginPct) + 25);
+              return (
+                <div key={line.id} className="bg-white rounded-2xl border border-gray-200 p-6 space-y-5">
+                  <h2 className="font-semibold text-gray-800">{line.name}</h2>
+                  <div className="grid grid-cols-2 gap-3">
+                    <MetricBadge label="Today's GM%" value={fmtPct(cur.grossMarginPct)} />
+                    <MetricBadge label={`Today's cost / ${line.unitName}`} value={fmt$(cur.costPerUnit)} />
+                  </div>
+                  <SliderInput
+                    label="Target Gross Margin %"
+                    value={targetGM}
+                    onChange={(v) => setTarget((t) => ({ ...t, grossMarginGoalByLine: { ...t.grossMarginGoalByLine, [line.id]: v } }))}
+                    min={sliderMin}
+                    max={sliderMax}
+                    step={0.5}
+                    format={fmtPct}
+                  />
+                  <div className="bg-amber-50 border border-amber-200 rounded-xl p-4 space-y-1">
+                    <div className="text-xs text-amber-700 uppercase tracking-wide font-semibold">⭐ Target cost / {line.unitName}</div>
+                    <div className="text-2xl font-bold text-amber-700">{fmt$(maxCost)}</div>
+                    <div className="text-xs text-amber-600">Today: {fmt$(curCost)}{cutNeeded > 0 ? ` — cut ${fmt$(cutNeeded)} per ${line.unitName}` : ' — already at target'}</div>
+                  </div>
+                </div>
+              );
+            })}
+
+            {/* Company targets card */}
             <div className="bg-white rounded-2xl border border-gray-200 p-6 space-y-5">
-              <div className="grid grid-cols-2 gap-4">
-                <TextInput label="Target date" value={target.targetDate} onChange={(v) => setTarget((t) => ({ ...t, targetDate: v }))} placeholder="e.g. December 2027" />
-                <NumInput label="Net profit goal (annual)" value={target.netProfitGoal} onChange={(v) => setTarget((t) => ({ ...t, netProfitGoal: v }))} prefix="$" />
+              <h2 className="font-semibold text-gray-800">Company Targets</h2>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <NumInput label="Net Profit Goal" value={target.netProfitGoal} onChange={(v) => setTarget((t) => ({ ...t, netProfitGoal: v }))} prefix="$" placeholder="0" />
+                <TextInput label="Target Date" value={target.targetDate} onChange={(v) => setTarget((t) => ({ ...t, targetDate: v }))} type="date" />
               </div>
-              <hr className="border-gray-100" />
               <SliderInput
-                label="Gross margin goal"
-                value={target.grossMarginGoalPct}
-                onChange={(v) => setTarget((t) => ({ ...t, grossMarginGoalPct: v }))}
-                min={gmMin} max={gmMax} step={0.1}
-                format={(v) => fmtPct(v)}
-              />
-              {target.grossMarginGoalPct > 0 && target.grossMarginGoalPct <= companyMetrics.blendedGrossMarginPct && (
-                <p className="text-amber-700 text-sm bg-amber-50 border border-amber-200 rounded-lg px-3 py-2">
-                  ⚠️ GM goal ({fmtPct(target.grossMarginGoalPct)}) is at or below last year&apos;s actual ({fmtPct(companyMetrics.blendedGrossMarginPct)}). It should improve.
-                </p>
-              )}
-              <SliderInput
-                label="Overhead guardrail (max you'll allow)"
+                label="Overhead Guardrail (max you'll allow)"
                 value={target.overheadGuardrail}
                 onChange={(v) => setTarget((t) => ({ ...t, overheadGuardrail: v }))}
                 min={ohMin} max={ohMax} step={10000}
@@ -369,33 +395,19 @@ export default function DiagnosticWizard() {
               </div>
             )}
 
-            {/* Per-line comparison tables - visible once goal is set */}
+            {/* Per-line comparison tables */}
             {showGap && lines.map((line) => {
               const cur = calcLineMetrics(line);
               const reqRev = targetMetrics.requiredRevenueByLine[line.id] ?? 0;
               const reqOut = targetMetrics.requiredOutputByLine[line.id] ?? 0;
               const maxCost = targetMetrics.maxCostPerUnitByLine[line.id] ?? 0;
-              const targetRpu = targetMetrics.targetRevenuePerUnit[line.id] ?? cur.revenuePerUnit;
-              const targetGP = reqRev * (target.grossMarginGoalPct / 100);
-              const targetDE = reqRev - targetGP;
+              const targetGP = targetMetrics.targetGPByLine[line.id] ?? 0;
+              const targetDE = targetMetrics.targetDEByLine[line.id] ?? 0;
+              const lineTargetGM = target.grossMarginGoalByLine[line.id] ?? 0;
               return (
                 <div key={line.id} className="bg-white rounded-2xl border border-gray-200 overflow-hidden">
-                  <div className="px-6 py-4 bg-gray-50 border-b border-gray-200 flex flex-wrap items-center justify-between gap-2">
+                  <div className="px-6 py-4 bg-gray-50 border-b border-gray-200">
                     <h2 className="font-semibold text-gray-800">{line.name}</h2>
-                    <div className="flex items-center gap-2 text-sm text-gray-500">
-                      <span>Target rev / {line.unitName}:</span>
-                      <input
-                        type="number" min={0}
-                        placeholder={cur.revenuePerUnit.toFixed(2)}
-                        value={revenuePerUnitOverrides[line.id] ?? ''}
-                        onChange={(e) => setRevenuePerUnitOverrides((prev) => ({
-                          ...prev,
-                          [line.id]: parseFloat(e.target.value) || cur.revenuePerUnit,
-                        }))}
-                        className="border border-gray-300 rounded px-2 py-1 text-sm w-24 text-center focus:ring-2 focus:ring-amber-500 outline-none"
-                      />
-                      <span className="text-gray-400">(now: {fmt$(cur.revenuePerUnit)})</span>
-                    </div>
                   </div>
                   <table className="w-full text-sm">
                     <thead>
@@ -410,9 +422,9 @@ export default function DiagnosticWizard() {
                         { label: 'Revenue', cur: fmt$0(line.revenue), tgt: fmt$0(reqRev) },
                         { label: 'Direct Expenses', cur: fmt$0(line.directExpenses), tgt: fmt$0(targetDE) },
                         { label: 'Gross Profit', cur: fmt$0(cur.grossProfit), tgt: fmt$0(targetGP) },
-                        { label: 'Gross Margin %', cur: fmtPct(cur.grossMarginPct), tgt: fmtPct(target.grossMarginGoalPct) },
+                        { label: 'Gross Margin %', cur: fmtPct(cur.grossMarginPct), tgt: fmtPct(lineTargetGM) },
                         { label: `Output (${line.unitName})`, cur: fmtNum(line.units), tgt: fmtNum(reqOut) },
-                        { label: `Rev / ${line.unitName}`, cur: fmt$(cur.revenuePerUnit), tgt: fmt$(targetRpu) },
+                        { label: `Rev / ${line.unitName}`, cur: fmt$(cur.revenuePerUnit), tgt: fmt$(cur.revenuePerUnit) },
                         { label: `Cost / ${line.unitName}`, cur: fmt$(cur.costPerUnit), tgt: fmt$(maxCost), isKey: true },
                       ].map((row) => (
                         <tr key={row.label} className={row.isKey ? 'bg-amber-50' : ''}>
@@ -442,8 +454,8 @@ export default function DiagnosticWizard() {
                   <tbody className="divide-y divide-gray-800">
                     {[
                       { label: 'Total Revenue', cur: fmt$0(companyMetrics.totalRevenue), tgt: fmt$0(targetMetrics.requiredRevenue) },
-                      { label: 'Total Gross Profit', cur: fmt$0(companyMetrics.totalGrossProfit), tgt: fmt$0(targetMetrics.requiredRevenue * (target.grossMarginGoalPct / 100)) },
-                      { label: 'Blended GM%', cur: fmtPct(companyMetrics.blendedGrossMarginPct), tgt: fmtPct(target.grossMarginGoalPct) },
+                      { label: 'Total Gross Profit', cur: fmt$0(companyMetrics.totalGrossProfit), tgt: fmt$0(Object.values(targetMetrics.targetGPByLine).reduce((s, v) => s + v, 0)) },
+                      { label: 'Blended GM%', cur: fmtPct(companyMetrics.blendedGrossMarginPct), tgt: fmtPct(targetMetrics.blendedGMAtTarget) },
                       { label: 'Overhead', cur: fmt$0(overhead), tgt: fmt$0(target.overheadGuardrail) },
                       { label: 'Net Profit', cur: fmt$0(companyMetrics.netProfit), tgt: fmt$0(target.netProfitGoal), isKey: true },
                     ].map((row) => (
@@ -455,47 +467,6 @@ export default function DiagnosticWizard() {
                     ))}
                   </tbody>
                 </table>
-              </div>
-            )}
-
-            {/* CTA */}
-            {showGap && (
-              <div className="bg-gray-900 text-white rounded-2xl p-6 space-y-4">
-                <h2 className="text-xl font-bold">Ready to work through what this means?</h2>
-                <p className="text-gray-300 text-sm">The gap is in your numbers. What comes next is identifying the one constraint keeping you from closing it. That&apos;s a conversation, not a worksheet.</p>
-                <div className="bg-gray-800 rounded-xl p-4 space-y-3">
-                  <p className="text-amber-400 text-sm font-medium">Your diagnostic will be shared with Zack before the call so you can skip the setup and get straight to what matters.</p>
-                  <input
-                    type="text"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                    placeholder="Your name"
-                    className="w-full px-4 py-3 rounded-lg bg-gray-700 border border-gray-600 text-white placeholder-gray-400 outline-none focus:ring-2 focus:ring-amber-500"
-                  />
-                  <input
-                    type="text"
-                    value={company}
-                    onChange={(e) => setCompany(e.target.value)}
-                    placeholder="Company name"
-                    className="w-full px-4 py-3 rounded-lg bg-gray-700 border border-gray-600 text-white placeholder-gray-400 outline-none focus:ring-2 focus:ring-amber-500"
-                  />
-                  <input
-                    type="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    placeholder="Your email"
-                    className="w-full px-4 py-3 rounded-lg bg-gray-700 border border-gray-600 text-white placeholder-gray-400 outline-none focus:ring-2 focus:ring-amber-500"
-                  />
-                </div>
-                <a
-                  onClick={email ? autoSaveLead : (e) => e.preventDefault()}
-                  href={email ? `https://leandirt.co/TYWjkBF?email=${encodeURIComponent(email)}` : '#'}
-                  className={`block w-full text-center font-bold py-4 rounded-xl transition-colors text-lg ${
-                    email ? 'bg-amber-500 hover:bg-amber-400 text-white cursor-pointer' : 'bg-gray-600 text-gray-400 cursor-not-allowed'
-                  }`}
-                >
-                  Book a free review call with Zack →
-                </a>
               </div>
             )}
 

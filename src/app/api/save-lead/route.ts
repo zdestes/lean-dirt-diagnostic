@@ -112,13 +112,16 @@ function buildNotionBlocks(data: Record<string, unknown>): Block[] {
     lines: Array<{ id: string; name: string; revenue: number; directExpenses: number; units: number; unitName: string }>;
     overhead: number;
     companyMetrics: { totalRevenue: number; totalGrossProfit: number; blendedGrossMarginPct: number; netProfit: number };
-    target: { targetDate: string; netProfitGoal: number; grossMarginGoalPct: number; overheadGuardrail: number };
+    target: { targetDate: string; netProfitGoal: number; overheadGuardrail: number; grossMarginGoalByLine: Record<string, number> };
     targetMetrics: {
       requiredRevenue: number;
       requiredRevenueByLine: Record<string, number>;
       requiredOutputByLine: Record<string, number>;
       maxCostPerUnitByLine: Record<string, number>;
-      targetRevenuePerUnit: Record<string, number>;
+      targetGPByLine: Record<string, number>;
+      targetDEByLine: Record<string, number>;
+      blendedGMAtTarget: number;
+      netProfitAtTarget: number;
     };
   };
 
@@ -150,17 +153,17 @@ function buildNotionBlocks(data: Record<string, unknown>): Block[] {
     const reqRev = d.targetMetrics.requiredRevenueByLine[line.id] ?? 0;
     const reqOut = d.targetMetrics.requiredOutputByLine[line.id] ?? 0;
     const maxCost = d.targetMetrics.maxCostPerUnitByLine[line.id] ?? 0;
-    const targetRpu = d.targetMetrics.targetRevenuePerUnit[line.id] ?? revUnit;
-    const targetGP = reqRev * (d.target.grossMarginGoalPct / 100);
-    const targetDE = reqRev - targetGP;
+    const lineTargetGM = (d.target.grossMarginGoalByLine ?? {})[line.id] ?? 0;
+    const targetGP = d.targetMetrics.targetGPByLine[line.id] ?? 0;
+    const targetDE = d.targetMetrics.targetDEByLine[line.id] ?? 0;
 
     blocks.push(h3(line.name));
     blocks.push(bullet(`Revenue: ${fmt$0(line.revenue)}  →  Target: ${fmt$0(reqRev)}`));
     blocks.push(bullet(`Direct Expenses: ${fmt$0(line.directExpenses)}  →  Target: ${fmt$0(targetDE)}`));
     blocks.push(bullet(`Gross Profit: ${fmt$0(gp)}  →  Target: ${fmt$0(targetGP)}`));
-    blocks.push(bullet(`Gross Margin %: ${fmtPct(gm)}  →  Target: ${fmtPct(d.target.grossMarginGoalPct)}`));
+    blocks.push(bullet(`Gross Margin %: ${fmtPct(gm)}  →  Target: ${fmtPct(lineTargetGM)}`));
     blocks.push(bullet(`Output (${line.unitName}): ${fmtNum(line.units)}  →  Target: ${fmtNum(reqOut)}`));
-    blocks.push(bullet(`Rev / ${line.unitName}: ${fmt$(revUnit)}  →  Target: ${fmt$(targetRpu)}`));
+    blocks.push(bullet(`Rev / ${line.unitName}: ${fmt$(revUnit)} (held constant)`));
     blocks.push(callout(`⭐ Max Cost / ${line.unitName}: ${fmt$(costUnit)} today  →  Must hit ${fmt$(maxCost)}`, '🎯'));
   }
 
@@ -170,7 +173,7 @@ function buildNotionBlocks(data: Record<string, unknown>): Block[] {
   blocks.push(h2('🎯 Profit Target & Gap'));
   blocks.push(bullet(`Target Date: ${d.target.targetDate || 'Not set'}`));
   blocks.push(bullet(`Net Profit Goal: ${fmt$0(d.target.netProfitGoal)}`));
-  blocks.push(bullet(`Gross Margin Goal: ${fmtPct(d.target.grossMarginGoalPct)}`));
+  blocks.push(bullet(`Blended GM at Target: ${fmtPct(d.targetMetrics.blendedGMAtTarget)}`));
   blocks.push(bullet(`Overhead Guardrail: ${fmt$0(d.target.overheadGuardrail)}`));
   blocks.push(bullet(`Required Revenue: ${fmt$0(d.targetMetrics.requiredRevenue)}`));
 

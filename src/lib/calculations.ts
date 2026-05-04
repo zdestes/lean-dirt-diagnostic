@@ -24,8 +24,8 @@ export interface CompanyMetrics {
 export interface TargetInputs {
   targetDate: string;
   netProfitGoal: number;
-  grossMarginGoalPct: number;
   overheadGuardrail: number;
+  grossMarginGoalByLine: Record<string, number>; // line.id → GM% as 0-100
 }
 
 export interface TargetMetrics {
@@ -33,7 +33,10 @@ export interface TargetMetrics {
   requiredRevenueByLine: Record<string, number>;
   requiredOutputByLine: Record<string, number>;
   maxCostPerUnitByLine: Record<string, number>;
-  targetRevenuePerUnit: Record<string, number>;
+  targetGPByLine: Record<string, number>;
+  targetDEByLine: Record<string, number>;
+  blendedGMAtTarget: number;
+  netProfitAtTarget: number;
 }
 
 export function calcLineMetrics(line: LineOfBusiness): LineMetrics {
@@ -56,29 +59,52 @@ export function calcCompanyMetrics(lines: LineOfBusiness[], overhead: number): C
 export function calcTargetMetrics(
   lines: LineOfBusiness[],
   target: TargetInputs,
-  revenuePerUnitOverrides: Record<string, number>
 ): TargetMetrics {
-  const gmDecimal = target.grossMarginGoalPct / 100;
-  const requiredRevenue =
-    gmDecimal > 0 ? (target.netProfitGoal + target.overheadGuardrail) / gmDecimal : 0;
+  const totalRevenue = lines.reduce((s, l) => s + l.revenue, 0);
 
-  const totalCurrentRevenue = lines.reduce((s, l) => s + l.revenue, 0);
+  const targetGPByLine: Record<string, number> = {};
+  const targetDEByLine: Record<string, number> = {};
+  const maxCostPerUnitByLine: Record<string, number> = {};
+
+  for (const line of lines) {
+    const gm = (target.grossMarginGoalByLine[line.id] ?? 0) / 100;
+    const targetGP = line.revenue * gm;
+    const targetDE = line.revenue * (1 - gm);
+    targetGPByLine[line.id] = targetGP;
+    targetDEByLine[line.id] = targetDE;
+    maxCostPerUnitByLine[line.id] = line.units > 0 ? targetDE / line.units : 0;
+  }
+
+  const totalGPAtTarget = Object.values(targetGPByLine).reduce((s, v) => s + v, 0);
+  const blendedGMAtTarget = totalRevenue > 0 ? (totalGPAtTarget / totalRevenue) * 100 : 0;
+  const netProfitAtTarget = totalGPAtTarget - target.overheadGuardrail;
 
   const requiredRevenueByLine: Record<string, number> = {};
   const requiredOutputByLine: Record<string, number> = {};
-  const maxCostPerUnitByLine: Record<string, number> = {};
-  const targetRevenuePerUnit: Record<string, number> = {};
+  let requiredRevenue = totalRevenue;
 
-  for (const line of lines) {
-    const share = totalCurrentRevenue > 0 ? line.revenue / totalCurrentRevenue : 1 / lines.length;
-    const lineRequiredRevenue = requiredRevenue * share;
-    requiredRevenueByLine[line.id] = lineRequiredRevenue;
+  if (target.netProfitGoal > 0 && totalGPAtTarget > 0) {
+    const requiredTotalGP = target.netProfitGoal + target.overheadGuardrail;
+    const gpScaleFactor = requiredTotalGP / totalGPAtTarget;
+    requiredRevenue = 0;
 
-    const revPerUnit = revenuePerUnitOverrides[line.id] ?? calcLineMetrics(line).revenuePerUnit;
-    targetRevenuePerUnit[line.id] = revPerUnit;
-
-    requiredOutputByLine[line.id] = revPerUnit > 0 ? lineRequiredRevenue / revPerUnit : 0;
-    maxCostPerUnitByLine[line.id] = revPerUnit * (1 - gmDecimal);
+    for (const line of lines) {
+      const gm = (target.grossMarginGoalByLine[line.id] ?? 0) / 100;
+      const lineReqGP = targetGPByLine[line.id] * gpScaleFactor;
+      const lineReqRev = gm > 0 ? lineReqGP / gm : line.revenue;
+      const revPerUnit = line.units > 0 ? line.revenue / line.units : 0;
+      requiredRevenueByLine[line.id] = lineReqRev;
+      requiredOutputByLine[line.id] = revPerUnit > 0 ? lineReqRev / revPerUnit : 0;
+      requiredRevenue += lineReqRev;
+    }
+  } else {
+    for (const line of lines) {
+      requiredRevenueByLine[line.id] = line.revenue;
+      const revPerUnit = line.units > 0 ? line.revenue / line.units : 0;
+      requiredOutputByLine[line.id] = line.units;
+      void revPerUnit; // suppress unused warning
+    }
+    requiredRevenue = totalRevenue;
   }
 
   return {
@@ -86,7 +112,10 @@ export function calcTargetMetrics(
     requiredRevenueByLine,
     requiredOutputByLine,
     maxCostPerUnitByLine,
-    targetRevenuePerUnit,
+    targetGPByLine,
+    targetDEByLine,
+    blendedGMAtTarget,
+    netProfitAtTarget,
   };
 }
 

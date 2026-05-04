@@ -14,13 +14,16 @@ export async function sendDiagnosticEmail({ to, name, company, diagnosticData }:
     lines: Array<{ id: string; name: string; revenue: number; directExpenses: number; units: number; unitName: string }>;
     overhead: number;
     companyMetrics: { totalRevenue: number; totalGrossProfit: number; blendedGrossMarginPct: number; netProfit: number };
-    target: { targetDate: string; netProfitGoal: number; grossMarginGoalPct: number; overheadGuardrail: number };
+    target: { targetDate: string; netProfitGoal: number; overheadGuardrail: number; grossMarginGoalByLine: Record<string, number> };
     targetMetrics: {
       requiredRevenue: number;
       requiredRevenueByLine: Record<string, number>;
       requiredOutputByLine: Record<string, number>;
       maxCostPerUnitByLine: Record<string, number>;
-      targetRevenuePerUnit: Record<string, number>;
+      targetGPByLine: Record<string, number>;
+      targetDEByLine: Record<string, number>;
+      blendedGMAtTarget: number;
+      netProfitAtTarget: number;
     };
   };
 
@@ -45,9 +48,9 @@ export async function sendDiagnosticEmail({ to, name, company, diagnosticData }:
     const reqRev = d.targetMetrics.requiredRevenueByLine[line.id] ?? 0;
     const reqOut = d.targetMetrics.requiredOutputByLine[line.id] ?? 0;
     const maxCost = d.targetMetrics.maxCostPerUnitByLine[line.id] ?? 0;
-    const targetRpu = d.targetMetrics.targetRevenuePerUnit[line.id] ?? revUnit;
-    const targetGP = reqRev * (d.target.grossMarginGoalPct / 100);
-    const targetDE = reqRev - targetGP;
+    const lineTargetGM = (d.target.grossMarginGoalByLine ?? {})[line.id] ?? 0;
+    const targetGP = d.targetMetrics.targetGPByLine[line.id] ?? 0;
+    const targetDE = d.targetMetrics.targetDEByLine[line.id] ?? 0;
 
     return `
     <div style="margin:0 0 24px;border:1px solid #e5e7eb;border-radius:10px;overflow:hidden;">
@@ -64,16 +67,16 @@ export async function sendDiagnosticEmail({ to, name, company, diagnosticData }:
           ${row('Revenue', fmt$0(line.revenue), fmt$0(reqRev))}
           ${row('Direct Expenses', fmt$0(line.directExpenses), fmt$0(targetDE))}
           ${row('Gross Profit', fmt$0(gp), fmt$0(targetGP))}
-          ${row('Gross Margin %', fmtPct(gm), fmtPct(d.target.grossMarginGoalPct))}
+          ${row('Gross Margin %', fmtPct(gm), fmtPct(lineTargetGM))}
           ${row(`Output (${line.unitName})`, fmtNum(line.units), fmtNum(reqOut))}
-          ${row(`Rev / ${line.unitName}`, fmt$(revUnit), fmt$(targetRpu))}
+          ${row(`Rev / ${line.unitName}`, fmt$(revUnit), fmt$(revUnit))}
           ${row(`Cost / ${line.unitName}`, fmt$(costUnit), fmt$(maxCost), true)}
         </tbody>
       </table>
     </div>`;
   }).join('');
 
-  const targetGPTotal = d.targetMetrics.requiredRevenue * (d.target.grossMarginGoalPct / 100);
+  const targetGPTotal = Object.values(d.targetMetrics.targetGPByLine).reduce((s, v) => s + v, 0);
 
   const companyTable = `
     <div style="margin:0 0 32px;border-radius:10px;overflow:hidden;background:#111;">
@@ -89,7 +92,7 @@ export async function sendDiagnosticEmail({ to, name, company, diagnosticData }:
         <tbody>
           <tr style="border-bottom:1px solid #222;"><td style="padding:7px 8px;color:#ccc;font-size:12px;">Total Revenue</td><td style="padding:7px 8px;text-align:right;color:#888;font-size:12px;white-space:nowrap;">${fmt$0(d.companyMetrics.totalRevenue)}</td><td style="padding:7px 8px;text-align:right;color:#fff;font-weight:600;font-size:12px;white-space:nowrap;">${fmt$0(d.targetMetrics.requiredRevenue)}</td></tr>
           <tr style="border-bottom:1px solid #222;"><td style="padding:7px 8px;color:#ccc;font-size:12px;">Total Gross Profit</td><td style="padding:7px 8px;text-align:right;color:#888;font-size:12px;white-space:nowrap;">${fmt$0(d.companyMetrics.totalGrossProfit)}</td><td style="padding:7px 8px;text-align:right;color:#fff;font-weight:600;font-size:12px;white-space:nowrap;">${fmt$0(targetGPTotal)}</td></tr>
-          <tr style="border-bottom:1px solid #222;"><td style="padding:7px 8px;color:#ccc;font-size:12px;">Blended GM%</td><td style="padding:7px 8px;text-align:right;color:#888;font-size:12px;white-space:nowrap;">${fmtPct(d.companyMetrics.blendedGrossMarginPct)}</td><td style="padding:7px 8px;text-align:right;color:#fff;font-weight:600;font-size:12px;white-space:nowrap;">${fmtPct(d.target.grossMarginGoalPct)}</td></tr>
+          <tr style="border-bottom:1px solid #222;"><td style="padding:7px 8px;color:#ccc;font-size:12px;">Blended GM%</td><td style="padding:7px 8px;text-align:right;color:#888;font-size:12px;white-space:nowrap;">${fmtPct(d.companyMetrics.blendedGrossMarginPct)}</td><td style="padding:7px 8px;text-align:right;color:#fff;font-weight:600;font-size:12px;white-space:nowrap;">${fmtPct(d.targetMetrics.blendedGMAtTarget)}</td></tr>
           <tr style="border-bottom:1px solid #222;"><td style="padding:7px 8px;color:#ccc;font-size:12px;">Overhead</td><td style="padding:7px 8px;text-align:right;color:#888;font-size:12px;white-space:nowrap;">${fmt$0(d.overhead)}</td><td style="padding:7px 8px;text-align:right;color:#fff;font-weight:600;font-size:12px;white-space:nowrap;">${fmt$0(d.target.overheadGuardrail)}</td></tr>
           <tr style="background:#2d1f00;"><td style="padding:8px 8px;color:#fbbf24;font-weight:700;font-size:12px;">Net Profit</td><td style="padding:8px 8px;text-align:right;color:#888;font-size:12px;white-space:nowrap;">${fmt$0(d.companyMetrics.netProfit)}</td><td style="padding:8px 8px;text-align:right;color:#f59e0b;font-weight:800;font-size:14px;white-space:nowrap;">${fmt$0(d.target.netProfitGoal)}</td></tr>
         </tbody>
