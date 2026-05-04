@@ -470,6 +470,18 @@ export default function DiagnosticWizard() {
               </div>
             )}
 
+            {showGap && (
+              <div className="bg-gray-900 text-white rounded-2xl p-8 space-y-4">
+                <p className="text-gray-400 text-sm font-semibold uppercase tracking-widest">What comes next</p>
+                <h2 className="text-2xl font-bold leading-tight">The gap is visible. Now find the constraint.</h2>
+                <p className="text-gray-300 text-sm">The numbers show what has to change. The next step is a conversation to identify the one constraint keeping you from closing it — not a sales pitch, a working session.</p>
+                <a href="https://leandirt.co/TYWjkBF" target="_blank" rel="noopener"
+                  className="block w-full text-center bg-amber-500 hover:bg-amber-400 text-white font-bold py-4 rounded-xl transition-colors text-lg">
+                  Book a call with Zack →
+                </a>
+              </div>
+            )}
+
             <div className="flex gap-3">
               <button onClick={() => setStep(1)} className="px-6 py-3 border border-gray-300 rounded-xl text-gray-700 hover:bg-gray-50 font-medium">← Back</button>
               {showGap && (
