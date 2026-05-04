@@ -62,35 +62,26 @@ export function calcTargetMetrics(
 ): TargetMetrics {
   const totalRevenue = lines.reduce((s, l) => s + l.revenue, 0);
 
-  const targetGPByLine: Record<string, number> = {};
-  const targetDEByLine: Record<string, number> = {};
-  const maxCostPerUnitByLine: Record<string, number> = {};
-
-  for (const line of lines) {
-    const gm = (target.grossMarginGoalByLine[line.id] ?? 0) / 100;
-    const targetGP = line.revenue * gm;
-    const targetDE = line.revenue * (1 - gm);
-    targetGPByLine[line.id] = targetGP;
-    targetDEByLine[line.id] = targetDE;
-    maxCostPerUnitByLine[line.id] = line.units > 0 ? targetDE / line.units : 0;
-  }
-
-  const totalGPAtTarget = Object.values(targetGPByLine).reduce((s, v) => s + v, 0);
-  const blendedGMAtTarget = totalRevenue > 0 ? (totalGPAtTarget / totalRevenue) * 100 : 0;
-  const netProfitAtTarget = totalGPAtTarget - target.overheadGuardrail;
-
+  // First pass: compute required revenue per line (scaled to hit profit goal)
   const requiredRevenueByLine: Record<string, number> = {};
   const requiredOutputByLine: Record<string, number> = {};
   let requiredRevenue = totalRevenue;
 
-  if (target.netProfitGoal > 0 && totalGPAtTarget > 0) {
-    const requiredTotalGP = target.netProfitGoal + target.overheadGuardrail;
-    const gpScaleFactor = requiredTotalGP / totalGPAtTarget;
-    requiredRevenue = 0;
+  // Calculate GP at current revenue with target margins (to get scale factor)
+  const baseGPByLine: Record<string, number> = {};
+  for (const line of lines) {
+    const gm = (target.grossMarginGoalByLine[line.id] ?? 0) / 100;
+    baseGPByLine[line.id] = line.revenue * gm;
+  }
+  const totalBaseGP = Object.values(baseGPByLine).reduce((s, v) => s + v, 0);
 
+  if (target.netProfitGoal > 0 && totalBaseGP > 0) {
+    const requiredTotalGP = target.netProfitGoal + target.overheadGuardrail;
+    const gpScaleFactor = requiredTotalGP / totalBaseGP;
+    requiredRevenue = 0;
     for (const line of lines) {
       const gm = (target.grossMarginGoalByLine[line.id] ?? 0) / 100;
-      const lineReqGP = targetGPByLine[line.id] * gpScaleFactor;
+      const lineReqGP = baseGPByLine[line.id] * gpScaleFactor;
       const lineReqRev = gm > 0 ? lineReqGP / gm : line.revenue;
       const revPerUnit = line.units > 0 ? line.revenue / line.units : 0;
       requiredRevenueByLine[line.id] = lineReqRev;
@@ -100,12 +91,29 @@ export function calcTargetMetrics(
   } else {
     for (const line of lines) {
       requiredRevenueByLine[line.id] = line.revenue;
-      const revPerUnit = line.units > 0 ? line.revenue / line.units : 0;
       requiredOutputByLine[line.id] = line.units;
-      void revPerUnit; // suppress unused warning
     }
     requiredRevenue = totalRevenue;
   }
+
+  // Second pass: compute target GP/DE/cost using required revenue (so they're consistent)
+  const targetGPByLine: Record<string, number> = {};
+  const targetDEByLine: Record<string, number> = {};
+  const maxCostPerUnitByLine: Record<string, number> = {};
+
+  for (const line of lines) {
+    const gm = (target.grossMarginGoalByLine[line.id] ?? 0) / 100;
+    const reqRev = requiredRevenueByLine[line.id];
+    const targetGP = reqRev * gm;
+    const targetDE = reqRev * (1 - gm);
+    targetGPByLine[line.id] = targetGP;
+    targetDEByLine[line.id] = targetDE;
+    maxCostPerUnitByLine[line.id] = line.units > 0 ? targetDE / requiredOutputByLine[line.id] : 0;
+  }
+
+  const totalGPAtTarget = Object.values(targetGPByLine).reduce((s, v) => s + v, 0);
+  const blendedGMAtTarget = requiredRevenue > 0 ? (totalGPAtTarget / requiredRevenue) * 100 : 0;
+  const netProfitAtTarget = totalGPAtTarget - target.overheadGuardrail;
 
   return {
     requiredRevenue,
