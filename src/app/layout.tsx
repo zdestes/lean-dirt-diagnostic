@@ -1,18 +1,24 @@
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
 import './globals.css';
 
-const inter = Inter({ subsets: ['latin'] });
-
 export const metadata: Metadata = {
-  title: 'Business Diagnostic | Lean Dirt',
-  description: 'A free financial and operational diagnostic for horizontal contractors.',
+  metadataBase: new URL('https://leandirt.com'),
+  title: 'Lean Dirt — Add 2–5 Net Margin Points in 12 Months',
+  description:
+    'Operational excellence coaching built exclusively for $5M–$30M civil contractors. Book a free 30-minute Operations Review.',
+  openGraph: {
+    title: 'Lean Dirt — Add 2–5 Net Margin Points in 12 Months',
+    description:
+      'Operational excellence coaching built exclusively for $5M–$30M civil contractors. Book a free 30-minute Operations Review.',
+    siteName: 'Lean Dirt',
+    type: 'website',
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body>{children}</body>
     </html>
   );
 }

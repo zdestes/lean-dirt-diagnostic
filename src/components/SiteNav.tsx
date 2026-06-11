@@ -1,0 +1,16 @@
+import Link from 'next/link';
+import { BOOKING_URL, IMG } from '@/lib/site';
+
+export default function SiteNav() {
+  return (
+    <nav className="site-nav">
+      <Link href="/" className="site-nav__logo">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src={IMG.wordmarkCream} alt="Lean Dirt" />
+      </Link>
+      <a href={BOOKING_URL} target="_blank" rel="noopener" className="site-nav__cta">
+        Book a Free Operations Review
+      </a>
+    </nav>
+  );
+}
