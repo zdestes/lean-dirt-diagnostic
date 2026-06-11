@@ -8,9 +8,14 @@ export default function SiteNav() {
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src={IMG.wordmarkCream} alt="Lean Dirt" />
       </Link>
-      <a href={BOOKING_URL} target="_blank" rel="noopener" className="site-nav__cta">
-        Book a Free Operations Review
-      </a>
+      <div className="site-nav__links">
+        <Link href="/guide" className="site-nav__link">
+          Free Guide
+        </Link>
+        <a href={BOOKING_URL} target="_blank" rel="noopener" className="site-nav__cta">
+          Book a Free Operations Review
+        </a>
+      </div>
     </nav>
   );
 }

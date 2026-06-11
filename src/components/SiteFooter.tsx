@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { BOOKING_URL, IMG } from '@/lib/site';
 
 export default function SiteFooter() {
@@ -10,6 +11,7 @@ export default function SiteFooter() {
         </span>
         <span className="site-footer__copy">
           © {new Date().getFullYear()} Lean Dirt. Operational Excellence for Contractors. ·{' '}
+          <Link href="/guide">Free Guide</Link> ·{' '}
           <a href={BOOKING_URL} target="_blank" rel="noopener">Book a Free Operations Review</a>
         </span>
       </div>
