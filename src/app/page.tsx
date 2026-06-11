@@ -8,7 +8,7 @@ import './home.css';
 export const metadata = {
   title: 'Lean Dirt: Add 2–5 Net Margin Points in 12 Months',
   description:
-    'Operational excellence coaching for $5M–$30M civil contractors. Book a free 30-minute Operations Review.',
+    'Operational excellence coaching for $5M–$30M horizontal contractors. Book a free 30-minute Operations Review.',
 };
 
 export default function Home() {
@@ -27,13 +27,12 @@ export default function Home() {
         }}
       >
         <div className="container">
-          <p className="hero-eyebrow fade-up">For $5M–$30M Civil Contractors</p>
-          <span className="hero-rule"></span>
+          <p className="hero-eyebrow fade-up">For $5M–$30M Horizontal Contractors</p>
           <h1 className="fade-up">
             Add 2–5 Net<br />Margin Points<br />in <em>12 Months</em>.
           </h1>
           <p className="hero-sub fade-up">
-            If you're doing $5M–$30M in civil and still feel like every job runs through you, you're
+            If you're doing $5M–$30M in horizontal work and still feel like every job runs through you, you're
             not broken. <strong>You've just grown faster than your systems.</strong> We install the
             structure so your business hits its profit targets without you holding it together by
             hand.
@@ -139,7 +138,7 @@ export default function Home() {
           </h2>
           <div className="root-body" data-reveal>
             <p>
-              Most civil contractors assume the margin squeeze is just the nature of the work. It's
+              Most horizontal contractors assume the margin squeeze is just the nature of the work. It's
               not. It's the natural outcome of a business that has grown{' '}
               <strong>faster than its systems.</strong>
             </p>
@@ -277,7 +276,7 @@ export default function Home() {
             <div data-reveal>
               <p className="who-col-label yes">This is for you if</p>
               <ul className="who-list yes">
-                <li>You're a civil contractor doing $5M–$30M in annual revenue (typically under ~50 people)</li>
+                <li>You're a horizontal contractor doing $5M–$30M in annual revenue (typically under ~50 people)</li>
                 <li>You're the owner in an overhead role, not running a crew every day</li>
                 <li>Revenue is healthy but net margin feels stuck, fragile, or hard to explain</li>
                 <li>You're willing to look honestly at how work actually gets done</li>
@@ -309,13 +308,13 @@ export default function Home() {
           </div>
           <div className="about-body" data-reveal>
             <p>
-              Lean Dirt helps $5M–$30M civil contractors add 2–5 net margin points in 12 months.
+              Lean Dirt helps $5M–$30M horizontal contractors add 2–5 net margin points in 12 months.
               Operational excellence coaching has never been built for the dirt world. Most
               frameworks are written for manufacturers, tech companies, or corporate ops teams.{' '}
               <strong>None of it translates cleanly to a field-based business.</strong>
             </p>
             <p>
-              We work exclusively with civil contractors: crushing, hauling, asphalt, grading. The
+              We work exclusively with horizontal contractors: crushing, hauling, asphalt, grading. The
               frameworks we use (lean methodology, systems thinking, continuous improvement) are
               adapted for how this work actually runs: variable sites, equipment and labor-dependent
               production, and owners who have grown past the field but whose business hasn't caught
@@ -349,7 +348,7 @@ export default function Home() {
               Book Your Free Operations Review →
             </a>
             <span className="cta-note">
-              Built for $5M–$30M civil contractors: crushing, hauling, asphalt, grading.
+              Built for $5M–$30M horizontal contractors: crushing, hauling, asphalt, grading.
             </span>
           </div>
         </div>

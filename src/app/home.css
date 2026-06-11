@@ -69,14 +69,6 @@
     font-family: 'Barlow Condensed', sans-serif;
     font-size: 14px; font-weight: 700; letter-spacing: 0.24em;
     text-transform: uppercase; color: var(--gold-light); margin-bottom: 28px;
-    display: flex; align-items: center; gap: 12px;
-  }
-  .hero-eyebrow::before { content: ''; display: block; width: 36px; height: 2px; background: var(--gold); }
-  .hero-rule {
-    display: block; width: 64px; height: 3px;
-    background: linear-gradient(90deg, var(--gold-light), transparent);
-    margin-bottom: 28px; opacity: 0;
-    animation: fadeUp 0.7s ease 0.25s forwards;
   }
   .hero h1 {
     font-family: 'Bebas Neue', sans-serif;
@@ -336,5 +328,4 @@ html.reveal-ready .ld-home [data-reveal].is-visible {
 }
 @media (prefers-reduced-motion: reduce) {
   .ld-home .fade-up { animation: none; opacity: 1; }
-  .ld-home .hero-rule { animation: none; opacity: 1; }
 }
