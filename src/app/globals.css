@@ -46,8 +46,11 @@
   transition: color 0.2s;
 }
 .site-nav__link:hover { color: var(--gold-light); }
-@media (max-width: 560px) {
-  .site-nav__link { display: none; }
+@media (max-width: 640px) {
+  .site-nav { padding: 16px; }
+  .site-nav__logo img { height: 22px; }
+  .site-nav__links { gap: 14px; }
+  .site-nav__link { font-size: 13px; }
 }
 .site-nav__cta {
   font-family: var(--font-barlow-cond), 'Arial Narrow', sans-serif;
