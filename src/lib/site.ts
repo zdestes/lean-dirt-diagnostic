@@ -12,7 +12,7 @@ export const BOOKING_URL = 'https://leandirt.co/TYWjkBF';
  * to its local path (e.g. '/img/hero-field.jpg').
  */
 export const IMG = {
-  wordmarkCream: '/img/wordmark-cream.png',
+  wordmarkCream: '/img/wordmark-cream.svg',
   heroField: 'https://245440238.fs1.hubspotusercontent-na2.net/hubfs/245440238/IMG_1817.jpeg',
   crewPlans: 'https://245440238.fs1.hubspotusercontent-na2.net/hubfs/245440238/IMG_2728.jpeg',
   zackSpeaking: 'https://245440238.fs1.hubspotusercontent-na2.net/hubfs/245440238/IMG_4934.jpg',
