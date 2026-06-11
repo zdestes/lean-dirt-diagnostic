@@ -13,7 +13,8 @@ export default function SiteNav() {
           Free Guide
         </Link>
         <a href={BOOKING_URL} target="_blank" rel="noopener" className="site-nav__cta">
-          Book a Free Operations Review
+          <span className="site-nav__cta-full">Book a Free Operations Review</span>
+          <span className="site-nav__cta-short">Book a Call</span>
         </a>
       </div>
     </nav>

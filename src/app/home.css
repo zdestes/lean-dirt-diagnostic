@@ -160,6 +160,22 @@
   .root-body strong { color: var(--off-white); font-weight: 600; }
   .root-body p + p { margin-top: 22px; }
 
+  /* ── COACHING ── */
+  .coach .root-body { margin-bottom: 48px; }
+  .coach-cols { margin-bottom: 48px; }
+  .coach-promise {
+    background: rgba(201, 150, 26, 0.07);
+    border: 1px solid rgba(201, 150, 26, 0.28);
+    padding: 30px 34px;
+  }
+  .coach-promise-label {
+    font-family: var(--font-barlow-cond), 'Arial Narrow', sans-serif;
+    font-size: 12px; font-weight: 700; letter-spacing: 0.22em;
+    text-transform: uppercase; color: var(--gold); margin-bottom: 10px;
+  }
+  .coach-promise p:not(.coach-promise-label) { font-size: 17px; color: var(--off-white); line-height: 1.65; }
+  .coach-promise strong { color: var(--gold-light); }
+
   /* ── OFFER ── */
   .offer-subtitle { font-size: 19px; color: #b8b0a0; margin-bottom: 56px; line-height: 1.7; max-width: 720px; }
   .offer-items { display: flex; flex-direction: column; gap: 2px; margin-bottom: 48px; }
@@ -305,7 +321,10 @@
   @media (max-width: 640px) {
     section { padding: 72px 0; }
     .hero { padding: 96px 0 80px; }
+    .hero h1 { font-size: clamp(48px, 13vw, 72px); }
     .who-cols { grid-template-columns: 1fr; }
+    .coach-promise { padding: 24px; }
+    .offer-guarantee { padding: 24px; }
     .program-step { grid-template-columns: 52px 1fr; gap: 18px; }
     .program-step-num { font-size: 44px; }
     .field-photo img { height: 280px; }

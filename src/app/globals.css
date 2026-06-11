@@ -62,6 +62,12 @@
   transition: background 0.2s;
 }
 .site-nav__cta:hover { background: #fff; }
+.site-nav__cta-short { display: none; }
+@media (max-width: 640px) {
+  .site-nav__cta-full { display: none; }
+  .site-nav__cta-short { display: inline; }
+  .site-nav__cta { padding: 10px 16px; }
+}
 
 /* ── SHARED FOOTER ── */
 .site-footer { border-top: 1px solid var(--border); background: var(--black); }

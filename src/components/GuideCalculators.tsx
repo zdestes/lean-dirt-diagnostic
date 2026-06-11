@@ -75,7 +75,7 @@ export function LtvCacCalc() {
       ? `A machine. Every customer returns ${ratio.toFixed(1)}× what they cost. Pour money in.`
       : ratio >= 1
         ? `Workable but thin (${ratio.toFixed(1)}×). Raise LTV (retention, price) or cut CAC before scaling.`
-        : `A shredder. Customers cost more than they're worth — more sales kill you faster.`;
+        : `A shredder. Customers cost more than they're worth, and more sales kill you faster.`;
 
   return (
     <div className="calc" data-reveal>
@@ -105,7 +105,7 @@ export function RunwayCalc() {
   const verdict = !isFinite(months)
     ? ''
     : months < 2
-      ? 'Under two months: cash is your constraint, full stop. Collect, cut, survive — then optimize.'
+      ? 'Under two months: cash is your constraint, full stop. Collect, cut, survive. Then optimize.'
       : months < 3
         ? 'Below the three-month floor. Pull the cash levers: collect sooner, pay later, hold less stock.'
         : months < 6
@@ -164,7 +164,7 @@ export function DriverTreeCalc() {
         <Out label="Annual profit" value={fmtMoney(profit)} accent />
       </div>
       <p className="calc__verdict">
-        Now stack three modest wins — leads, conversion, and average sale each up 10% — and annual
+        Now stack three modest wins (leads, conversion, and average sale each up 10%) and annual
         profit goes from {fmtMoney(profit)} to <strong>{fmtMoney(profitBoosted)}</strong>. That&apos;s
         the multiplication doing the work.
       </p>
