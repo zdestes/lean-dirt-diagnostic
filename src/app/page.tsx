@@ -6,9 +6,9 @@ import { BOOKING_URL, IMG } from '@/lib/site';
 import './home.css';
 
 export const metadata = {
-  title: 'Lean Dirt: Add 2–5 Net Margin Points in 12 Months',
+  title: 'Lean Dirt | Get Your Business Out of Your Head and Into a Playbook',
   description:
-    'Business performance coaching for $5M–$30M horizontal contractors. Book a free 30-minute Operations Review.',
+    'You got here on gut. The next level runs on a playbook. Operating systems and the skill to run them, built for $5M to $30M horizontal contractors. Book a free 30-minute Operations Review.',
 };
 
 export default function Home() {
@@ -27,22 +27,22 @@ export default function Home() {
         }}
       >
         <div className="container">
-          <p className="hero-eyebrow fade-up">For $5M–$30M Horizontal Contractors</p>
+          <p className="hero-eyebrow fade-up">For $5M to $30M Horizontal Contractors</p>
           <h1 className="fade-up">
-            Add 2–5 Net<br />Margin Points<br />in <em>12 Months</em>.
+            You Got Here<br />on Gut.<br />
+            The Next Level<br />Runs on a <em>Playbook</em>.
           </h1>
           <p className="hero-sub fade-up">
-            If you're doing $5M–$30M in horizontal work and every job still runs through you,
-            you're not broken. <strong>Your business has grown faster than your systems.</strong>{' '}
-            We coach you through installing the structure, so the business hits its profit targets
-            without you holding it together by hand.
+            Right now the way your business runs lives in one place: your head. We spend 12 months
+            getting it out of your head and into a playbook the whole company can run.{' '}
+            <strong>So the business runs on something you can see, not something you have to be.</strong>
           </p>
           <div className="cta-block fade-up">
             <a href={BOOKING_URL} target="_blank" rel="noopener" className="btn-primary">
               Book Your Free Operations Review →
             </a>
             <span className="cta-note">
-              30 minutes with Zack. Your numbers, straight talk, and a first project to act on.
+              30 minutes with Zack. Your numbers, straight talk, and a clear read on your biggest constraint.
             </span>
           </div>
         </div>
@@ -53,15 +53,15 @@ export default function Home() {
         <div className="container-wide">
           <div className="stats-grid">
             <div className="stat" data-reveal>
-              <span className="stat-num">2–5</span>
-              <span className="stat-label">Net margin points added</span>
+              <span className="stat-num">Gut</span>
+              <span className="stat-label">What it runs on now</span>
             </div>
             <div className="stat" data-reveal>
               <span className="stat-num">12</span>
-              <span className="stat-label">Month engagement</span>
+              <span className="stat-label">Months to a real playbook</span>
             </div>
             <div className="stat" data-reveal>
-              <span className="stat-num">$5–30M</span>
+              <span className="stat-num">$5M–$30M</span>
               <span className="stat-label">Contractor sweet spot</span>
             </div>
             <div className="stat" data-reveal>
@@ -76,11 +76,11 @@ export default function Home() {
       <section className="diagnosis">
         <div className="container">
           <p className="section-label" data-reveal>Sound Familiar?</p>
-          <h2 data-reveal>You're Working Hard.<br />The Business Isn't.</h2>
+          <h2 data-reveal>It's All<br />in Your Head.</h2>
           <p className="diagnosis-intro" data-reveal>
-            Contractors in the $5M–$30M range describe the same pattern: top line is healthy, but
-            net margin sits at 2–4% and feels fragile. The revenue is there. The profit is not. And
-            most days feel like firefighting instead of building.
+            Contractors in the $5M to $30M range describe the same pattern. The top line is healthy.
+            The profit is thinner than it should be and feels fragile. And the only reason the whole
+            thing holds together is that you are personally holding it together, one decision at a time.
           </p>
           <div className="field-photo" data-reveal>
             <img src={IMG.crewPlans} alt="Field crew reviewing plans on site" loading="lazy" />
@@ -88,44 +88,43 @@ export default function Home() {
           <div className="symptoms-grid">
             <div className="symptom" data-reveal>
               <p>
-                You're the answer to every question on every job. Nothing moves without you, and
-                every hour you spend in the field is an hour nobody is running the business.
+                You're the answer to every question on every job. Nothing moves without you, and every
+                hour you spend in the field is an hour nobody is running the business.
               </p>
             </div>
             <div className="symptom" data-reveal>
               <p>
-                Equipment goes down and nobody knows what to do, or what broke it in the first
-                place. Downtime is eating your margin and nobody is tracking it.
+                The way the work is supposed to get done lives in your head, not on paper. So it gets
+                done your way only when you're standing there.
               </p>
             </div>
             <div className="symptom" data-reveal>
               <p>
-                You know money is leaking somewhere: rework, schedule slip, idle time. You just
-                can't put your finger on exactly where, or how much.
+                Equipment goes down and nobody knows what to do, or what broke it in the first place.
+                Downtime is eating your margin and nobody is tracking it.
               </p>
             </div>
             <div className="symptom" data-reveal>
               <p>
-                Rework and variation are treated as "part of the business." But every callback and
-                redo is a direct hit to your net margin.
+                You know money is leaking somewhere: rework, schedule slip, idle time. You just can't
+                put your finger on exactly where, or how much.
               </p>
             </div>
             <div className="symptom" data-reveal>
               <p>
-                You've tried to get more organized. It works for a week, then the job takes over
-                again and the profit you meant to protect slips away.
+                You've tried to get organized. It works for a week, then the job takes over again and
+                the profit you meant to protect slips away.
               </p>
             </div>
             <div className="symptom" data-reveal>
               <p>
-                You can't honestly tell someone exactly how work is supposed to get done around
-                here. Which means you can't fix what's costing you.
+                If you stepped away for a month, you're not confident the business would run the way you
+                need it to. That's not a people problem. It's a playbook problem.
               </p>
             </div>
           </div>
           <p className="diagnosis-closer" data-reveal>
-            If three or more of those hit, and you're between $5M and $30M, this call was built for
-            you.
+            If three or more of those hit, and you're between $5M and $30M, this call was built for you.
           </p>
         </div>
       </section>
@@ -135,58 +134,60 @@ export default function Home() {
         <div className="container">
           <p className="section-label" data-reveal>The Actual Problem</p>
           <h2 data-reveal>
-            Industry Average<br /><em>Sucks</em>.
+            Gut Got You Here.<br />It <em>Won't</em> Get You There.
           </h2>
           <div className="root-body" data-reveal>
             <p>
-              Most horizontal contractors assume the margin squeeze is just the nature of the work.
-              It isn't. It's the natural outcome of a business that has grown{' '}
-              <strong>faster than its systems.</strong>
+              The instinct that built this business is real. You can walk a job and feel what's off.
+              You can price work in your head and be right. That gut is an asset, and it got you to
+              where you are.
             </p>
             <p>
-              The gap isn't effort. You already work hard. The gap is{' '}
-              <strong>a specific, learnable skillset</strong>: seeing your operation as a set of
-              repeatable processes, finding where friction and cost live, and building the structure
-              that turns top-line revenue into bottom-line margin.
+              But gut has a ceiling, and you've hit it. It doesn't scale past your own two feet. It
+              can't be handed to a foreman or an estimator. And it can't be improved on purpose,
+              because nobody can see it, including you.{' '}
+              <strong>The way out is to get what's in your head into the open.</strong>
             </p>
             <p>
-              Learnable is the key word. Skills get built through coaching and practice. Which is
-              exactly what this is.
+              A playbook is the opposite of gut. It's visible. It's teachable. It belongs to the whole
+              company instead of one person. And once it's written down, it can finally be sharpened
+              quarter after quarter, instead of starting over every time the job gets busy.
             </p>
           </div>
         </div>
       </section>
 
-      {/* COACHING POSITIONING */}
-      <section className="coach">
+      {/* WHAT WE DO */}
+      <section className="approach">
         <div className="container">
           <p className="section-label" data-reveal>What We Do</p>
           <h2 data-reveal>
-            Professionals<br />Have <em>Coaches</em>.
+            We Build the Playbook<br />and the <em>Skill</em> to Run It.
           </h2>
           <div className="root-body" data-reveal>
             <p>
-              In athletics, a coach builds specific skillsets that improve an athlete's
-              performance. In business, a coach builds specific skillsets that improve a company's
-              performance. Same job, different arena. And the same divide exists in both: amateurs
-              practice when they feel like it. <strong>Professionals train on purpose.</strong>
+              Most help for owners stops at one half of the problem. Consultants hand you systems and
+              leave, so the systems die the day they walk out. Coaches work on you and never touch the
+              actual operation, so nothing in the business changes. Neither one makes you better at
+              running the place.
             </p>
             <p>
-              Lean Dirt is performance coaching for owners of horizontal construction businesses.
-              Civil, paving, crushing, grading, hauling. Heavy equipment, heavy labor, field
-              operations. If you run one and you want it to perform better, this is for you.
+              We do both halves, on purpose. We build the first operating systems with you so they're
+              real and running. And we teach you the skill underneath them, so you can find the next
+              leak, fix it, and keep the playbook sharp long after we're gone.{' '}
+              <strong>You don't end up dependent on us. You end up capable.</strong>
             </p>
           </div>
-          <div className="who-cols coach-cols">
+          <div className="who-cols approach-cols">
             <div data-reveal>
-              <p className="who-col-label yes">What we coach</p>
+              <p className="who-col-label yes">What goes in the playbook</p>
               <ul className="who-list yes">
                 <li>Gross margin: knowing it by job and business line, growing it, defending it</li>
                 <li>Production: real rates, real targets, and the discipline to hit them</li>
                 <li>Downtime: measuring what it actually costs you, then cutting it</li>
                 <li>Standardization: one written way to do the work, so results stop depending on who showed up</li>
-                <li>Organizational development: clear roles, real accountability, an office that keeps pace with the field</li>
-                <li>Performance at every level: individual, team, and business</li>
+                <li>Roles and accountability: who owns what, so the answer isn't always you</li>
+                <li>The skill to read your own business and find the next constraint, systematically, not by gut</li>
               </ul>
             </div>
             <div data-reveal>
@@ -200,14 +201,13 @@ export default function Home() {
               </ul>
             </div>
           </div>
-          <div className="coach-promise" data-reveal>
-            <p className="coach-promise-label">The Commitment (And the Challenge)</p>
+          <div className="approach-promise" data-reveal>
+            <p className="approach-promise-label">The Commitment (And the Challenge)</p>
             <p>
-              Every hour we spend together stays on the parts of your business that tangibly move
-              the needle. Inputs and outputs. If we can't name the number a piece of work moves, we
-              don't do that work. And to be clear: this is not "equipment utilization" coaching
-              with a new name. It's the field <strong>and</strong> the office. The business in its
-              entirety.
+              Every hour we spend together stays on the parts of your business that tangibly move the
+              needle. Inputs and outputs. If we can't name the number a piece of work moves, we don't
+              do that work. This is the field <strong>and</strong> the office. The business in its
+              entirety, written down where everyone can see it.
             </p>
           </div>
         </div>
@@ -219,43 +219,39 @@ export default function Home() {
           <p className="section-label" data-reveal>Start Here. Free.</p>
           <h2 data-reveal>The 30-Minute<br />Operations Review</h2>
           <p className="offer-subtitle" data-reveal>
-            One call with Zack. We look at your numbers together, map where margin is leaking, and
-            lay out what has to change over the next 12 months to add 2–5 net points. You leave
-            with three things:
+            One call with Zack. We look at your numbers together and find the single biggest thing
+            holding your margin back. By the end, you'll know what it is, why it keeps happening, and
+            whether we're the right ones to help you fix it.
           </p>
           <div className="offer-items">
             <div className="offer-item" data-reveal>
               <span className="offer-num">01</span>
               <div>
-                <p className="offer-item-title">
-                  Your Current Net Margin Snapshot and a Clear 12-Month Target
-                </p>
+                <p className="offer-item-title">Your #1 Constraint, Named</p>
                 <p className="offer-item-desc">
-                  We benchmark where you are today and define what a realistic 2–5 point improvement
-                  looks like for your specific business: your revenue range, your cost structure,
-                  your mix of work.
+                  We find the single biggest thing holding your margin back. Not a list of ten
+                  problems. The one bottleneck costing you the most right now, said plainly.
                 </p>
               </div>
             </div>
             <div className="offer-item" data-reveal>
               <span className="offer-num">02</span>
               <div>
-                <p className="offer-item-title">Plain-English Language for Why Your Profit Is Stuck</p>
+                <p className="offer-item-title">Why It's There, and Why It Keeps Coming Back</p>
                 <p className="offer-item-desc">
-                  Most owners know the numbers are off but can't name the cause precisely. You'll
-                  get the framework to understand it and to explain it clearly to your team.
+                  You'll understand the actual cause, not the symptom. Most owners have been fighting
+                  the same fire for years without seeing what's feeding it. You'll see it.
                 </p>
               </div>
             </div>
             <div className="offer-item" data-reveal>
               <span className="offer-num">03</span>
               <div>
-                <p className="offer-item-title">
-                  A Concrete First Project to Start Closing the Gap This Month
-                </p>
+                <p className="offer-item-title">A Straight Answer on Whether We Can Help</p>
                 <p className="offer-item-desc">
-                  Whether you hire us or not, you leave with one specific thing to act on. A real
-                  starting point toward that 2–5 point improvement, not vague advice.
+                  No pitch, no pressure. If there's a real opportunity and we're the right ones to
+                  build it with you, we'll tell you what that looks like. If there isn't, we'll tell
+                  you that too.
                 </p>
               </div>
             </div>
@@ -270,22 +266,22 @@ export default function Home() {
             <p className="offer-guarantee-label">What Happens After</p>
             <p>
               The Operations Review is the first step of a 12-month engagement, not a standalone
-              freebie. If we find a real 2–5 point margin opportunity (we usually do), we'll show
-              you exactly what the full program looks like: what the work is, how long it takes,
-              and what it costs. No pressure. But we will be direct about what we see.
+              freebie. If we find a real margin opportunity, and we usually do, we'll show you exactly
+              what the work looks like: what we build, how long it takes, and what it costs. No
+              pressure. But we will be direct about what we see.
             </p>
           </div>
         </div>
       </section>
 
-      {/* THE PROGRAM */}
+      {/* THE ENGAGEMENT */}
       <section className="program">
         <div className="container">
           <p className="section-label" data-reveal>If We're a Fit</p>
-          <h2 data-reveal>The 12-Month<br />Program</h2>
+          <h2 data-reveal>Inside the<br />12 Months</h2>
           <p className="program-subtitle" data-reveal>
-            This is not a course or a binder of templates. It's a year of building real operating
-            systems into your business, shoulder to shoulder.
+            This is not a course or a binder of templates. It's a year of building the playbook into
+            your business, shoulder to shoulder, and building your skill to run it without us.
           </p>
           <div className="program-steps">
             <div className="program-step" data-reveal>
@@ -293,20 +289,20 @@ export default function Home() {
               <div>
                 <p className="program-step-title">3-Day Onsite</p>
                 <p className="program-step-desc">
-                  We come to you. We walk your jobs, your shop, and your office, map how work
-                  actually flows, and find exactly where margin is leaking. You get a prioritized
-                  12-month roadmap before we leave.
+                  We come to you. We walk your jobs, your shop, and your office, map how work actually
+                  flows, and find exactly where margin is leaking. You get a prioritized 12-month
+                  roadmap before we leave.
                 </p>
               </div>
             </div>
             <div className="program-step" data-reveal>
               <span className="program-step-num">2</span>
               <div>
-                <p className="program-step-title">Two Coaching Calls a Month</p>
+                <p className="program-step-title">Two Working Sessions a Month</p>
                 <p className="program-step-desc">
-                  Structured working sessions to install each system: process standards, downtime
-                  tracking, rework elimination, planning rhythms. We build it with you and your
-                  team, not for you.
+                  Structured sessions where we write the playbook one piece at a time: production
+                  standards, downtime tracking, rework elimination, planning rhythms. We build it with
+                  you and your team, not for you, so it sticks when we're gone.
                 </p>
               </div>
             </div>
@@ -315,8 +311,19 @@ export default function Home() {
               <div>
                 <p className="program-step-title">Daily WhatsApp Access</p>
                 <p className="program-step-desc">
-                  Real problems don't wait for the next call. When something breaks, you message
-                  Zack directly. Momentum is the whole game, and this is how we keep it.
+                  Real problems don't wait for the next session. When something breaks, you message Zack
+                  directly. Momentum is the whole game, and this is how we keep it.
+                </p>
+              </div>
+            </div>
+            <div className="program-step" data-reveal>
+              <span className="program-step-num">4</span>
+              <div>
+                <p className="program-step-title">The Skill That Outlasts Us</p>
+                <p className="program-step-desc">
+                  Through all of it, we teach you to find the next constraint on your own,
+                  systematically instead of by gut, and to keep sharpening the playbook every quarter.
+                  When the year ends, the capability stays with you.
                 </p>
               </div>
             </div>
@@ -333,11 +340,11 @@ export default function Home() {
             <div data-reveal>
               <p className="who-col-label yes">This is for you if</p>
               <ul className="who-list yes">
-                <li>You're a horizontal contractor doing $5M–$30M in annual revenue (typically under ~50 people)</li>
+                <li>You're a horizontal contractor doing $5M to $30M in annual revenue (typically under ~50 people)</li>
                 <li>You're the owner in an overhead role, not running a crew every day</li>
-                <li>Revenue is healthy but net margin is stuck, fragile, or hard to explain</li>
+                <li>Revenue is healthy but the business still runs on you and your gut</li>
                 <li>You're willing to look honestly at how work actually gets done</li>
-                <li>You want a business that runs without you in every conversation</li>
+                <li>You want a business that runs on a playbook, not on you being in every conversation</li>
               </ul>
             </div>
             <div data-reveal>
@@ -345,7 +352,7 @@ export default function Home() {
               <ul className="who-list no">
                 <li>You're under $5M in revenue or still in the field full-time</li>
                 <li>You only want more bids, not a better-run business</li>
-                <li>You want a consultant to come in and do it for you</li>
+                <li>You want a consultant to come in and do it for you and leave</li>
                 <li>You think the problems are entirely your team's fault</li>
                 <li>You're looking for a quick fix with no follow-through</li>
               </ul>
@@ -365,22 +372,22 @@ export default function Home() {
           </div>
           <div className="about-body" data-reveal>
             <p>
-              Lean Dirt helps $5M–$30M horizontal contractors add 2–5 net margin points in 12
-              months. Business performance coaching has never been built for the dirt world. Most
-              frameworks are written for manufacturers, tech companies, or corporate ops teams.{' '}
-              <strong>None of it translates cleanly to a field-based business.</strong>
+              Lean Dirt helps $5M to $30M horizontal contractors get the business out of their head
+              and into a playbook. Business performance methods have never been built for the dirt
+              world. Most frameworks are written for manufacturers, tech companies, or corporate ops
+              teams. <strong>None of it translates cleanly to a field-based business.</strong>
             </p>
             <p>
               We work exclusively with horizontal contractors: civil, paving, crushing, grading,
-              hauling. The methods we use (lean methodology, systems thinking, continuous
-              improvement) are adapted for how this work actually runs: variable sites, production
-              that depends on equipment and labor, and owners who have grown past the field while
-              the business hasn't caught up.
+              hauling. The methods we use (lean thinking, systems thinking, continuous improvement) are
+              adapted for how this work actually runs: variable sites, production that depends on
+              equipment and labor, and owners who have grown past the field while the business hasn't
+              caught up.
             </p>
             <p>
               <strong>
-                The Operations Review is where we decide, together, whether there's a real 2–5
-                point margin opportunity and whether we're the right partner to chase it.
+                The Operations Review is where we decide, together, whether there's a real opportunity
+                here and whether we're the right partner to build it with you.
               </strong>{' '}
               If the answer is yes on both sides, we get to work.
             </p>
@@ -393,19 +400,19 @@ export default function Home() {
         <div className="container">
           <p className="section-label" data-reveal>Ready?</p>
           <h2 data-reveal>
-            One Call.<br /><em>Straight Talk</em>.<br />Real Numbers.
+            Get It Out<br />of Your <em>Head</em>.
           </h2>
           <p className="final-cta-sub" data-reveal>
-            Book your free 30-minute Operations Review. We'll map where your margin is going and
-            what it takes to close the gap. If there's a real opportunity, we'll both know by the
-            end of the call.
+            Book your free 30-minute Operations Review. We'll find where your margin is going and map
+            what it takes to put the business on a playbook. If there's a real opportunity, we'll both
+            know by the end of the call.
           </p>
           <div className="cta-block" data-reveal>
             <a href={BOOKING_URL} target="_blank" rel="noopener" className="btn-primary">
               Book Your Free Operations Review →
             </a>
             <span className="cta-note">
-              Built for $5M–$30M horizontal contractors: civil, paving, crushing, grading, hauling.
+              Built for $5M to $30M horizontal contractors: civil, paving, crushing, grading, hauling.
             </span>
           </div>
         </div>
