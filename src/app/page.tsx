@@ -166,15 +166,15 @@ export default function Home() {
           </h2>
           <div className="root-body" data-reveal>
             <p>
-              Most help for owners stops at one half of the problem. Consultants hand you systems and
-              leave, so the systems die the day they walk out. Coaches work on you and never touch the
-              actual operation, so nothing in the business changes. Neither one makes you better at
-              running the place.
+              Getting your business out of your head takes two things, and we build both. The first is
+              the operating systems that run the work: margin, production, downtime, standards,
+              accountability. We build them with you, so they're real and running inside your business
+              from day one, not sitting in a binder on a shelf.
             </p>
             <p>
-              We do both halves, on purpose. We build the first operating systems with you so they're
-              real and running. And we teach you the skill underneath them, so you can find the next
-              leak, fix it, and keep the playbook sharp long after we're gone.{' '}
+              The second is the skill underneath them: the ability to read your own business, find the
+              next constraint, and fix it systematically instead of by gut. That's the part that lasts.
+              We teach it while we build, so you can keep the playbook sharp long after we're gone.{' '}
               <strong>You don't end up dependent on us. You end up capable.</strong>
             </p>
           </div>
@@ -352,7 +352,7 @@ export default function Home() {
               <ul className="who-list no">
                 <li>You're under $5M in revenue or still in the field full-time</li>
                 <li>You only want more bids, not a better-run business</li>
-                <li>You want a consultant to come in and do it for you and leave</li>
+                <li>You'd rather hand the whole thing off than build the skill to run it yourself</li>
                 <li>You think the problems are entirely your team's fault</li>
                 <li>You're looking for a quick fix with no follow-through</li>
               </ul>
