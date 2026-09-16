@@ -358,7 +358,7 @@ export default function Home() {
               <ul className="who-list no">
                 <li>You're under $5M in revenue or still in the field full-time</li>
                 <li>You only want more bids, not a better-run business</li>
-                <li>you'd rather hand the whole thing off than build the skill to run it yourself</li>
+                <li>You'd rather hand the whole thing off than build the skill to run it yourself</li>
                 <li>You think the problems are entirely your team's fault</li>
                 <li>You're looking for a quick fix with no follow-through</li>
               </ul>
