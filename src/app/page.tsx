@@ -1,4 +1,5 @@
 /* eslint-disable react/no-unescaped-entities, @next/next/no-img-element */
+import Link from 'next/link';
 import SiteNav from '@/components/SiteNav';
 import SiteFooter from '@/components/SiteFooter';
 import ScrollReveal from '@/components/ScrollReveal';
@@ -8,7 +9,7 @@ import './home.css';
 export const metadata = {
   title: 'Lean Dirt | Get Your Business Out of Your Head and Into a Playbook',
   description:
-    'You got here on gut. The next level runs on a playbook. Operating systems and the skill to run them, built for $5M to $30M horizontal contractors. Book a free 30-minute Operations Review.',
+    'You got here on gut. The next level runs on a playbook. Operating systems and the skill to run them, built for $5M to $50M horizontal contractors. Book a free 30-minute Operations Review.',
 };
 
 export default function Home() {
@@ -27,22 +28,27 @@ export default function Home() {
         }}
       >
         <div className="container">
-          <p className="hero-eyebrow fade-up">For $5M to $30M Horizontal Contractors</p>
+          <p className="hero-eyebrow fade-up">For $5M to $50M Horizontal Contractors</p>
           <h1 className="fade-up">
             You Got Here<br />on Gut.<br />
             The Next Level<br />Runs on a <em>Playbook</em>.
           </h1>
           <p className="hero-sub fade-up">
-            Right now the way your business runs lives in one place: your head. We spend 12 months
-            getting it out of your head and into a playbook the whole company can run.{' '}
+            The way your business runs lives in your head. We spend 12 months getting it into a
+            playbook the whole company can run.{' '}
             <strong>So the business runs on something you can see, not something you have to be.</strong>
           </p>
           <div className="cta-block fade-up">
-            <a href={BOOKING_URL} target="_blank" rel="noopener" className="btn-primary">
-              Book Your Free Operations Review →
-            </a>
+            <div className="cta-row">
+              <a href={BOOKING_URL} target="_blank" rel="noopener" className="btn-primary">
+                Book Your Free Operations Review →
+              </a>
+              <Link href="/guide" className="btn-secondary">
+                Get the Free Guide
+              </Link>
+            </div>
             <span className="cta-note">
-              30 minutes with Zack. Your numbers, straight talk, and a clear read on your biggest constraint.
+              Free Guide first, or 30 minutes with Zack on your numbers and biggest constraint.
             </span>
           </div>
         </div>
@@ -61,7 +67,7 @@ export default function Home() {
               <span className="stat-label">Months to a real playbook</span>
             </div>
             <div className="stat" data-reveal>
-              <span className="stat-num">$5M–$30M</span>
+              <span className="stat-num">$5M–$50M</span>
               <span className="stat-label">Contractor sweet spot</span>
             </div>
             <div className="stat" data-reveal>
@@ -78,7 +84,7 @@ export default function Home() {
           <p className="section-label" data-reveal>Sound Familiar?</p>
           <h2 data-reveal>It's All<br />in Your Head.</h2>
           <p className="diagnosis-intro" data-reveal>
-            Contractors in the $5M to $30M range describe the same pattern. The top line is healthy.
+            Contractors in the $5M to $50M range describe the same pattern. The top line is healthy.
             The profit is thinner than it should be and feels fragile. And the only reason the whole
             thing holds together is that you are personally holding it together, one decision at a time.
           </p>
@@ -124,7 +130,7 @@ export default function Home() {
             </div>
           </div>
           <p className="diagnosis-closer" data-reveal>
-            If three or more of those hit, and you're between $5M and $30M, this call was built for you.
+            If three or more of those hit, and you're between $5M and $50M, this call was built for you.
           </p>
         </div>
       </section>
@@ -340,7 +346,7 @@ export default function Home() {
             <div data-reveal>
               <p className="who-col-label yes">This is for you if</p>
               <ul className="who-list yes">
-                <li>You're a horizontal contractor doing $5M to $30M in annual revenue (typically under ~50 people)</li>
+                <li>You're a horizontal contractor doing $5M to $50M in annual revenue (typically under ~50 people)</li>
                 <li>You're the owner in an overhead role, not running a crew every day</li>
                 <li>Revenue is healthy but the business still runs on you and your gut</li>
                 <li>You're willing to look honestly at how work actually gets done</li>
@@ -372,7 +378,7 @@ export default function Home() {
           </div>
           <div className="about-body" data-reveal>
             <p>
-              Lean Dirt helps $5M to $30M horizontal contractors get the business out of their head
+              Lean Dirt helps $5M to $50M horizontal contractors get the business out of their head
               and into a playbook. Business performance methods have never been built for the dirt
               world. Most frameworks are written for manufacturers, tech companies, or corporate ops
               teams. <strong>None of it translates cleanly to a field-based business.</strong>
@@ -403,16 +409,20 @@ export default function Home() {
             Get It Out<br />of Your <em>Head</em>.
           </h2>
           <p className="final-cta-sub" data-reveal>
-            Book your free 30-minute Operations Review. We'll find where your margin is going and map
-            what it takes to put the business on a playbook. If there's a real opportunity, we'll both
-            know by the end of the call.
+            Grab the Free Guide, or book a 30-minute Operations Review. Either way, you'll see what it
+            takes to get the business out of your head and onto a playbook.
           </p>
           <div className="cta-block" data-reveal>
-            <a href={BOOKING_URL} target="_blank" rel="noopener" className="btn-primary">
-              Book Your Free Operations Review →
-            </a>
+            <div className="cta-row">
+              <a href={BOOKING_URL} target="_blank" rel="noopener" className="btn-primary">
+                Book Your Free Operations Review →
+              </a>
+              <Link href="/guide" className="btn-secondary">
+                Get the Free Guide
+              </Link>
+            </div>
             <span className="cta-note">
-              Built for $5M to $30M horizontal contractors: civil, paving, crushing, grading, hauling.
+              Built for $5M to $50M horizontal contractors: civil, paving, crushing, grading, hauling.
             </span>
           </div>
         </div>
