@@ -28,11 +28,11 @@ export const metadata: Metadata = {
   metadataBase: new URL('https://leandirt.com'),
   title: 'Lean Dirt | Get Your Business Out of Your Head and Into a Playbook',
   description:
-    'You got here on gut. The next level runs on a playbook. Operating systems and the skill to run them, built exclusively for $5M to $30M horizontal contractors. Book a free 30-minute Operations Review.',
+    'You got here on gut. The next level runs on a playbook. Operating systems and the skill to run them, built exclusively for $5M to $50M horizontal contractors. Book a free 30-minute Operations Review.',
   openGraph: {
     title: 'Lean Dirt | Get Your Business Out of Your Head and Into a Playbook',
     description:
-      'You got here on gut. The next level runs on a playbook. Operating systems and the skill to run them, built exclusively for $5M to $30M horizontal contractors. Book a free 30-minute Operations Review.',
+      'You got here on gut. The next level runs on a playbook. Operating systems and the skill to run them, built exclusively for $5M to $50M horizontal contractors. Book a free 30-minute Operations Review.',
     siteName: 'Lean Dirt',
     type: 'website',
   },
