@@ -99,7 +99,7 @@ export default function Home() {
           <ul className="os-teaser-facts" data-reveal>
             <li><span className="os-teaser-num">$20K</span><span>One build, paid once. Up to 100 employees.</span></li>
             <li><span className="os-teaser-num">$0</span><span>Per-seat fees. Put the whole crew on it.</span></li>
-            <li><span className="os-teaser-num">$50/mo</span><span>Covers hosting. After that you only pay for improvements.</span></li>
+            <li><span className="os-teaser-num">$50/mo</span><span>Covers hosting. After that you only pay to fine-tune it.</span></li>
           </ul>
         </div>
       </section>

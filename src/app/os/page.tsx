@@ -52,7 +52,7 @@ const STEPS = [
   ['01', 'See it running', "A live walkthrough with me on the real platform. If it isn't a fit, you'll know in 30 minutes and so will I."],
   ['02', 'Map your flow', 'We walk through how a job moves from bid to final pay app, and where the information gets stuck today.'],
   ['03', 'Build & stand up', 'Your app, your name, your domain, your people and your data loaded in. Starting from a platform already proven in your trade.'],
-  ['04', '30 days of support', "Your team uses it for real. Whatever they hit, I fix. After that it's yours, and you only pay when you want something improved."],
+  ['04', '30 days of fine-tuning', "Your team runs on it for real, and I tune it to how they actually work. After that it's yours, and you only pay when you want it improved."],
 ];
 
 const INCLUDED = [
@@ -62,17 +62,17 @@ const INCLUDED = [
   'People, jobs and equipment loaded in',
   'Modules switched on to fit how you work',
   'Team rollout and training',
-  'One month of hands-on support',
+  '30 days of hands-on fine-tuning',
 ];
 
 const TRADES = ['Excavation', 'Grading', 'Site work', 'Utility', 'Paving', 'Concrete', 'Demolition', 'Crushing'];
 
 const FAQ = [
-  ['Is this software or coaching?', "It's the system you'd get in my coaching program, without having to sign up for the program. You get the tool built and a month of help putting it to work. The program is for owners who want the whole operating system installed: the standards, the habits and the scoreboard, too."],
+  ['Is this software or coaching?', "It's the system you'd get in my coaching program, without having to sign up for the program. You get your company's brain built and 30 days of fine-tuning while your team puts it to work. The program is for owners who want the whole operating system installed: the standards, the habits and the scoreboard, too."],
   ['Will my guys actually use it?', "It's built for the field first: big buttons, a punch clock and a daily report that take less time than the texts they send now. And because there are no per-seat fees, nobody gets left off to save money."],
   ['Who owns the data?', "You do. Your company gets its own database, not a row in someone else's."],
   ['Does it replace QuickBooks?', 'No. Keep your accounting where it is. This runs the operation around it and hands your bookkeeper clean payroll and billing exports instead of shoeboxes.'],
-  ['What happens after the first month?', "It keeps running for $50 a month, which covers hosting and backups. You don't pay to use it. You only pay when you want something improved."],
+  ['What happens after the first month?', "It keeps running for $50 a month, which covers hosting and backups. You don't pay to use it. When your business changes and you want the system to change with it, you pay for that fine-tuning, and only that."],
   ['We have more than 100 people. Does it still work?', "Yes. It's the same system with a longer rollout, built out discipline by discipline and team by team. Request a demo and we'll map out what that looks like for you."],
 ];
 
@@ -247,6 +247,10 @@ export default function CompanyOsPage() {
           <div className="head" data-reveal>
             <div className="lbl">Pricing</div>
             <h2 className="bb">One build. <em>Then it's just yours.</em></h2>
+            <p className="muted" style={{ maxWidth: 720 }}>
+              Every company runs differently, so every company gets its own custom brain. Not a login to someone
+              else's software, but a system built around how your company works, and tuned as it changes.
+            </p>
           </div>
           <div className="price-grid" data-reveal>
             <div className="price-main">
@@ -277,8 +281,9 @@ export default function CompanyOsPage() {
               <span className="cd gray" style={{ fontSize: 13 }}>After the build</span>
               <h3 className="bb">Only pay for improvements</h3>
               <p className="muted">
-                You're not paying to use it. You only pay when you want something improved: a new module, a new
-                report, a change to how payroll works.
+                This isn't a support plan. Your brain keeps getting sharper as your company grows: a new module, a
+                new report, a change to how payroll works. You don't pay to use it. You only pay when you want it
+                fine-tuned.
               </p>
             </div>
             <div className="card stack">
