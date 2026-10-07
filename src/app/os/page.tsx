@@ -81,7 +81,7 @@ const FAQ = [
   ['Is this software or coaching?', "It's the system you'd get in my coaching program, without having to sign up for the program. You get your company's brain built and 30 days of fine-tuning while your team puts it to work. The program is for owners who want the whole operating system installed: the standards, the habits and the scoreboard, too."],
   ['Will my guys actually use it?', "It's built for the field first: big buttons, a punch clock and a daily report that take less time than the texts they send now. And because there are no per-seat fees, nobody gets left off to save money."],
   ['Who owns the data?', "You do. Your company gets its own database, not a row in someone else's."],
-  ['Does it replace QuickBooks?', 'No. Keep your accounting where it is. This runs the operation around it and hands your bookkeeper clean payroll and billing exports instead of shoeboxes.'],
+  ['Does it replace QuickBooks?', "No. Keep your accounting where it is. This runs the operation around it and hands your bookkeeper clean payroll and billing exports instead of shoeboxes. And it connects straight to QuickBooks, so your financial data pulls in automatically and you can see the money right next to the jobs, crews and production that made it, all in one place."],
   ['What happens after the first month?', "It keeps running for $50 a month, which covers hosting and backups. You don't pay to use it. When your business changes and you want the system to change with it, you pay for that fine-tuning, and only that."],
   ['We have more than 100 people. Does it still work?', "Yes. It's the same system with a longer rollout, built out discipline by discipline and team by team. Request a demo and we'll map out what that looks like for you."],
 ];
