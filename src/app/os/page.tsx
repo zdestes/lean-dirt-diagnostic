@@ -3,6 +3,7 @@ import Link from 'next/link';
 import SiteNav from '@/components/SiteNav';
 import SiteFooter from '@/components/SiteFooter';
 import OsCalculator from '@/components/OsCalculator';
+import OsAppMock from '@/components/OsAppMock';
 import OsWaitlistForm from '@/components/OsWaitlistForm';
 import ScrollReveal from '@/components/ScrollReveal';
 import { BOOKING_URL } from '@/lib/site';
@@ -112,41 +113,7 @@ export default function CompanyOsPage() {
             </div>
           </div>
 
-          <div className="mock" aria-hidden="true">
-            <div className="mock-bar">
-              <i /><i /><i />
-              <span className="cd gray" style={{ marginLeft: 12, fontSize: 12, letterSpacing: '.12em' }}>yourcompanyos.com / jobs / 24-118</span>
-            </div>
-            <div className="mock-body">
-              <div className="mock-side">
-                <div className="bb" style={{ fontSize: 22, padding: '0 18px 14px' }}>YOURCO<span style={{ color: 'var(--gold-light)' }}>OS</span></div>
-                {['Home', 'Jobs', 'Schedule', 'Time cards', 'Daily reports', 'Estimates', 'Fleet', 'Money', 'SOPs'].map((l) => (
-                  <span key={l} className={`cd${l === 'Jobs' ? ' on' : ''}`}>{l}</span>
-                ))}
-              </div>
-              <div className="mock-main">
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', gap: 12 }}>
-                  <div className="stack" style={{ gap: 4 }}>
-                    <span className="cd gray" style={{ fontSize: 11 }}>Job 24-118 · Site prep</span>
-                    <span className="bb" style={{ fontSize: 32 }}>Hwy 43 Retail Pad</span>
-                  </div>
-                  <span className="cd" style={{ fontSize: 11, color: 'var(--black)', background: 'var(--gold-light)', padding: '5px 10px' }}>In progress</span>
-                </div>
-                <div className="g3" style={{ gap: 10 }}>
-                  <div className="tile"><span className="cd gray" style={{ fontSize: 10 }}>Budget used</span><span className="bb" style={{ fontSize: 28 }}>62%</span><span style={{ height: 4, background: 'var(--border)', display: 'block' }}><span style={{ width: '62%', height: 4, background: 'var(--gold-light)', display: 'block' }} /></span></div>
-                  <div className="tile"><span className="cd gray" style={{ fontSize: 10 }}>Cost per yd³</span><span className="bb" style={{ fontSize: 28 }}>$4.18</span><span className="muted" style={{ fontSize: 12 }}>Target $4.40</span></div>
-                  <div className="tile"><span className="cd gray" style={{ fontSize: 10 }}>Billed / owed</span><span className="bb" style={{ fontSize: 28 }}>$184K</span><span className="muted" style={{ fontSize: 12 }}>$41K past due</span></div>
-                </div>
-                <div className="g2" style={{ gap: 10, alignItems: 'stretch' }}>
-                  <div className="tile"><span className="cd" style={{ fontSize: 10, color: 'var(--gold-light)' }}>On site today</span><span>Crew 2 · 6 people · clocked in 6:52</span><span>CAT 336 · D6 dozer · 2 trucks</span></div>
-                  <div className="tile"><span className="cd" style={{ fontSize: 10, color: 'var(--gold-light)' }}>Yesterday's daily report</span><span>1,340 yd³ moved · 2 hr rain delay</span><span>Photos (14) · Foreman signed</span></div>
-                  <div className="tile"><span className="cd" style={{ fontSize: 10, color: 'var(--gold-light)' }}>Change orders</span><span>CO-3 · Undercut, T&amp;M · signed</span><span>CO-4 · Extra drainage · pending</span></div>
-                  <div className="tile"><span className="cd" style={{ fontSize: 10, color: 'var(--gold-light)' }}>Open tasks</span><span>Order silt fence · Tue</span><span>Send pay app 3 · Fri</span></div>
-                </div>
-                <div className="gray" style={{ fontSize: 12, borderTop: '1px solid var(--border)', paddingTop: 10 }}>Plans rev C · Contract · Customer contact · Bid · all one click from this page</div>
-              </div>
-            </div>
-          </div>
+          <OsAppMock />
         </div>
       </section>
 
