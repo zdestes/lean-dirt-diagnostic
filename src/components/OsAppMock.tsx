@@ -1,104 +1,114 @@
-/* A static, cleaned-up picture of what a real company OS home screen looks
- * like: sidebar, top bar, "the company, right now" KPIs, a production chart
- * and the time-card roll-up. Sample company and numbers, no client data. */
+/* A demo-polished picture of a company OS home screen: enough to show the
+ * direction (one place, live numbers, the field feeding the office), not a
+ * screenshot of a real build. Sample company and numbers, no client data. */
 
-const NAV: { group?: string; items: { label: string; on?: boolean; badge?: string }[] }[] = [
-  { items: [{ label: 'Home', on: true }, { label: 'Inbox', badge: '3' }, { label: 'Tasks' }, { label: 'Schedule' }] },
-  { group: 'Field', items: [{ label: 'Time cards' }, { label: 'Daily reports' }, { label: 'Fleet' }] },
-  { group: 'Sales', items: [{ label: 'Opportunities' }, { label: 'Estimates' }] },
-  { group: 'Jobs', items: [{ label: 'Jobs' }, { label: 'Budgets' }] },
-  { group: 'Money', items: [{ label: 'Cash flow' }] },
+const NAV = [
+  { label: 'Home', on: true },
+  { label: 'Inbox', badge: '3' },
+  { label: 'Jobs' },
+  { label: 'Schedule' },
+  { label: 'Time cards' },
+  { label: 'Daily reports' },
+  { label: 'Fleet' },
+  { label: 'Money' },
 ];
 
 const KPIS = [
-  { k: 'Active jobs', v: '9', s: '$12.4M signed' },
-  { k: 'Backlog', v: '$4.2M', s: '31 phases left' },
-  { k: 'Equipment', v: '28/30', s: '2 in the shop' },
-  { k: 'Crew today', v: '36', s: '4 sites' },
+  { k: 'Active jobs', v: '9', d: '$12.4M signed' },
+  { k: 'Margin this week', v: '21%', d: '▲ 3 pts', up: true },
+  { k: 'Crew today', v: '36', d: 'on 4 sites' },
 ];
 
-const WEEKS = [62, 74, 58, 81, 77, 88, 70, 92];
+const WEEKS = [52, 64, 50, 71, 68, 79, 66, 88];
 
-const CARDS = [
-  { no: 'J-214', job: 'Hwy 43 Retail Pad', labor: '96.5h', qty: '1,340 CY', ok: true },
-  { no: 'J-209', job: 'Oak Ridge Sewer', labor: '72.0h', qty: '420 LF', ok: true },
-  { no: 'J-217', job: 'Mill Creek Grading', labor: '58.5h', qty: '2,110 CY', ok: false },
+const FEED = [
+  { t: 'Daily report in', s: 'Hwy 43 Retail Pad · 1,340 CY moved', tone: 'ok' },
+  { t: 'Change order signed', s: 'Oak Ridge · CO-3 · $18,400', tone: 'ok' },
+  { t: 'Needs a look', s: 'Mill Creek · 1 time card missing', tone: 'warn' },
 ];
 
 export default function OsAppMock() {
   return (
-    <div className="appmock" aria-hidden="true">
-      <div className="am-chrome">
-        <i /><i /><i />
-        <span className="am-url">app.yourco.com</span>
-      </div>
-      <div className="am-body">
-        <aside className="am-side">
-          <div className="am-brand"><span className="am-logo">YC</span><span>YourCo</span></div>
-          {NAV.map((g, gi) => (
-            <div key={gi} className="am-group">
-              {g.group && <span className="am-group-label">{g.group}</span>}
-              {g.items.map((it) => (
-                <span key={it.label} className={`am-nav${it.on ? ' on' : ''}`}>
-                  <b className="am-dot" />
-                  {it.label}
-                  {it.badge && <em className="am-badge">{it.badge}</em>}
-                </span>
-              ))}
+    <div className="appmock-wrap" aria-hidden="true">
+      <div className="appmock">
+        <div className="am-chrome">
+          <i /><i /><i />
+          <span className="am-url">app.yourco.com</span>
+        </div>
+        <div className="am-body">
+          <aside className="am-side">
+            <div className="am-brand"><span className="am-logo">YC</span>YourCo</div>
+            {NAV.map((n) => (
+              <span key={n.label} className={`am-nav${n.on ? ' on' : ''}`}>
+                {n.label}
+                {n.badge && <em className="am-badge">{n.badge}</em>}
+              </span>
+            ))}
+          </aside>
+          <div className="am-main">
+            <div className="am-head">
+              <div>
+                <div className="am-title">Good morning</div>
+                <div className="am-sub">Here&rsquo;s the company, right now.</div>
+              </div>
+              <span className="am-btn">+ New</span>
             </div>
-          ))}
-        </aside>
-        <div className="am-main">
-          <div className="am-top">
-            <span className="am-search">Search<kbd>⌘K</kbd></span>
-            <span className="am-btn dark">+ New task</span>
-            <span className="am-btn">+ Touchpoint</span>
-          </div>
-          <div className="am-content">
-            <div className="am-title">The company, right now</div>
-            <div className="am-sub">Wednesday · every number opens the record behind it</div>
             <div className="am-kpis">
               {KPIS.map((x) => (
                 <div key={x.k} className="am-card am-kpi">
                   <span className="am-k">{x.k}</span>
                   <span className="am-v">{x.v}</span>
-                  <span className="am-s">{x.s}</span>
+                  <span className={x.up ? 'am-d up' : 'am-d'}>{x.d}</span>
                 </div>
               ))}
             </div>
-            <div className="am-card am-prod">
-              <div className="am-row">
-                <span className="am-h">Production &amp; cost</span>
-                <span className="am-seg"><span>Day</span><span className="on">Week</span><span>Month</span></span>
+            <div className="am-card am-chart">
+              <div className="am-chart-head">
+                <span className="am-h">Production</span>
+                <span className="am-pill">Last 8 weeks</span>
               </div>
-              <div className="am-prod-body">
-                <div className="am-mini">
-                  <div><span className="am-k">Labor hours</span><span className="am-v sm">512h</span><span className="am-up">▲ 8%</span></div>
-                  <div><span className="am-k">Earned</span><span className="am-v sm">$148K</span><span className="am-up">▲ 12%</span></div>
-                  <div><span className="am-k">Margin</span><span className="am-v sm">21%</span><span className="am-up">▲ 3 pts</span></div>
-                </div>
-                <div className="am-bars">
-                  {WEEKS.map((h, i) => (
-                    <span key={i} className={i === WEEKS.length - 1 ? 'now' : ''} style={{ height: `${h}%` }} />
-                  ))}
-                </div>
+              <div className="am-bars">
+                {WEEKS.map((h, i) => (
+                  <span key={i} className={i === WEEKS.length - 1 ? 'now' : ''} style={{ height: `${h}%` }} />
+                ))}
               </div>
             </div>
-            <div className="am-card am-tc">
-              <div className="am-row">
-                <span className="am-h">Time cards · yesterday</span>
-                <span className="am-link">All cards →</span>
-              </div>
-              <div className="am-tr am-th"><span>Job</span><span>Labor</span><span>Qty</span><span /></div>
-              {CARDS.map((c) => (
-                <div key={c.no} className="am-tr">
-                  <span><em>{c.no}</em> {c.job}</span>
-                  <span>{c.labor}</span>
-                  <span>{c.qty}</span>
-                  <span className={c.ok ? 'am-ok' : 'am-warn'}>{c.ok ? '✓ Confirmed' : '1 missing'}</span>
+            <div className="am-card am-feed">
+              {FEED.map((f) => (
+                <div key={f.t} className="am-feed-row">
+                  <b className={`am-tone ${f.tone}`} />
+                  <span className="am-feed-t">{f.t}</span>
+                  <span className="am-feed-s">{f.s}</span>
                 </div>
               ))}
             </div>
+          </div>
+        </div>
+      </div>
+      <div className="am-phone">
+        <div className="am-notch" />
+        <div className="am-ph-top">
+          <span className="am-logo">YC</span>
+          <span className="am-ph-plus">+</span>
+        </div>
+        <div className="am-ph-body">
+          <span className="am-ph-title">Today</span>
+          <span className="am-ph-sub">Hwy 43 Retail Pad</span>
+          <div className="am-ph-card">
+            <b className="am-tone ok" />
+            <div>
+              <span className="am-ph-strong">Clocked in 6:52</span>
+              <span className="am-ph-mute">Crew 2 · 6 people</span>
+            </div>
+          </div>
+          <div className="am-ph-tiles">
+            <div><span className="am-ph-mute">Loads</span><span className="am-ph-num">42</span></div>
+            <div><span className="am-ph-mute">CY moved</span><span className="am-ph-num">1,340</span></div>
+          </div>
+          <span className="am-ph-cta">Submit daily report</span>
+          <div className="am-ph-note">
+            <b className="am-tone ok" />
+            <span>Office sees it the minute you hit send</span>
           </div>
         </div>
       </div>
