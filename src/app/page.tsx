@@ -78,6 +78,32 @@ export default function Home() {
         </div>
       </section>
 
+      {/* COMPANY OS */}
+      <section className="os-teaser" aria-labelledby="os-teaser-title">
+        <div className="container-wide os-teaser-grid">
+          <div>
+            <p className="section-label" data-reveal>New: Company OS</p>
+            <h2 id="os-teaser-title" data-reveal>
+              Your Business Needs a Brain.<br /><em>Not Another Quick Call.</em>
+            </h2>
+            <p className="os-teaser-body" data-reveal>
+              The system we build inside every client, now available on its own. One place for every job,
+              crew, machine, dollar and SOP, so anyone who needs an answer can find it without chasing the
+              one person who has it in their phone or their head.
+            </p>
+            <div className="cta-row" data-reveal>
+              <Link href="/os" className="btn-primary">See the Company OS →</Link>
+              <Link href="/os#waitlist" className="btn-secondary">Get on the Waitlist</Link>
+            </div>
+          </div>
+          <ul className="os-teaser-facts" data-reveal>
+            <li><span className="os-teaser-num">$20K</span><span>One build, paid once. Up to 100 employees.</span></li>
+            <li><span className="os-teaser-num">$0</span><span>Per-seat fees. Put the whole crew on it.</span></li>
+            <li><span className="os-teaser-num">After</span><span>You only pay when you want something improved.</span></li>
+          </ul>
+        </div>
+      </section>
+
       {/* DIAGNOSIS */}
       <section className="diagnosis">
         <div className="container">

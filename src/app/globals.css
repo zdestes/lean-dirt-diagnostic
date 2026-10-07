@@ -46,6 +46,8 @@
   transition: color 0.2s;
 }
 .site-nav__link:hover { color: var(--gold-light); }
+/* Company OS link: the homepage section carries it on small phones. */
+@media (max-width: 480px) { .site-nav__link--os { display: none; } }
 @media (max-width: 640px) {
   .site-nav { padding: 16px; }
   .site-nav__logo img { height: 22px; }

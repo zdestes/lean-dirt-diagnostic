@@ -325,8 +325,27 @@
     background: rgba(10, 10, 8, 0.85); padding: 8px 16px;
   }
 
+  /* ── COMPANY OS TEASER ── */
+  .os-teaser { border-bottom: 1px solid var(--border); }
+  .os-teaser-grid { display: grid; grid-template-columns: 1.4fr 1fr; gap: 64px; align-items: center; }
+  .os-teaser-body { font-size: 19px; color: #b8b0a0; line-height: 1.7; margin-bottom: 36px; max-width: 620px; }
+  .os-teaser-facts { list-style: none; margin: 0; padding: 0; border: 1px solid var(--border); background: var(--light-gray); }
+  .os-teaser-facts li {
+    display: grid; grid-template-columns: 110px 1fr; gap: 18px; align-items: center;
+    padding: 22px 26px; border-bottom: 1px solid var(--border);
+    border-left: 3px solid transparent; transition: border-color 0.25s;
+    font-size: 17px; color: var(--off-white); line-height: 1.5;
+  }
+  .os-teaser-facts li:last-child { border-bottom: none; }
+  .os-teaser-facts li:hover { border-left-color: var(--gold); }
+  .os-teaser-num {
+    font-family: var(--font-bebas), 'Arial Narrow', sans-serif;
+    font-size: 40px; line-height: 1; color: var(--gold-light);
+  }
+
   /* ── RESPONSIVE ── */
   @media (max-width: 860px) {
+    .os-teaser-grid { grid-template-columns: 1fr; gap: 40px; }
     .stats-grid { grid-template-columns: 1fr 1fr; }
     .stat { border-left: none; border-top: 1px solid var(--border); }
     .stat:nth-child(even) { border-left: 1px solid var(--border); }

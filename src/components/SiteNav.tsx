@@ -9,6 +9,9 @@ export default function SiteNav() {
         <img src={IMG.wordmarkCream} alt="Lean Dirt" />
       </Link>
       <div className="site-nav__links">
+        <Link href="/os" className="site-nav__link site-nav__link--os">
+          Company OS
+        </Link>
         <Link href="/guide" className="site-nav__link">
           Free Guide
         </Link>
