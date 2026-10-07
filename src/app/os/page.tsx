@@ -39,13 +39,22 @@ const MODULES = [
   ['Everyone', 'On every phone', 'Installs to the home screen like an app, with push notifications. Built for a foreman with gloves on, not a desk.'],
 ];
 
-const COMPARE = [
-  ['Apps', "4 to 7 that don't talk", 'One'],
-  ['Pricing', 'Per seat, per month, per app', 'Pay once. Add the whole crew.'],
-  ['After launch', 'Keep paying to keep using it', 'Only pay for improvements'],
-  ['Fits your process', 'You change to match it', 'Built around how you work'],
-  ['Your data', 'Shared with every customer', 'Your own database'],
-  ['Your brand', 'Theirs', 'Yours, on your domain'],
+const USUAL = [
+  "4 to 7 apps that don't talk to each other",
+  'Per seat, per month, per app',
+  'Pay forever just to keep using it',
+  'You change how you work to fit it',
+  'Your data sits in their system',
+  'Their name on everything',
+];
+
+const YOURS = [
+  'One system for the whole company',
+  'Pay once. Put the whole crew on it.',
+  'Only pay when you want it fine-tuned',
+  'Built around how you already work',
+  'Your own private database',
+  'Your name, your logo, your domain',
 ];
 
 const STEPS = [
@@ -195,29 +204,39 @@ export default function CompanyOsPage() {
 
       {/* DIFFERENCE */}
       <section>
-        <div className="wrap g2" style={{ alignItems: 'start' }}>
-          <div className="stack">
+        <div className="wrap">
+          <div className="head" data-reveal>
             <div className="lbl">Why not just buy software?</div>
-            <h2 className="bb" style={{ fontSize: 'clamp(44px, 5vw, 72px)' }}>Off-the-shelf makes you fit it. <em>This is built to fit you.</em></h2>
-            <p className="muted">
+            <h2 className="bb">Off-the-shelf makes you fit it. <em>This is built to fit you.</em></h2>
+            <p className="muted" style={{ maxWidth: 720 }}>
               I'm a process engineer, not a software salesman. I map how information actually moves through your
               company first, then shape the system around it. The software is the tool. The standards and habits
               your team builds with it are the real operating system.
             </p>
           </div>
-          <div className="cmp" data-reveal>
-            <div className="th">
-              <span />
-              <span className="cd gray" style={{ fontSize: 12 }}>The usual stack</span>
-              <span className="cd" style={{ fontSize: 12, color: 'var(--gold-light)' }}>Your company OS</span>
+          <div className="vs" data-reveal>
+            <div className="vs-card vs-them">
+              <span className="cd vs-title">The usual software stack</span>
+              <ul>
+                {USUAL.map((t) => (
+                  <li key={t}>
+                    <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 4l8 8M12 4l-8 8" /></svg>
+                    <span>{t}</span>
+                  </li>
+                ))}
+              </ul>
             </div>
-            {COMPARE.map(([k, a, b]) => (
-              <div key={k}>
-                <span className="cd muted" style={{ fontSize: 13 }}>{k}</span>
-                <span className="gray">{a}</span>
-                <span>{b}</span>
-              </div>
-            ))}
+            <div className="vs-card vs-us">
+              <span className="cd vs-title">Your company OS</span>
+              <ul>
+                {YOURS.map((t) => (
+                  <li key={t}>
+                    <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8.5l3.2 3L13 4.5" /></svg>
+                    <span>{t}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
         </div>
       </section>
