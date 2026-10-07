@@ -10,7 +10,7 @@ import './os.css';
 export const metadata = {
   title: 'Company OS | Lean Dirt',
   description:
-    'One system that holds every job, crew, machine, dollar and SOP in your company. Built for civil contractors doing $2M to $50M. $20,000 once, then you only pay for improvements.',
+    'One system that holds every job, crew, machine, dollar and SOP in your company. Built for civil contractors doing $5M to $50M. $20,000 once, then you only pay for improvements.',
   openGraph: {
     title: 'Company OS | Lean Dirt',
     description:
@@ -84,7 +84,7 @@ export default function CompanyOsPage() {
       <section className="hero">
         <div className="wrap g2">
           <div className="stack" style={{ gap: 28 }}>
-            <div className="lbl">For civil contractors · $2M to $50M</div>
+            <div className="lbl">For civil contractors · $5M to $50M</div>
             <h1 className="bb">Your business needs a brain. <em>Not another quick call.</em></h1>
             <p className="muted" style={{ fontSize: 20, lineHeight: 1.55, maxWidth: 580 }}>
               One system that holds every job, crew, machine, dollar and SOP in your company, so anyone who
@@ -303,7 +303,7 @@ export default function CompanyOsPage() {
         <div className="wrap stack" style={{ maxWidth: 900, marginLeft: 'auto', marginRight: 'auto' }}>
           <div className="lbl">Who it's for</div>
           <h2 className="bb" style={{ fontSize: 'clamp(44px, 5vw, 64px)' }}>Built in the dirt, <em>for the dirt.</em></h2>
-          <p className="muted">Civil contractors doing $2M to $50M a year, where the owner is still the answer to too many questions.</p>
+          <p className="muted">Civil contractors doing $5M to $50M a year, where the owner is still the answer to too many questions.</p>
           <div className="chips">
             {TRADES.map((t) => <span key={t} className="cd">{t}</span>)}
           </div>
