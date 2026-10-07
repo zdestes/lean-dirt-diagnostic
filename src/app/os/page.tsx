@@ -92,7 +92,7 @@ export default function CompanyOsPage() {
               One system that holds every job, crew, machine, dollar and SOP in your company, so anyone who
               needs an answer can find it without chasing the one person who has it in their phone or their head.
             </p>
-            <div style={{ display: 'flex', gap: 16, alignItems: 'center', flexWrap: 'wrap' }}>
+            <div className="hero-ctas">
               <a className="btn" href="#demo">Request a demo</a>
               <a className="ghost" href="#pricing">See pricing</a>
             </div>
@@ -173,12 +173,10 @@ export default function CompanyOsPage() {
       {/* WHAT YOU GET */}
       <section id="what" className="band">
         <div className="wrap">
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', gap: 48, flexWrap: 'wrap', marginBottom: 48 }}>
-            <div className="stack" style={{ gap: 20, maxWidth: 820 }}>
-              <div className="lbl">What you get</div>
-              <h2 className="bb">One system of record. <em>Your name on the door.</em></h2>
-            </div>
-            <p className="muted" style={{ maxWidth: 440 }}>
+          <div className="head" data-reveal>
+            <div className="lbl">What you get</div>
+            <h2 className="bb">One system of record. <em>Your name on the door.</em></h2>
+            <p className="muted" style={{ maxWidth: 640 }}>
               You get your own app, on your own web address, named after your company. Here is what comes in the
               box, switched on or off to fit how you work.
             </p>
@@ -273,28 +271,33 @@ export default function CompanyOsPage() {
                 {INCLUDED.map((i) => <li key={i}>{i}</li>)}
               </ul>
             </div>
-            <div className="card stack" style={{ padding: 40, gap: 18 }}>
+          </div>
+          <div className="price-extras" data-reveal>
+            <div className="card stack">
               <span className="cd gray" style={{ fontSize: 13 }}>After the build</span>
-              <h3 className="bb" style={{ fontSize: 40 }}>Only pay for improvements</h3>
-              <p className="muted" style={{ fontSize: 16 }}>
+              <h3 className="bb">Only pay for improvements</h3>
+              <p className="muted">
                 You're not paying to use it. You only pay when you want something improved: a new module, a new
                 report, a change to how payroll works.
               </p>
-              <div className="rule" />
+            </div>
+            <div className="card stack">
               <span className="cd gray" style={{ fontSize: 13 }}>Over 100 employees?</span>
-              <h3 className="bb" style={{ fontSize: 40 }}>Let's schedule a call</h3>
-              <p className="muted" style={{ fontSize: 16 }}>
+              <h3 className="bb">Let's schedule a call</h3>
+              <p className="muted">
                 Same system, longer rollout. We build it out discipline by discipline and team by team so every part
                 of the company is covered before we call it done.
               </p>
               <a className="cd link" href={BOOKING_URL} target="_blank" rel="noopener">Schedule a call →</a>
-              <div className="rule" />
-              <h3 className="bb" style={{ fontSize: 40 }}>Or go all in</h3>
-              <p className="muted" style={{ fontSize: 16 }}>
+            </div>
+            <div className="card stack">
+              <span className="cd gray" style={{ fontSize: 13 }}>Want more than software?</span>
+              <h3 className="bb">Or go all in</h3>
+              <p className="muted">
                 The OS comes included in the 12-month Lean Dirt program, where we install the process, the standards
                 and the scoreboard with it.
               </p>
-              <Link className="cd link" href="/" style={{ marginTop: 'auto' }}>About the program →</Link>
+              <Link className="cd link" href="/">About the program →</Link>
             </div>
           </div>
         </div>

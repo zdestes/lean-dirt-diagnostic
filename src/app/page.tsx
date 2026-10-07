@@ -84,7 +84,7 @@ export default function Home() {
           <div>
             <p className="section-label" data-reveal>New: Company OS</p>
             <h2 id="os-teaser-title" data-reveal>
-              Your Business Needs a Brain.<br /><em>Not Another Quick Call.</em>
+              Your Business Needs a Brain. <em>Not Another Quick Call.</em>
             </h2>
             <p className="os-teaser-body" data-reveal>
               The system we build inside every client, now available on its own. One place for every job,
@@ -99,7 +99,7 @@ export default function Home() {
           <ul className="os-teaser-facts" data-reveal>
             <li><span className="os-teaser-num">$20K</span><span>One build, paid once. Up to 100 employees.</span></li>
             <li><span className="os-teaser-num">$0</span><span>Per-seat fees. Put the whole crew on it.</span></li>
-            <li><span className="os-teaser-num">After</span><span>You only pay when you want something improved.</span></li>
+            <li><span className="os-teaser-num">$50/mo</span><span>Covers hosting. After that you only pay for improvements.</span></li>
           </ul>
         </div>
       </section>

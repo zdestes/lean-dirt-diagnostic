@@ -60,8 +60,9 @@ export default function OsWaitlistForm() {
       <div className="pair" style={{ display: 'grid', gridTemplateColumns: 'repeat(2, minmax(0, 1fr))', gap: 16 }}>
         <label>
           <span className="cd">Trade</span>
-          <select className="fld" name="trade" defaultValue="Excavation / grading / site work">
-            <option>Excavation / grading / site work</option>
+          <select className="fld" name="trade" defaultValue="Excavation / site work">
+            <option>Excavation / site work</option>
+            <option>Grading</option>
             <option>Utility</option>
             <option>Paving</option>
             <option>Concrete</option>
