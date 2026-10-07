@@ -28,7 +28,7 @@ const PROBLEMS = [
 ];
 
 const MODULES = [
-  ['Field', 'Time cards & payroll', "GPS punch clock on every phone, cost codes, per diem, time off and a payroll export the office doesn't have to retype."],
+  ['Field', 'Time cards & payroll', "Punch clock on every phone, cost codes, per diem, time off and a payroll export the office doesn't have to retype."],
   ['Field', 'Daily reports', "Built around your forms: production, downtime, equipment hours, photos. The office sees today's job today, not Friday."],
   ['Field', 'Schedule', "Crews, machines and jobs on one board, by day or by week. Everybody knows where they're going tomorrow."],
   ['Sales', 'Estimates, bids & COs', 'Bid builder, branded proposals, change orders the customer signs on a phone. A won bid becomes a job automatically.'],
