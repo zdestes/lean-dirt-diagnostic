@@ -93,7 +93,7 @@ export default function Home() {
             </p>
             <div className="cta-row" data-reveal>
               <Link href="/os" className="btn-primary">See the Company OS →</Link>
-              <Link href="/os#waitlist" className="btn-secondary">Get on the Waitlist</Link>
+              <Link href="/os#demo" className="btn-secondary">Request a Demo</Link>
             </div>
           </div>
           <ul className="os-teaser-facts" data-reveal>

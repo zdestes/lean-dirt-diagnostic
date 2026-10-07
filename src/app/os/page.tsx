@@ -4,6 +4,7 @@ import SiteNav from '@/components/SiteNav';
 import SiteFooter from '@/components/SiteFooter';
 import OsCalculator from '@/components/OsCalculator';
 import OsWaitlistForm from '@/components/OsWaitlistForm';
+import ScrollReveal from '@/components/ScrollReveal';
 import { BOOKING_URL } from '@/lib/site';
 import './os.css';
 
@@ -72,12 +73,13 @@ const FAQ = [
   ['Who owns the data?', "You do. Your company gets its own database, not a row in someone else's."],
   ['Does it replace QuickBooks?', 'No. Keep your accounting where it is. This runs the operation around it and hands your bookkeeper clean payroll and billing exports instead of shoeboxes.'],
   ['What happens after the first month?', "It keeps running for $50 a month, which covers hosting and backups. You don't pay to use it. You only pay when you want something improved."],
-  ['We have more than 100 people. Does it still work?', "Yes. It's the same system with a longer rollout, built out discipline by discipline and team by team. Schedule a call and we'll map out what that looks like for you."],
+  ['We have more than 100 people. Does it still work?', "Yes. It's the same system with a longer rollout, built out discipline by discipline and team by team. Request a demo and we'll map out what that looks like for you."],
 ];
 
 export default function CompanyOsPage() {
   return (
     <div className="ld-os">
+      <ScrollReveal />
       <SiteNav />
 
       {/* HERO */}
@@ -91,7 +93,7 @@ export default function CompanyOsPage() {
               needs an answer can find it without chasing the one person who has it in their phone or their head.
             </p>
             <div style={{ display: 'flex', gap: 16, alignItems: 'center', flexWrap: 'wrap' }}>
-              <a className="btn" href="#waitlist">Get on the waitlist</a>
+              <a className="btn" href="#demo">Request a demo</a>
               <a className="ghost" href="#pricing">See pricing</a>
             </div>
             <div className="hero-stats">
@@ -142,11 +144,11 @@ export default function CompanyOsPage() {
       {/* PROBLEM */}
       <section id="problem" className="band">
         <div className="wrap">
-          <div className="head">
+          <div className="head" data-reveal>
             <div className="lbl">The problem</div>
             <h2 className="bb">Where does your company's information <em>live right now?</em></h2>
           </div>
-          <div className="g3" style={{ gap: 24 }}>
+          <div className="g3" style={{ gap: 24 }} data-reveal>
             {PROBLEMS.map(([n, t, d]) => (
               <div key={n} className="card stack" style={{ padding: 34, gap: 16 }}>
                 <span className="num" style={{ fontSize: 72 }}>{n}</span>
@@ -181,7 +183,7 @@ export default function CompanyOsPage() {
               box, switched on or off to fit how you work.
             </p>
           </div>
-          <div className="g3">
+          <div className="g3" data-reveal>
             {MODULES.map(([tag, t, d]) => (
               <div key={t} className="card stack" style={{ padding: 30, gap: 12 }}>
                 <span className="cd" style={{ fontSize: 12, color: 'var(--gold-light)' }}>{tag}</span>
@@ -205,7 +207,7 @@ export default function CompanyOsPage() {
               your team builds with it are the real operating system.
             </p>
           </div>
-          <div className="cmp">
+          <div className="cmp" data-reveal>
             <div className="th">
               <span />
               <span className="cd gray" style={{ fontSize: 12 }}>The usual stack</span>
@@ -225,11 +227,11 @@ export default function CompanyOsPage() {
       {/* HOW IT WORKS */}
       <section id="how" className="band">
         <div className="wrap">
-          <div className="head">
+          <div className="head" data-reveal>
             <div className="lbl">How it works</div>
             <h2 className="bb">From first call to <em>running your company.</em></h2>
           </div>
-          <div className="g4">
+          <div className="g4" data-reveal>
             {STEPS.map(([n, t, d]) => (
               <div key={n} className="step">
                 <span className="num" style={{ fontSize: 64 }}>{n}</span>
@@ -244,11 +246,11 @@ export default function CompanyOsPage() {
       {/* PRICING */}
       <section id="pricing">
         <div className="wrap">
-          <div className="head">
+          <div className="head" data-reveal>
             <div className="lbl">Pricing</div>
             <h2 className="bb">One build. <em>Then it's just yours.</em></h2>
           </div>
-          <div className="price-grid">
+          <div className="price-grid" data-reveal>
             <div className="price-main">
               <div className="stack" style={{ gap: 18 }}>
                 <span className="cd" style={{ fontSize: 13, color: 'var(--gold-light)' }}>The build</span>
@@ -265,7 +267,7 @@ export default function CompanyOsPage() {
                   The monthly covers hosting, your database and backups. Hard costs, not a markup. No per-user fees,
                   so put the whole crew on it.
                 </p>
-                <a className="btn" href="#waitlist" style={{ marginTop: 6 }}>Get on the waitlist</a>
+                <a className="btn" href="#demo" style={{ marginTop: 6 }}>Request a demo</a>
               </div>
               <ul>
                 {INCLUDED.map((i) => <li key={i}>{i}</li>)}
@@ -300,13 +302,17 @@ export default function CompanyOsPage() {
 
       {/* WHO IT'S FOR (testimonial hidden until real quotes come in) */}
       <section className="band">
-        <div className="wrap stack" style={{ maxWidth: 900, marginLeft: 'auto', marginRight: 'auto' }}>
-          <div className="lbl">Who it's for</div>
-          <h2 className="bb" style={{ fontSize: 'clamp(44px, 5vw, 64px)' }}>Built in the dirt, <em>for the dirt.</em></h2>
-          <p className="muted">Civil contractors doing $5M to $50M a year, where the owner is still the answer to too many questions.</p>
-          <div className="chips">
-            {TRADES.map((t) => <span key={t} className="cd">{t}</span>)}
+        <div className="wrap g2 who">
+          <div className="stack" data-reveal>
+            <div className="lbl">Who it's for</div>
+            <h2 className="bb">Built in the dirt, <em>for the dirt.</em></h2>
+            <p className="muted">
+              Civil contractors doing $5M to $50M a year, where the owner is still the answer to too many questions.
+            </p>
           </div>
+          <ul className="trades" data-reveal>
+            {TRADES.map((t) => <li key={t} className="cd">{t}</li>)}
+          </ul>
         </div>
       </section>
 
@@ -318,28 +324,34 @@ export default function CompanyOsPage() {
             <h2 className="bb" style={{ fontSize: 'clamp(44px, 5vw, 72px)' }}>Questions owners ask.</h2>
           </div>
           <div className="faq-list">
-            {FAQ.map(([q, a]) => (
-              <div key={q}>
-                <h3 className="bb">{q}</h3>
+            {FAQ.map(([q, a], i) => (
+              <details key={q} open={i === 0}>
+                <summary><h3 className="bb">{q}</h3><span className="plus" aria-hidden="true" /></summary>
                 <p>{a}</p>
-              </div>
+              </details>
             ))}
           </div>
         </div>
       </section>
 
-      {/* WAITLIST */}
-      <section id="waitlist" className="band" style={{ borderBottom: 0 }}>
+      {/* REQUEST A DEMO */}
+      <section id="demo" className="band" style={{ borderBottom: 0 }}>
         <div className="wrap g2" style={{ alignItems: 'start' }}>
-          <div className="stack" style={{ gap: 24 }}>
-            <div className="lbl">Waitlist</div>
+          <div className="stack" style={{ gap: 24 }} data-reveal>
+            <div className="lbl">Request a demo</div>
             <h2 className="bb" style={{ fontSize: 'clamp(52px, 6vw, 92px)' }}>Stop being the <em>company's search engine.</em></h2>
             <p className="muted" style={{ fontSize: 19 }}>
-              Get on the list and I'll reach out to walk you through the platform and what your version would look
-              like. Over 100 people? Say so below and we'll set up a call.
+              Tell me a little about your company and I'll reach out personally to set up a live walkthrough.
             </p>
+            <ol className="next-steps">
+              <li><span className="num">1</span><span><strong>You tell me</strong> about your company and the question you answer ten times a day.</span></li>
+              <li><span className="num">2</span><span><strong>We do a live walkthrough</strong> of the real platform, about 30 minutes.</span></li>
+              <li><span className="num">3</span><span><strong>If it fits,</strong> I map out your build. Over 100 people? We plan the rollout together.</span></li>
+            </ol>
           </div>
-          <OsWaitlistForm />
+          <div data-reveal>
+            <OsWaitlistForm />
+          </div>
         </div>
       </section>
 

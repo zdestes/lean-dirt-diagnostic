@@ -4,7 +4,7 @@ import { useState, type FormEvent } from 'react';
 
 type State = 'idle' | 'sending' | 'done' | 'error';
 
-/** Waitlist form on /os. Posts to this site's /api/waitlist, which forwards
+/** Request-a-demo form on /os. Posts to this site's /api/waitlist, which forwards
  *  the signup to Obeya (CRM lead + inbox ping). */
 export default function OsWaitlistForm() {
   const [state, setState] = useState<State>('idle');
@@ -38,17 +38,17 @@ export default function OsWaitlistForm() {
   if (state === 'done') {
     return (
       <div className="form-done" role="status">
-        <span className="cd" style={{ fontSize: 13, color: 'var(--gold-light)' }}>You&rsquo;re on the list</span>
-        <h3 className="bb" style={{ fontSize: 44 }}>Thanks. I&rsquo;ll be in touch.</h3>
+        <span className="cd" style={{ fontSize: 13, color: 'var(--gold-light)' }}>Demo requested</span>
+        <h3 className="bb" style={{ fontSize: 44 }}>Thanks. Talk soon.</h3>
         <p className="muted">
-          I&rsquo;ll reach out personally to walk you through the platform and what your version would look like.
+          I&rsquo;ll reach out personally to set up a time for your walkthrough.
         </p>
       </div>
     );
   }
 
   return (
-    <form className="form" onSubmit={onSubmit} aria-label="Join the waitlist">
+    <form className="form" onSubmit={onSubmit} aria-label="Request a demo">
       <div className="pair" style={{ display: 'grid', gridTemplateColumns: 'repeat(2, minmax(0, 1fr))', gap: 16 }}>
         <label><span className="cd">Name</span><input className="fld" type="text" name="name" autoComplete="name" required /></label>
         <label><span className="cd">Company</span><input className="fld" type="text" name="company" autoComplete="organization" required /></label>
@@ -76,7 +76,7 @@ export default function OsWaitlistForm() {
             <option>Under 25</option>
             <option>25 to 50</option>
             <option>50 to 100</option>
-            <option>Over 100 (let&apos;s schedule a call)</option>
+            <option>Over 100</option>
           </select>
         </label>
       </div>
@@ -92,7 +92,7 @@ export default function OsWaitlistForm() {
         <p className="form-msg" role="alert" style={{ color: '#f0a07a' }}>{error}</p>
       )}
       <button className="btn" type="submit" disabled={state === 'sending'} style={{ marginTop: 6 }}>
-        {state === 'sending' ? 'Sending…' : 'Put me on the waitlist'}
+        {state === 'sending' ? 'Sending…' : 'Request a demo'}
       </button>
     </form>
   );

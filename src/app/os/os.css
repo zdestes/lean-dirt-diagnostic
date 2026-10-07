@@ -99,16 +99,42 @@
   .price-main li:last-child { border-bottom: 0; }
   .rule { height: 1px; background: var(--border); }
 
-  .chips { display: flex; flex-wrap: wrap; gap: 10px; }
-  .chips span { font-size: 13px; border: 1px solid #3a372c; padding: 10px 16px; }
+  section[id] { scroll-margin-top: 76px; }
+
+  /* who it's for: equal tiles, never a ragged wrap */
+  .who h2 { font-size: clamp(44px, 5vw, 64px); }
+  .trades { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); border-top: 1px solid var(--border); border-left: 1px solid var(--border); }
+  .trades li {
+    font-size: 14px; color: var(--off-white); padding: 22px 24px;
+    border-right: 1px solid var(--border); border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; gap: 14px; transition: background .2s, color .2s;
+  }
+  .trades li::before { content: ""; width: 8px; height: 8px; background: var(--gold); flex: none; }
+  .trades li:hover { background: #1c1a14; color: var(--gold-light); }
+
+  /* request-a-demo: what happens next */
+  .next-steps { list-style: none; margin: 8px 0 0; padding: 0; display: flex; flex-direction: column; border-top: 1px solid var(--border); }
+  .next-steps li { display: grid; grid-template-columns: 44px 1fr; gap: 16px; align-items: baseline; padding: 18px 0; border-bottom: 1px solid var(--border); font-size: 17px; color: #b8b0a0; line-height: 1.55; }
+  .next-steps .num { font-size: 36px; }
+  .next-steps strong { color: var(--off-white); font-weight: 600; }
 
   /* faq */
   .faq { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 72px; }
   .faq-list { grid-column: span 2; }
-  .faq-list > div { padding: 26px 0; border-top: 1px solid var(--border); display: flex; flex-direction: column; gap: 10px; }
-  .faq-list > div:last-child { border-bottom: 1px solid var(--border); }
-  .faq-list h3 { font-size: 30px; }
-  .faq-list p { font-size: 17px; color: #b8b0a0; }
+  .faq-list details { border-top: 1px solid var(--border); }
+  .faq-list details:last-child { border-bottom: 1px solid var(--border); }
+  .faq-list summary {
+    list-style: none; cursor: pointer; padding: 24px 0; display: flex; justify-content: space-between; align-items: center; gap: 24px;
+  }
+  .faq-list summary::-webkit-details-marker { display: none; }
+  .faq-list summary:hover h3 { color: var(--gold-light); }
+  .faq-list summary:focus-visible { outline: 2px solid var(--gold-light); outline-offset: 4px; }
+  .faq-list h3 { font-size: clamp(24px, 2.4vw, 30px); transition: color .2s; }
+  .faq-list .plus { position: relative; width: 18px; height: 18px; flex: none; }
+  .faq-list .plus::before, .faq-list .plus::after { content: ""; position: absolute; left: 0; top: 8px; width: 18px; height: 2px; background: var(--gold); transition: transform .25s; }
+  .faq-list .plus::after { transform: rotate(90deg); }
+  .faq-list details[open] .plus::after { transform: rotate(0deg); }
+  .faq-list p { font-size: 17px; color: #b8b0a0; padding: 0 40px 26px 0; max-width: 760px; }
 
   /* waitlist form */
   .form { background: var(--black); border: 1px solid #3a372c; padding: 44px; display: flex; flex-direction: column; gap: 20px; }
@@ -136,9 +162,21 @@
     .mock-side { display: none; }
   }
   @media (max-width: 640px) {
+    .trades { grid-template-columns: 1fr 1fr; }
+    .trades li { padding: 16px 14px; font-size: 13px; }
+    .hero .mock { display: none; }
+    .faq-list p { padding-right: 0; }
     .g3, .g4, .g2x { grid-template-columns: 1fr; }
     .form .pair { grid-template-columns: 1fr !important; }
     .cmp > div > span { padding: 14px 10px; font-size: 14px; }
     .mock-main .g3 { grid-template-columns: 1fr; }
   }
 }
+
+/* ── SCROLL REVEAL (progressive enhancement, same as the homepage) ── */
+html.reveal-ready .ld-os [data-reveal] {
+  opacity: 0;
+  transform: translateY(26px);
+  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+html.reveal-ready .ld-os [data-reveal].is-visible { opacity: 1; transform: translateY(0); }
