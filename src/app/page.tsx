@@ -3,7 +3,11 @@ import Link from 'next/link';
 import SiteNav from '@/components/SiteNav';
 import SiteFooter from '@/components/SiteFooter';
 import ScrollReveal from '@/components/ScrollReveal';
+import OsAppMock from '@/components/OsAppMock';
+import { OsScreenStrip } from '@/components/OsShowcase';
 import { BOOKING_URL, IMG } from '@/lib/site';
+import './os/os.css';
+import './os/showcase.css';
 import './home.css';
 
 export const metadata = {
@@ -50,6 +54,9 @@ export default function Home() {
             <span className="cta-note">
               Free Guide first, or 30 minutes with Zack on your numbers and biggest constraint.
             </span>
+            <Link href="/os" className="hero-os-link">
+              Just want the software? <span>See the Company OS →</span>
+            </Link>
           </div>
         </div>
       </section>
@@ -71,8 +78,8 @@ export default function Home() {
               <span className="stat-label">Contractor sweet spot</span>
             </div>
             <div className="stat" data-reveal>
-              <span className="stat-num">100%</span>
-              <span className="stat-label">Dirt world. Nothing else.</span>
+              <span className="stat-num">7</span>
+              <span className="stat-label">Contractors running it</span>
             </div>
           </div>
         </div>
@@ -96,11 +103,9 @@ export default function Home() {
               <Link href="/os#demo" className="btn-secondary">Request a Demo</Link>
             </div>
           </div>
-          <ul className="os-teaser-facts" data-reveal>
-            <li><span className="os-teaser-num">$20K</span><span>One build, paid once. Up to 100 employees.</span></li>
-            <li><span className="os-teaser-num">$0</span><span>Per-seat fees. Put the whole crew on it.</span></li>
-            <li><span className="os-teaser-num">$50/mo</span><span>Covers hosting. After that you only pay to fine-tune it.</span></li>
-          </ul>
+          <div className="ld-os os-embed" data-reveal>
+            <OsAppMock />
+          </div>
         </div>
       </section>
 
@@ -233,6 +238,12 @@ export default function Home() {
               </ul>
             </div>
           </div>
+          <div className="approach-screens" data-reveal>
+            <p className="approach-screens-label">What it looks like once it's out of your head</p>
+            <div className="ld-os os-embed">
+              <OsScreenStrip />
+            </div>
+          </div>
           <div className="approach-promise" data-reveal>
             <p className="approach-promise-label">The Commitment (And the Challenge)</p>
             <p>
@@ -241,6 +252,52 @@ export default function Home() {
               do that work. This is the field <strong>and</strong> the office. The business in its
               entirety, written down where everyone can see it.
             </p>
+          </div>
+        </div>
+      </section>
+
+      {/* TWO WAYS TO WORK TOGETHER */}
+      <section className="paths" aria-labelledby="paths-title">
+        <div className="container-wide">
+          <p className="section-label" data-reveal>Two Ways to Work With Lean Dirt</p>
+          <h2 id="paths-title" data-reveal>
+            Just the System. <em>Or the System and the Skill.</em>
+          </h2>
+          <div className="paths-grid">
+            <div className="path-card" data-reveal>
+              <p className="path-kicker">Company OS</p>
+              <h3 className="path-title">The system, built around your company.</h3>
+              <p className="path-body">
+                One place for every job, crew, machine, dollar and SOP, shaped to how your company actually runs.
+              </p>
+              <ul className="path-facts">
+                <li><span className="path-num">$20K</span><span>One build, paid once. Up to 100 employees.</span></li>
+                <li><span className="path-num">$0</span><span>Per-seat fees. Put the whole crew on it.</span></li>
+                <li><span className="path-num">$50/mo</span><span>Covers hosting. After that you only pay to fine-tune it.</span></li>
+              </ul>
+              <div className="path-ctas">
+                <Link href="/os#demo" className="btn-primary">Request a Demo →</Link>
+                <Link href="/os" className="path-link">See the Company OS</Link>
+              </div>
+            </div>
+            <div className="path-card path-card--full" data-reveal>
+              <p className="path-kicker">The 12-Month Program <span className="path-tag">Includes the Company OS</span></p>
+              <h3 className="path-title">The system, plus the skill to run it.</h3>
+              <p className="path-body">
+                We build your Company OS, then spend 12 months inside your business getting the playbook into it and
+                teaching your team to run it.
+              </p>
+              <ul className="path-list">
+                <li>Your Company OS build, included</li>
+                <li>Margin, production, downtime, standards and accountability, written down and running</li>
+                <li>The skill to find your next constraint and fix it, so you're not dependent on us</li>
+              </ul>
+              <div className="path-ctas">
+                <a href={BOOKING_URL} target="_blank" rel="noopener" className="btn-primary">
+                  Book Your Free Operations Review →
+                </a>
+              </div>
+            </div>
           </div>
         </div>
       </section>
