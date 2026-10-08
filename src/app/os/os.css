@@ -255,7 +255,7 @@
     .price-extras .card { padding: 26px; }
     .trades { grid-template-columns: 1fr 1fr; }
     .trades li { padding: 16px 14px; font-size: 13px; }
-    .hero .appmock-wrap { display: none; }
+    .hero .appmock-wrap { width: 600px; zoom: .54; padding-bottom: 80px; }
     .faq-list p { padding-right: 0; }
     .g3, .g4, .g2x { grid-template-columns: 1fr; }
     .form .pair { grid-template-columns: 1fr !important; }

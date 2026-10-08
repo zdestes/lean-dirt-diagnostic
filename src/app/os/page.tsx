@@ -4,10 +4,12 @@ import SiteNav from '@/components/SiteNav';
 import SiteFooter from '@/components/SiteFooter';
 import OsCalculator from '@/components/OsCalculator';
 import OsAppMock from '@/components/OsAppMock';
+import OsShowcase from '@/components/OsShowcase';
 import OsWaitlistForm from '@/components/OsWaitlistForm';
 import ScrollReveal from '@/components/ScrollReveal';
 import { BOOKING_URL } from '@/lib/site';
 import './os.css';
+import './showcase.css';
 
 export const metadata = {
   title: 'Company OS | Lean Dirt',
@@ -169,6 +171,9 @@ export default function CompanyOsPage() {
         </div>
       </section>
 
+      <OsShowcase id="field" />
+      <OsShowcase id="money" />
+
       {/* DIFFERENCE */}
       <section>
         <div className="wrap">
@@ -226,6 +231,9 @@ export default function CompanyOsPage() {
           </div>
         </div>
       </section>
+
+      <OsShowcase id="fleet" />
+      <OsShowcase id="team" />
 
       {/* PRICING */}
       <section id="pricing">
