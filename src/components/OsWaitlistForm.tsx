@@ -100,9 +100,9 @@ export default function OsWaitlistForm() {
     return (
       <div className="form-done" role="status">
         <span className="cd" style={{ fontSize: 13, color: 'var(--gold-light)' }}>Step 2 of 2</span>
-        <h3 className="bb" style={{ fontSize: 44 }}>Pick a time for your demo.</h3>
+        <h3 className="bb" style={{ fontSize: 44 }}>Book your demo review.</h3>
         <p className="muted">
-          A 60-minute live walkthrough with me, built around the answers you just gave.
+          I&rsquo;ll build a demo around the answers you just gave and send you a link to try it on your own. Pick a time below for us to go through it together, about 60 minutes. Give me a few days to build it.
         </p>
         <CalBooking name={who.name} email={who.email} />
         <p className="muted" style={{ fontSize: 15 }}>
