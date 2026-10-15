@@ -229,6 +229,7 @@
   .hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
   .form-msg { font-size: 15px; }
   .form-done { background: var(--black); border: 1px solid var(--gold); padding: 44px; display: flex; flex-direction: column; gap: 14px; }
+  .cal-inline { width: 100%; min-height: 560px; margin-top: 8px; }
 
   @media (max-width: 960px) {
     .price-extras { grid-template-columns: 1fr; }

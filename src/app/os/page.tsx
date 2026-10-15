@@ -61,7 +61,7 @@ const YOURS = [
 ];
 
 const STEPS = [
-  ['01', 'See it running', "A live walkthrough with me on the real platform. If it isn't a fit, you'll know in 30 minutes and so will I."],
+  ['01', 'See it running', "A live walkthrough with me on the real platform. If it isn't a fit, you'll know within the hour and so will I."],
   ['02', 'Map your flow', 'We walk through how a job moves from bid to final pay app, and where the information gets stuck today.'],
   ['03', 'Build & stand up', 'Your app, your name, your domain, your people and your data loaded in. Starting from a platform already proven in your trade.'],
   ['04', '30 days of fine-tuning', "Your team runs on it for real, and I tune it to how they actually work. After that it's yours, and you only pay when you want it improved."],
@@ -343,11 +343,11 @@ export default function CompanyOsPage() {
             <div className="lbl">Request a demo</div>
             <h2 className="bb" style={{ fontSize: 'clamp(52px, 6vw, 92px)' }}>Stop being the <em>company's search engine.</em></h2>
             <p className="muted" style={{ fontSize: 19 }}>
-              Tell me a little about your company and I'll reach out personally to set up a live walkthrough.
+              Tell me a little about your company, then grab a time on my calendar for a live walkthrough.
             </p>
             <ol className="next-steps">
               <li><span className="num">1</span><span><strong>You tell me</strong> about your company and the question you answer ten times a day.</span></li>
-              <li><span className="num">2</span><span><strong>We do a live walkthrough</strong> of the real platform, about 30 minutes.</span></li>
+              <li><span className="num">2</span><span><strong>Pick a time</strong> for a live walkthrough of the real platform, about 60 minutes.</span></li>
               <li><span className="num">3</span><span><strong>If it fits,</strong> I map out your build. Over 100 people? We plan the rollout together.</span></li>
             </ol>
           </div>
